@@ -1,0 +1,40 @@
+{% extends "_base.html" %}
+
+{% block title %}
+<title>Available Homes | Krestwood Design & Build</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Move-in ready residences built with quality and precision." />
+{% endblock %}
+
+{% block content %}
+<!-- Main Content -->
+<main class="pt-32 pb-24 bg-background">
+    <div class="max-w-7xl mx-auto px-6">
+        {% with hero=pagedata.herosection %}
+        <div class="mb-16 text-center">
+            <h1 class="text-5xl font-bold text-foreground mb-6">{{ hero.title }}</h1>
+        
+            <p class="text-muted-foreground max-w-2xl mx-auto text-lg">{{ hero.description }}</p>
+        </div>
+        {% endwith %}
+
+        <!-- Properties Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            
+            <!-- Property 1: Sunset Heights Villa -->
+             {% for home in pagedata.homes %}
+            {% include "available_homes/single_property.html" %}
+            {% endfor %}
+        </div>
+
+        <!-- CTA Section -->
+        <div class="mt-20 bg-muted/20 p-12 rounded-3xl border border-dashed border-border text-center">
+            <h3 class="text-2xl font-bold text-foreground mb-4">{{ pagedata.cta_Section.title }}</h3>
+            <p class="text-muted-foreground mb-8 max-w-xl mx-auto">{{ pagedata.cta_Section.description }}</p>
+            <a href="{{ pagedata.cta_Section.buttonLink }}" class="px-10 py-4 border-2 border-foreground text-foreground font-bold hover:bg-foreground hover:text-background transition-all">{{ pagedata.cta_Section.buttonText }}</a>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,233 @@
+<!-- templates/_base.html -->
+
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     {% block title %}
+    <title>CivicCore Engineering | Premium Consultancy</title>
+    {% endblock %}
+    {% block meta_description %}
+    <meta
+      name="description"
+      content="Engineering excellence from the ground up. We deliver innovative structural design, project management, and sustainable engineering solutions."
+    />
+    {% endblock %}
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    <script src="{% static 'js/nav_scroll.js' %}"></script>
+    {% endcompress %}
+
+</head>
+
+<body class="font-sans antialiased">
+ <nav
+      id="navbar"
+      class="fixed w-full z-50 transition-all duration-300 {% if request.path == '/' %}bg-transparent  {% else %}bg-primary {% endif %} shadow-md py-4"
+    >
+    
+      <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <a class="flex flex-col group" href="/"
+          ><span
+            class="text-2xl font-bold tracking-tighter transition-colors duration-300 text-white krestwood-logo"
+            >KRESTWOOD</span
+          ><span
+            class="text-[10px] tracking-[0.3em] font-semibold uppercase transition-colors duration-300 text-white/80 krestwood-tagline"
+            >Design & Build</span
+          ></a
+        >
+        <div class="hidden lg:flex items-center space-x-8">
+          <a
+            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
+            href="/"
+            >Home</a
+          ><a
+            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
+            href="/about"
+            >About</a
+          ><a
+            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
+            href="/process"
+            >Our Process</a
+          ><a
+            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
+            href="/services"
+            >Services</a
+          ><a
+            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
+            href="/portfolio"
+            >Portfolio</a
+          ><a
+            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
+            href="/available"
+            >Available Homes</a
+          ><a
+            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
+            href="/guide"
+            >Diaspora Guide</a
+          ><a
+            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
+            href="/blog"
+            >Blog</a
+          ><a
+            class="bg-[#D4AF37] hover:bg-[#B8860B] text-white px-6 py-2.5 text-sm font-semibold transition-colors duration-300"
+            href="/contact"
+            >CONSULTATION</a
+          >
+        </div>
+        <button
+          id="mobile-menu-btn"
+          class="lg:hidden transition-transform hover:scale-110 p-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-menu text-white krestwood-icon"
+            aria-hidden="true"
+          >
+            <path d="M4 5h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 19h16"></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden lg:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 py-6 px-6"
+      >
+        <div class="flex flex-col space-y-4">
+          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/">Home</a>
+          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/about">About</a>
+          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/process">Our Process</a>
+          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/services">Services</a>
+          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/portfolio">Portfolio</a>
+          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/available">Available Homes</a>
+          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/guide">Diaspora Guide</a>
+          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/blog">Blog</a>
+          <a class="w-full bg-navy text-white text-center px-6 py-3 text-sm font-semibold" href="/contact">CONSULTATION</a>
+        </div>
+      </div>
+    </nav>
+ <div class="min-h-screen relative font-sans">
+      <main>
+        {% block content %}
+        {% endblock content %}
+      </main>
+
+      <div class="fixed bottom-6 right-6 z-100">
+        <button
+          class="w-16 h-16 bg-foreground text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group relative"
+        >
+          <div class="absolute -top-1 -right-1 w-4 h-4 bg-secondary rounded-full animate-ping"></div>
+          <div class="absolute -top-1 -right-1 w-4 h-4 bg-secondary rounded-full"></div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot w-8 h-8" aria-hidden="true">
+            <path d="M12 8V4H8"></path>
+            <rect width="16" height="12" x="4" y="8" rx="2"></rect>
+            <path d="M2 14h2"></path>
+            <path d="M20 14h2"></path>
+            <path d="M15 13v2"></path>
+            <path d="M9 13v2"></path>
+          </svg>
+        </button>
+      </div>
+
+        <footer class="bg-foreground text-background pt-20 pb-10">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div>
+            <div class="flex flex-col mb-6">
+              <span class="text-2xl font-bold tracking-tighter">KRESTWOOD</span>
+              <span class="text-[10px] tracking-[0.3em] font-semibold uppercase text-background/60">Design & Build</span>
+            </div>
+            <p class="text-background/60 leading-relaxed mb-6">
+              Kenya's most trusted partner for structured home building. We bridge the gap for diaspora clients through transparency and world-class management.
+            </p>
+            <div class="flex space-x-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook w-5 h-5 cursor-pointer hover:text-accent transition-colors" aria-hidden="true">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram w-5 h-5 cursor-pointer hover:text-accent transition-colors" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin w-5 h-5 cursor-pointer hover:text-accent transition-colors" aria-hidden="true">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect width="4" height="12" x="2" y="9"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-6">Quick Links</h4>
+            <ul class="space-y-3 text-background/60">
+              <li><a class="hover:text-accent transition-colors" href="/about">Our Story</a></li>
+              <li><a class="hover:text-accent transition-colors" href="/portfolio">Recent Projects</a></li>
+              <li><a class="hover:text-accent transition-colors" href="/process">The 7-Step Process</a></li>
+              <li><a class="hover:text-accent transition-colors" href="/available">Available Homes</a></li>
+              <li><a class="hover:text-accent transition-colors" href="/guide">Diaspora Guide</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-6">Contact Us</h4>
+            <ul class="space-y-3 text-background/60">
+              <li class="flex items-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone w-4 h-4 text-accent" aria-hidden="true">
+                  <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path>
+                </svg>
+                <span>+254 712 345 678</span>
+              </li>
+              <li class="flex items-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-4 h-4 text-accent" aria-hidden="true">
+                  <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                </svg>
+                <span>info@krestwood.co.ke</span>
+              </li>
+              <li class="flex items-start space-x-3">
+                <div class="mt-1 w-4 h-4 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
+                  <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+                </div>
+                <span>Riverside Square, Riverside Dr, Nairobi, Kenya</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold mb-6">Newsletter</h4>
+            <p class="text-background/60 mb-4 text-sm">Stay updated with building trends in Kenya.</p>
+            <div class="flex">
+              <input type="email" placeholder="Email address" class="bg-background/10 border border-background/20 px-4 py-2 w-full focus:outline-none focus:border-accent" />
+              <button class="bg-accent text-foreground px-4 py-2 hover:bg-accent/90 transition-colors font-bold">JOIN</button>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-background/40">
+          <p>© 2024 Krestwood Design & Build. All rights reserved.</p>
+          <div class="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" class="hover:text-accent underline-offset-4 hover:underline transition-colors">Privacy Policy</a>
+            <a href="#" class="hover:text-accent underline-offset-4 hover:underline transition-colors">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+    </div>
+      
+   
+</body>
+
+</html>
