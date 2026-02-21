@@ -1,60 +1,64 @@
-<article class="flex flex-col lg:flex-row bg-card rounded-2xl overflow-hidden shadow-lg border border-border group">
-                <div class="lg:w-2/5 relative h-64 lg:h-auto overflow-hidden">
-                    <img src="{{ home.imageUrl }}" alt="{{ home.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
-                    <div class="absolute top-4 right-4 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-green-500/10 text-green-600">{{ home.status }}</div>
-                </div>
-                <div class="lg:w-3/5 p-8 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center text-accent mb-2 font-semibold">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin w-4 h-4 mr-1" aria-hidden="true">
-                                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            {{ home.location }}
-                        </div>
-                        <h2 class="text-3xl font-bold text-foreground mb-4">{{ home.title }}</h2>
-                        <div class="text-2xl font-black text-foreground mb-6">{{ home.price }}</div>
-                        
-                        <div class="grid grid-cols-3 gap-4 py-6 border-y border-border mb-6">
-                            <div class="flex flex-col items-center text-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bed w-5 h-5 text-muted-foreground mb-1" aria-hidden="true">
-                                    <path d="M2 4v16"></path>
-                                    <path d="M2 8h18a2 2 0 0 1 2 2v10"></path>
-                                    <path d="M2 17h20"></path>
-                                    <path d="M6 8v9"></path>
-                                </svg>
-                                <span class="text-xs font-bold text-foreground">{{ home.beds }} Beds</span>
-                            </div>
-                            <div class="flex flex-col items-center text-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bath w-5 h-5 text-muted-foreground mb-1" aria-hidden="true">
-                                    <path d="M10 4 8 6"></path>
-                                    <path d="M17 19v2"></path>
-                                    <path d="M2 12h20"></path>
-                                    <path d="M7 19v2"></path>
-                                    <path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"></path>
-                                </svg>
-                                <span class="text-xs font-bold text-foreground">{{ home.baths }} Baths</span>
-                            </div>
-                            <div class="flex flex-col items-center text-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move w-5 h-5 text-muted-foreground mb-1" aria-hidden="true">
-                                    <path d="M12 2v20"></path>
-                                    <path d="m15 19-3 3-3-3"></path>
-                                    <path d="m19 9 3 3-3 3"></path>
-                                    <path d="M2 12h20"></path>
-                                    <path d="m5 9-3 3 3 3"></path>
-                                    <path d="m9 5 3-3 3 3"></path>
-                                </svg>
-                                <span class="text-xs font-bold text-foreground">{{ home.sqft }} SQFT</span>
-                            </div>
-                        </div>
+<article class="flex flex-col glass glass-border rounded-[3rem] overflow-hidden group hover:shadow-2xl transition-all duration-700 bg-white/40">
+    <!-- Image Wrapper -->
+    <div class="relative h-96 overflow-hidden">
+        <img src="{{ home.imageUrl }}" alt="{{ home.title }}" 
+             class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"/>
+        
+        <!-- Status Badge -->
+        <div class="absolute top-8 right-8 glass glass-border px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-texts shadow-xl">
+            <span class="w-2 h-2 bg-green-500 rounded-full inline-block mr-2 animate-pulse"></span>
+            {{ home.status }}
+        </div>
+        
+        <!-- Price Tag Overlay -->
+        <div class="absolute bottom-8 left-8 glass glass-border px-8 py-4 rounded-3xl text-2xl font-serif font-bold text-texts shadow-2xl backdrop-blur-3xl">
+            {{ home.price }}
+        </div>
+    </div>
+
+    <!-- Content Wrapper -->
+    <div class="p-12 flex flex-col justify-between flex-grow">
+        <div>
+            <div class="flex items-center text-accent mb-6 text-[10px] font-bold uppercase tracking-[0.4em]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-3">
+                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                {{ home.location }}
+            </div>
+            
+            <h2 class="text-4xl font-serif font-bold text-texts mb-10 group-hover:text-accent transition-colors duration-300 leading-tight">
+                {{ home.title }}
+            </h2>
+            
+            <!-- Features Grid -->
+            <div class="grid grid-cols-3 gap-8 py-10 border-y border-texts/5 mb-12">
+                <div class="flex flex-col items-center text-center group/feat">
+                    <div class="w-12 h-12 rounded-2xl bg-texts/5 flex items-center justify-center text-texts/40 mb-4 group-hover:bg-texts group-hover:text-white transition-all duration-500 shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
                     </div>
-                    <button class="w-full py-4 bg-foreground text-background font-bold flex items-center justify-center space-x-2 hover:bg-accent hover:text-foreground transition-colors rounded-lg">
-                        <span>INQUIRE NOW</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link w-4 h-4" aria-hidden="true">
-                            <path d="M15 3h6v6"></path>
-                            <path d="M10 14 21 3"></path>
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                        </svg>
-                    </button>
+                    <span class="text-[10px] font-bold text-texts/60 uppercase tracking-widest">{{ home.beds }} Beds</span>
                 </div>
-            </article>
+                <div class="flex flex-col items-center text-center group/feat">
+                    <div class="w-12 h-12 rounded-2xl bg-texts/5 flex items-center justify-center text-texts/40 mb-4 group-hover:bg-texts group-hover:text-white transition-all duration-500 shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4 8 6"/><path d="M17 19v2"/><path d="M2 12h20"/><path d="M7 19v2"/><path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></svg>
+                    </div>
+                    <span class="text-[10px] font-bold text-texts/60 uppercase tracking-widest">{{ home.baths }} Baths</span>
+                </div>
+                <div class="flex flex-col items-center text-center group/feat">
+                    <div class="w-12 h-12 rounded-2xl bg-texts/5 flex items-center justify-center text-texts/40 mb-4 group-hover:bg-texts group-hover:text-white transition-all duration-500 shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m15 19-3 3-3-3"/><path d="m19 9 3 3-3 3"/><path d="M2 12h20"/><path d="m5 9-3 3 3 3"/><path d="m9 5 3-3 3 3"/></svg>
+                    </div>
+                    <span class="text-[10px] font-bold text-texts/60 uppercase tracking-widest">{{ home.sqft }} SQFT</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="w-full py-6 bg-texts text-white font-bold uppercase tracking-[0.2em] text-[10px] flex items-center justify-center space-x-4 hover:bg-secondary transition-all rounded-full shadow-2xl hover:shadow-secondary/20">
+            <span>Inquire Now</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            </svg>
+        </button>
+    </div>
+</article>

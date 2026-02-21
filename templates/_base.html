@@ -20,9 +20,14 @@
     />
     {% endblock %}
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap"
+      rel="stylesheet">
+
     {% compress css %}
     <link rel="stylesheet" href="{% static 'src/output.css' %}">
-    <script src="{% static 'js/nav_scroll.js' %}"></script>
     {% endcompress %}
 
 </head>
@@ -30,96 +35,96 @@
 <body class="font-sans antialiased">
  <nav
       id="navbar"
-      class="fixed w-full z-50 transition-all duration-300 {% if request.path == '/' %}bg-transparent  {% else %}bg-primary {% endif %} shadow-md py-4"
+      class="fixed w-full z-50 transition-all duration-500 py-4"
     >
-    
-      <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <a class="flex flex-col group" href="/"
-          ><span
-            class="text-2xl font-bold tracking-tighter transition-colors duration-300 text-white krestwood-logo"
-            >KRESTWOOD</span
-          ><span
-            class="text-[10px] tracking-[0.3em] font-semibold uppercase transition-colors duration-300 text-white/80 krestwood-tagline"
-            >Design & Build</span
-          ></a
-        >
-        <div class="hidden lg:flex items-center space-x-8">
-          <a
-            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
-            href="/"
-            >Home</a
-          ><a
-            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
-            href="/about"
-            >About</a
-          ><a
-            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
-            href="/process"
-            >Our Process</a
-          ><a
-            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
-            href="/services"
-            >Services</a
-          ><a
-            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
-            href="/portfolio"
-            >Portfolio</a
-          ><a
-            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
-            href="/available"
-            >Available Homes</a
-          ><a
-            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
-            href="/guide"
-            >Diaspora Guide</a
-          ><a
-            class="text-sm font-medium transition-colors duration-300 hover:text-navy text-white krestwood-link"
-            href="/blog"
-            >Blog</a
-          ><a
-            class="bg-[#D4AF37] hover:bg-[#B8860B] text-white px-6 py-2.5 text-sm font-semibold transition-colors duration-300"
-            href="/contact"
-            >CONSULTATION</a
+      <div class="max-w-7xl mx-auto px-6 relative z-[70]">
+        <div class="glass glass-border rounded-2xl flex justify-between items-center px-8 py-4 shadow-xl">
+          <a class="flex flex-col group" href="/"><span
+              class="text-2xl font-serif font-bold tracking-tight transition-colors duration-300 text-texts">TrustBuildUrban</span><span
+              class="text-[9px] tracking-[0.4em] font-bold uppercase transition-colors duration-300 text-texts/60">Design &
+              Build</span></a>
+          <div class="hidden lg:flex items-center space-x-10">
+            <a
+              class="text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:text-accent text-texts/80 hover:tracking-widest"
+              href="/"
+              >Home</a
+            ><a
+              class="text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:text-accent text-texts/80"
+              href="/about"
+              >About</a
+            ><a
+              class="text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:text-accent text-texts/80"
+              href="/process"
+              >Process</a
+            ><a
+              class="text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:text-accent text-texts/80"
+              href="/services"
+              >Services</a
+            ><a
+              class="text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:text-accent text-texts/80"
+              href="/portfolio"
+              >Portfolio</a
+            ><a
+              class="text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:text-accent text-texts/80"
+              href="/available"
+              >Homes</a
+            ><a
+              class="bg-texts hover:bg-secondary text-white px-8 py-3 text-xs font-bold tracking-widest transition-all duration-300 rounded-full shadow-lg hover:shadow-secondary/20"
+              href="/contact"
+              >CONSULTATION</a
+            >
+          </div>
+          <button
+            id="mobile-menu-btn"
+            class="lg:hidden transition-transform hover:scale-110 p-2"
           >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-menu text-texts"
+              aria-hidden="true"
+            >
+              <path d="M4 5h16"></path>
+              <path d="M4 12h16"></path>
+              <path d="M4 19h16"></path>
+            </svg>
+          </button>
         </div>
-        <button
-          id="mobile-menu-btn"
-          class="lg:hidden transition-transform hover:scale-110 p-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-menu text-white krestwood-icon"
-            aria-hidden="true"
-          >
-            <path d="M4 5h16"></path>
-            <path d="M4 12h16"></path>
-            <path d="M4 19h16"></path>
-          </svg>
-        </button>
       </div>
       <!-- Mobile Menu -->
       <div
         id="mobile-menu"
-        class="hidden lg:hidden absolute top-full left-0 w-full bg-white shadow-xl border-t border-gray-100 py-6 px-6"
+        class="hidden fixed inset-0 z-[60] bg-texts/95 backdrop-blur-2xl transition-all duration-500"
       >
-        <div class="flex flex-col space-y-4">
-          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/">Home</a>
-          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/about">About</a>
-          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/process">Our Process</a>
-          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/services">Services</a>
-          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/portfolio">Portfolio</a>
-          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/available">Available Homes</a>
-          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/guide">Diaspora Guide</a>
-          <a class="text-lg font-medium text-navy border-b border-gray-50 pb-2" href="/blog">Blog</a>
-          <a class="w-full bg-navy text-white text-center px-6 py-3 text-sm font-semibold" href="/contact">CONSULTATION</a>
+        <div class="flex flex-col h-full px-10 pt-32 pb-16 justify-between">
+          <div class="flex flex-col space-y-8">
+            <a class="text-3xl font-serif font-bold text-white/90 hover:text-accent transition-colors" href="/">Home</a>
+            <a class="text-3xl font-serif font-bold text-white/90 hover:text-accent transition-colors" href="/about">About</a>
+            <a class="text-3xl font-serif font-bold text-white/90 hover:text-accent transition-colors"
+              href="/process">Process</a>
+            <a class="text-3xl font-serif font-bold text-white/90 hover:text-accent transition-colors"
+              href="/services">Services</a>
+            <a class="text-3xl font-serif font-bold text-white/90 hover:text-accent transition-colors"
+              href="/portfolio">Portfolio</a>
+            <a class="text-3xl font-serif font-bold text-white/90 hover:text-accent transition-colors"
+              href="/available">Homes</a>
+          </div>
+        
+          <div class="flex flex-col space-y-8">
+            <a class="w-full bg-accent text-texts text-center px-8 py-6 text-sm font-bold tracking-[0.3em] uppercase rounded-2xl shadow-2xl"
+              href="/contact">CONSULTATION</a>
+            <div class="flex justify-center space-x-8 text-white/40">
+              <span class="text-[10px] font-bold uppercase tracking-widest">Instagram</span>
+              <span class="text-[10px] font-bold uppercase tracking-widest">LinkedIn</span>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -129,12 +134,12 @@
         {% endblock content %}
       </main>
 
-      <div class="fixed bottom-6 right-6 z-100">
+      <div class="fixed bottom-10 right-10 z-50">
         <button
-          class="w-16 h-16 bg-foreground text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group relative"
+          class="w-16 h-16 bg-texts text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 hover:shadow-texts/30 transition-all group relative"
         >
-          <div class="absolute -top-1 -right-1 w-4 h-4 bg-secondary rounded-full animate-ping"></div>
-          <div class="absolute -top-1 -right-1 w-4 h-4 bg-secondary rounded-full"></div>
+          <div class="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full animate-ping"></div>
+          <div class="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full"></div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot w-8 h-8" aria-hidden="true">
             <path d="M12 8V4H8"></path>
             <rect width="16" height="12" x="4" y="8" rx="2"></rect>
@@ -146,81 +151,117 @@
         </button>
       </div>
 
-        <footer class="bg-foreground text-background pt-20 pb-10">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <footer class="bg-texts text-white pt-32 pb-16 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-px bg-white/10"></div>
+          <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
           <div>
-            <div class="flex flex-col mb-6">
-              <span class="text-2xl font-bold tracking-tighter">KRESTWOOD</span>
-              <span class="text-[10px] tracking-[0.3em] font-semibold uppercase text-background/60">Design & Build</span>
+            <div class="flex flex-col mb-8">
+              <span class="text-3xl font-serif font-bold tracking-tight">TrustBuildUrban</span>
+              <span class="text-[10px] tracking-[0.5em] font-bold uppercase text-white/40">Design & Build</span>
             </div>
-            <p class="text-background/60 leading-relaxed mb-6">
+            <p class="text-white/60 leading-relaxed mb-8 text-sm font-medium">
               Kenya's most trusted partner for structured home building. We bridge the gap for diaspora clients through transparency and world-class management.
             </p>
-            <div class="flex space-x-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook w-5 h-5 cursor-pointer hover:text-accent transition-colors" aria-hidden="true">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram w-5 h-5 cursor-pointer hover:text-accent transition-colors" aria-hidden="true">
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin w-5 h-5 cursor-pointer hover:text-accent transition-colors" aria-hidden="true">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect width="4" height="12" x="2" y="9"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
+            <div class="flex space-x-5">
+              <a href="#"
+                class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-texts transition-all group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook w-4 h-4"
+                  aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+              <a href="#"
+                class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-texts transition-all group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram w-4 h-4"
+                  aria-hidden="true">
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="#"
+                class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-texts transition-all group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin w-4 h-4"
+                  aria-hidden="true">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                  <rect width="4" height="12" x="2" y="9"></rect>
+                  <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+              </a>
             </div>
           </div>
           <div>
-            <h4 class="text-lg font-bold mb-6">Quick Links</h4>
-            <ul class="space-y-3 text-background/60">
+            <h4 class="text-sm font-bold uppercase tracking-widest mb-10 text-white">Quick Links</h4>
+            <ul class="space-y-4 text-white/50 text-xs font-bold uppercase tracking-widest">
               <li><a class="hover:text-accent transition-colors" href="/about">Our Story</a></li>
-              <li><a class="hover:text-accent transition-colors" href="/portfolio">Recent Projects</a></li>
-              <li><a class="hover:text-accent transition-colors" href="/process">The 7-Step Process</a></li>
+              <li><a class="hover:text-accent transition-colors" href="/portfolio">Projects</a></li>
+              <li><a class="hover:text-accent transition-colors" href="/process">7-Step Process</a></li>
               <li><a class="hover:text-accent transition-colors" href="/available">Available Homes</a></li>
               <li><a class="hover:text-accent transition-colors" href="/guide">Diaspora Guide</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="text-lg font-bold mb-6">Contact Us</h4>
-            <ul class="space-y-3 text-background/60">
-              <li class="flex items-center space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone w-4 h-4 text-accent" aria-hidden="true">
-                  <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path>
-                </svg>
-                <span>+254 712 345 678</span>
-              </li>
-              <li class="flex items-center space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-4 h-4 text-accent" aria-hidden="true">
-                  <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
-                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                </svg>
-                <span>info@krestwood.co.ke</span>
-              </li>
-              <li class="flex items-start space-x-3">
-                <div class="mt-1 w-4 h-4 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
-                  <div class="w-1.5 h-1.5 bg-accent rounded-full"></div>
+            <h4 class="text-sm font-bold uppercase tracking-widest mb-10 text-white">Contact Us</h4>
+            <ul class="space-y-6 text-white/60 text-sm">
+              <li class="flex items-center space-x-4">
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-phone w-3 h-3 text-accent" aria-hidden="true">
+                    <path
+                      d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384">
+                    </path>
+                  </svg>
                 </div>
-                <span>Riverside Square, Riverside Dr, Nairobi, Kenya</span>
+                <span class="font-medium">+254 712 345 678</span>
+              </li>
+              <li class="flex items-center space-x-4">
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-3 h-3 text-accent"
+                    aria-hidden="true">
+                    <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  </svg>
+                </div>
+                <span class="font-medium">info@trustbuildurban.co.ke</span>
+              </li>
+              <li class="flex items-start space-x-4">
+                <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin w-3 h-3 text-accent"
+                    aria-hidden="true">
+                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
+                    </path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <span class="font-medium text-xs leading-relaxed">Riverside Square, Riverside Dr,<br />Nairobi, Kenya</span>
               </li>
             </ul>
           </div>
           <div>
-            <h4 class="text-lg font-bold mb-6">Newsletter</h4>
-            <p class="text-background/60 mb-4 text-sm">Stay updated with building trends in Kenya.</p>
-            <div class="flex">
-              <input type="email" placeholder="Email address" class="bg-background/10 border border-background/20 px-4 py-2 w-full focus:outline-none focus:border-accent" />
-              <button class="bg-accent text-foreground px-4 py-2 hover:bg-accent/90 transition-colors font-bold">JOIN</button>
+            <h4 class="text-sm font-bold uppercase tracking-widest mb-10 text-white">Newsletter</h4>
+            <p class="text-white/40 mb-6 text-xs font-medium italic">Join the next generation of diaspora builders.</p>
+            <div class="flex flex-col space-y-3">
+              <input type="email" placeholder="Email address"
+                class="bg-white/5 border border-white/10 rounded-xl px-6 py-4 w-full focus:outline-none focus:border-accent text-sm transition-all" />
+              <button
+                class="bg-accent text-texts rounded-xl px-6 py-4 hover:bg-white transition-all font-bold text-xs tracking-widest uppercase">JOIN
+                NEWSLETTER</button>
             </div>
           </div>
         </div>
-        <div class="border-t border-background/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-background/40">
-          <p>© 2024 Krestwood Design & Build. All rights reserved.</p>
-          <div class="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" class="hover:text-accent underline-offset-4 hover:underline transition-colors">Privacy Policy</a>
-            <a href="#" class="hover:text-accent underline-offset-4 hover:underline transition-colors">Terms of Service</a>
+        <div
+          class="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest text-white/30">
+          <p>© 2024 TrustBuildUrban Design & Build. All rights reserved.</p>
+          <div class="flex space-x-8 mt-6 md:mt-0">
+            <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" class="hover:text-white transition-colors">Terms</a>
           </div>
         </div>
       </div>
@@ -228,6 +269,7 @@
     </div>
       
    
+    <script src="{% static 'js/nav_scroll.js' %}"></script>
 </body>
 
 </html>

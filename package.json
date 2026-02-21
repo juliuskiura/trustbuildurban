@@ -2,5 +2,10 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.0",
     "tailwindcss": "^4.2.0"
+  },
+  "scripts": {
+    "build": "tailwindcss -i ./static/src/input.css -o ./static/src/output.css",
+    "watch": "tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch"
   }
+
 }

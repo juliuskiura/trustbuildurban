@@ -12,7 +12,7 @@
 {% block content %}
 <section class="relative h-screen flex items-center justify-center overflow-hidden">
   <div class="absolute inset-0">
-    <img alt="Luxury Architectural Design" decoding="async" data-nimg="fill" class="object-cover" style="
+    <img alt="Luxury Architectural Design" decoding="async" data-nimg="fill" class="object-cover scale-105" style="
                 position: absolute;
                 height: 100%;
                 width: 100%;
@@ -21,184 +21,123 @@
                 right: 0;
                 bottom: 0;
                 color: transparent;
-              " src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=2000" />
-    <div class="absolute inset-0 bg-foreground/60 backdrop-blur-[1px]"></div>
+              " src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=2000" />
+    <div class="absolute inset-0 bg-texts/30 backdrop-blur-[2px]"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-texts/10 to-background"></div>
   </div>
-  <div class="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
-    <h1 class="text-4xl md:text-7xl font-serif font-bold mb-6 leading-[1.1]">
-      Building Your Dream Home in Kenya —
-      <span class="text-accent">Even When You're Miles Away.</span>
-    </h1>
-    <p class="text-xl md:text-2xl mb-10 text-gray-200 font-light max-w-3xl mx-auto">
-      We design and build high-quality homes for Kenyans at home and
-      abroad, with complete transparency and structured project
-      management.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <button
-        class="bg-accent hover:bg-accent/90 text-foreground px-10 py-5 text-lg font-bold transition-all transform hover:-translate-y-1 shadow-xl">
-        Book a Virtual Consultation</button><button
-        class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-10 py-5 text-lg font-bold transition-all">
-        View Our Projects
-      </button>
+  
+  <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+    <div class="glass glass-border rounded-[3rem] p-12 md:p-24 shadow-2xl backdrop-blur-xl animate-fade-in">
+        <span class="text-accent font-bold uppercase tracking-[0.5em] text-[10px] mb-8 block">Premier Real Estate Consultancy</span>
+        <h1 class="text-4xl md:text-8xl font-serif font-bold mb-8 leading-[1.05] text-texts">
+          Architecture that <br/>
+          <span class="italic text-accent">Inspires</span> Trust.
+        </h1>
+        <p class="text-lg md:text-xl mb-12 text-texts/70 font-medium max-w-2xl mx-auto leading-relaxed">
+          We bridge the gap for diaspora clients building in Kenya through corporate transparency, elite design, and legally-backed project management.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <a href="/contact"
+            class="bg-texts hover:bg-secondary text-white px-12 py-5 text-sm font-bold tracking-widest uppercase transition-all transform hover:-translate-y-1 shadow-2xl rounded-full">
+            Start Your Journey</a>
+          <a href="/portfolio"
+            class="glass hover:bg-white/10 text-texts px-12 py-5 text-sm font-bold tracking-widest uppercase transition-all rounded-full border border-texts/10">
+            View Excellence
+          </a>
+        </div>
     </div>
   </div>
 </section>
 <div class="w-full h-px bg-foreground"></div>
-<section>
-  <div class="md:max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between mt-12  gap-8">
-    <div class="max-w-xs text-left">
-      <p class="text-foreground text-sm font-medium leading-relaxed italic border-l-2 border-foreground pl-4">
-        "Integrity and innovation in every structure we touch. Engineering excellence from the ground up."
-      </p>
-    </div>
-
-    <div class="bg-primary p-8 md:p-12 text-accent flex flex-col items-center justify-center">
-      <span class="text-5xl md:text-7xl font-bold tracking-tighter">850+</span>
-      <p class="text-[10px] uppercase font-black tracking-widest mt-2 opacity-80">
-        Completed Landmark Projects
-      </p>
-    </div>
-
-    <div class="max-w-xs text-right">
-      <div class="flex justify-end space-x-1 mb-2">
-        {% for i in "xxxxx" %}
-        <svg class="w-4 h-4 text-accent fill-current" viewBox="0 0 20 20">
-          <path
-            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-        {% endfor %}
+<section class="py-12 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+      <div class="max-w-xs text-left">
+        <p class="text-texts/60 text-sm font-medium leading-relaxed italic border-l-2 border-accent pl-6">
+          "Integrity and innovation in every structure we touch. Engineering excellence from the ground up."
+        </p>
       </div>
-      <p class="text-[10px] uppercase font-black text-foreground tracking-widest">
-        12,000+ Verified Client Reviews
-      </p>
-      <a href="#" class="mt-4 text-xs font-black underline uppercase tracking-widest hover:text-secondary block">
-        Discover More
-      </a>
+
+      <div class="glass glass-border rounded-3xl p-10 flex flex-col items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-500 group">
+        <span class="text-5xl md:text-7xl font-serif font-black tracking-tight text-texts group-hover:text-accent transition-colors">850<span class="text-accent group-hover:text-texts">+</span></span>
+        <p class="text-[9px] uppercase font-bold tracking-[0.4em] mt-4 text-texts/40">
+          Landmark Projects
+        </p>
+      </div>
+
+      <div class="max-w-xs text-right">
+        <div class="flex justify-end space-x-1 mb-3">
+          {% for i in "xxxxx" %}
+          <svg class="w-3 H-3 text-accent fill-current" viewBox="0 0 20 20">
+            <path
+              d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          {% endfor %}
+        </div>
+        <p class="text-[9px] uppercase font-bold text-texts/40 tracking-[0.4em]">
+          12,000+ Client Reviews
+        </p>
+        <a href="#" class="mt-4 text-[10px] font-black underline uppercase tracking-[0.3em] text-texts hover:text-accent transition-colors block">
+          Discover Excellence
+        </a>
+      </div>
     </div>
   </div>
 </section>
-<section class="py-24 bg-background">
+<section class="py-32 bg-background relative overflow-hidden">
+  <div class="absolute top-0 left-0 w-full h-px bg-texts/5"></div>
   <div class="max-w-7xl mx-auto px-6">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-      <div>
-        <div class="flex items-center space-x-2 text-accent mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-shield-alert w-6 h-6" aria-hidden="true">
-            <path
-              d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
-            </path>
-            <path d="M12 8v4"></path>
-            <path d="M12 16h.01"></path>
-          </svg><span class="font-bold tracking-widest uppercase text-sm">The Diaspora Challenge</span>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+      <div class="animate-on-scroll">
+        <div class="flex items-center space-x-3 text-accent mb-6">
+          <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-shield-alert w-5 h-5" aria-hidden="true">
+                <path
+                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+                </path>
+                <path d="M12 8v4"></path>
+                <path d="M12 16h.01"></path>
+            </svg>
+          </div>
+          <span class="font-bold tracking-[0.3em] uppercase text-[10px]">The Diaspora Challenge</span>
         </div>
-        <h2 class="text-4xl md:text-5xl font-bold text-foreground mb-8">
-          Worried About Building From Abroad?
+        <h2 class="text-4xl md:text-6xl font-serif font-bold text-texts mb-10 leading-[1.1]">
+          Building in Kenya should not be a gamble.
         </h2>
-        <div class="space-y-6 mb-10">
-          <div class="flex items-start space-x-4">
-            <div class="mt-1 bg-secondary/10 p-1.5 rounded-full">
+        <div class="space-y-8 mb-12">
+          {% load static %}
+          {% for challenge in challenges %}
+          <div class="flex items-start space-x-5 group">
+            <div class="mt-1 bg-texts/5 p-2 rounded-xl group-hover:bg-texts group-hover:text-white transition-all">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-x w-4 h-4 text-secondary" aria-hidden="true">
+                class="lucide lucide-x w-4 h-4 transition-colors" aria-hidden="true">
                 <path d="M18 6 6 18"></path>
                 <path d="m6 6 12 12"></path>
               </svg>
             </div>
             <div>
-              <h4 class="font-bold text-foreground">
-                Fear of Misused Funds
-              </h4>
-              <p class="text-gray-600 text-sm">
-                Money sent for building being diverted for other family
-                uses or personal gain.
+              <h4 class="font-bold text-texts text-lg mb-1">{{ challenge }}</h4>
+              <p class="text-texts/50 text-sm leading-relaxed max-w-md">
+                Reliably eliminated through our corporate management systems and legally stamped contracts.
               </p>
             </div>
           </div>
-          <div class="flex items-start space-x-4">
-            <div class="mt-1 bg-secondary/10 p-1.5 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-x w-4 h-4 text-secondary" aria-hidden="true">
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
-              </svg>
-            </div>
-            <div>
-              <h4 class="font-bold text-foreground">
-                Lack of Supervision
-              </h4>
-              <p class="text-gray-600 text-sm">
-                No one reliable to check site progress and quality on a
-                daily basis.
-              </p>
-            </div>
-          </div>
-          <div class="flex items-start space-x-4">
-            <div class="mt-1 bg-secondary/10 p-1.5 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-x w-4 h-4 text-secondary" aria-hidden="true">
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
-              </svg>
-            </div>
-            <div>
-              <h4 class="font-bold text-foreground">Project Delays</h4>
-              <p class="text-gray-600 text-sm">
-                Timelines stretching for years with no clear explanation
-                or end date.
-              </p>
-            </div>
-          </div>
-          <div class="flex items-start space-x-4">
-            <div class="mt-1 bg-secondary/10 p-1.5 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-x w-4 h-4 text-secondary" aria-hidden="true">
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
-              </svg>
-            </div>
-            <div>
-              <h4 class="font-bold text-foreground">
-                Poor Workmanship
-              </h4>
-              <p class="text-gray-600 text-sm">
-                Low-quality materials used despite paying premium
-                prices.
-              </p>
-            </div>
-          </div>
-          <div class="flex items-start space-x-4">
-            <div class="mt-1 bg-secondary/10 p-1.5 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-x w-4 h-4 text-secondary" aria-hidden="true">
-                <path d="M18 6 6 18"></path>
-                <path d="m6 6 12 12"></path>
-              </svg>
-            </div>
-            <div>
-              <h4 class="font-bold text-foreground">Legal Risks</h4>
-              <p class="text-gray-600 text-sm">
-                Issues with titles, county permits, and unlicensed
-                contractors.
-              </p>
-            </div>
-          </div>
+          {% endfor %}
         </div>
-        <p class="text-foreground font-semibold italic border-l-4 border-accent pl-4">
-          "Krestwood was founded to replace these fears with
-          structured, legal, and corporate building standards."
-        </p>
+        <div class="glass glass-border p-8 rounded-3xl border-l-4 border-l-accent shadow-xl bg-white/50">
+          <p class="text-texts font-serif text-xl italic leading-relaxed">
+            "TrustBuildUrban was founded to replace fear with structured, world-class building standards."
+          </p>
+        </div>
       </div>
-      <div class="relative">
-        <div class="absolute -inset-4 border-2 border-accent/30 rounded-lg transform translate-x-4 translate-y-4"></div>
-        <div class="relative z-10 w-full aspect-[4/3] overflow-hidden rounded-lg shadow-2xl">
-          <img alt="Construction Management" decoding="async" data-nimg="fill"
-            class="object-cover grayscale hover:grayscale-0 transition-all duration-700" style="
+      <div class="relative group">
+        <div class="absolute -inset-6 bg-accent/5 rounded-[4rem] group-hover:scale-105 transition-transform duration-700"></div>
+        <div class="relative z-10 w-full aspect-[4/5] overflow-hidden rounded-[3rem] shadow-2xl border-8 border-white">
+          <img alt="Modern Architecture" decoding="async" data-nimg="fill"
+            class="object-cover group-hover:scale-110 transition-all duration-1000" style="
                       position: absolute;
                       height: 100%;
                       width: 100%;
@@ -208,496 +147,250 @@
                       bottom: 0;
                       color: transparent;
                     "
-            src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?auto=format&fit=crop&q=80&w=1200" />
+            src="https://images.unsplash.com/photo-1512914890251-2f96a9b092e3?auto=format&fit=crop&q=80&w=1200" />
+            <div class="absolute inset-x-8 bottom-8">
+                <div class="glass glass-border p-6 rounded-2xl shadow-2xl backdrop-blur-2xl">
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-texts/40 mb-2">Featured Project</p>
+                    <p class="text-xl font-serif font-bold text-texts">The Grand Residence, Runda</p>
+                </div>
+            </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<section class="py-24 bg-foreground text-background relative">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center max-w-3xl mx-auto mb-20">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6">
-        Why Hundreds of Diaspora Clients Trust Krestwood
+<section class="py-32 bg-texts text-white relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5"></div>
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-24">
+      <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">The TrustBuildUrban Standard</span>
+      <h2 class="text-4xl md:text-6xl font-serif font-bold mb-8 leading-tight">
+        Why Hundreds of Diaspora Families Trust Us
       </h2>
-      <div class="w-20 h-1 bg-accent mx-auto"></div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div
-        class="bg-background/5 backdrop-blur-sm border border-background/10 p-8 rounded-xl hover:border-accent transition-all duration-500 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-primary/20 text-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-file-text w-8 h-8" aria-hidden="true">
-            <path
-              d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z">
-            </path>
-            <path d="M14 2v5a1 1 0 0 0 1 1h5"></path>
-            <path d="M10 9H8"></path>
-            <path d="M16 13H8"></path>
-            <path d="M16 17H8"></path>
-          </svg>
-        </div>
-        <h3 class="text-xl font-bold mb-4">
-          Transparent Cost Breakdowns
-        </h3>
-        <p class="opacity-70 leading-relaxed">
-          Detailed bill of quantities before a single stone is moved.
-        </p>
-      </div>
-      <div
-        class="bg-background/5 backdrop-blur-sm border border-background/10 p-8 rounded-xl hover:border-accent transition-all duration-500 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-secondary/20 text-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-calendar w-8 h-8" aria-hidden="true">
-            <path d="M8 2v4"></path>
-            <path d="M16 2v4"></path>
-            <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-            <path d="M3 10h18"></path>
-          </svg>
-        </div>
-        <h3 class="text-xl font-bold mb-4">Stage-Based Payments</h3>
-        <p class="opacity-70 leading-relaxed">
-          Pay only for completed and verified construction milestones.
-        </p>
-      </div>
-      <div
-        class="bg-background/5 backdrop-blur-sm border border-background/10 p-8 rounded-xl hover:border-accent transition-all duration-500 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-accent/20 text-accent">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-eye w-8 h-8" aria-hidden="true">
-            <path
-              d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0">
-            </path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
-        </div>
-        <h3 class="text-xl font-bold mb-4">
-          Weekly Photo & Video Updates
-        </h3>
-        <p class="opacity-70 leading-relaxed">
-          Regular high-definition visual reporting of your site
-          progress.
-        </p>
-      </div>
-      <div
-        class="bg-background/5 backdrop-blur-sm border border-background/10 p-8 rounded-xl hover:border-accent transition-all duration-500 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-chart-1/20 text-chart-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-shield-check w-8 h-8" aria-hidden="true">
-            <path
-              d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
-            </path>
-            <path d="m9 12 2 2 4-4"></path>
-          </svg>
-        </div>
-        <h3 class="text-xl font-bold mb-4">
-          Virtual Site Walkthroughs
-        </h3>
-        <p class="opacity-70 leading-relaxed">
-          Live video tours allowing you to inspect every corner
-          remotely.
-        </p>
-      </div>
-      <div
-        class="bg-background/5 backdrop-blur-sm border border-background/10 p-8 rounded-xl hover:border-accent transition-all duration-500 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-chart-2/20 text-chart-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-badge-check w-8 h-8" aria-hidden="true">
-            <path
-              d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z">
-            </path>
-            <path d="m9 12 2 2 4-4"></path>
-          </svg>
-        </div>
-        <h3 class="text-xl font-bold mb-4">
-          Legally Documented Contracts
-        </h3>
-        <p class="opacity-70 leading-relaxed">
-          Every project is backed by enforceable, stamped legal
-          agreements.
-        </p>
-      </div>
-      <div
-        class="bg-background/5 backdrop-blur-sm border border-background/10 p-8 rounded-xl hover:border-accent transition-all duration-500 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-chart-3/20 text-chart-3">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-wrench w-8 h-8" aria-hidden="true">
-            <path
-              d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z">
-            </path>
-          </svg>
-        </div>
-        <h3 class="text-xl font-bold mb-4">Quality Assurance Team</h3>
-        <p class="opacity-70 leading-relaxed">
-          Independent engineers verifying work against Kenyan building
-          codes.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="py-24 bg-background">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold text-foreground mb-4">
-        Our 7-Step Building Process
-      </h2>
-      <p class="text-muted-foreground max-w-2xl mx-auto">
-        A structured journey from your initial idea to the moment we
-        hand over your keys.
-      </p>
-    </div>
-    <div class="relative flex flex-col md:flex-row md:justify-between items-start space-y-12 md:space-y-0 md:space-x-4">
-      <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-border z-0"></div>
-      <div class="relative z-10 flex flex-col items-center text-center group w-full md:w-auto">
-        <div
-          class="w-14 h-14 bg-background border-2 border-border text-foreground font-black text-xl flex items-center justify-center rounded-full mb-6 group-hover:border-accent group-hover:text-accent transition-all shadow-lg">
-          1
-        </div>
-        <h4 class="font-bold text-foreground mb-2 text-sm uppercase tracking-tight">
-          Virtual Consultation
-        </h4>
-        <p class="text-muted-foreground text-xs max-w-[150px] leading-tight">
-          Define goals, needs, and vision via high-level Zoom/Meet
-          session.
-        </p>
-      </div>
-      <div class="relative z-10 flex flex-col items-center text-center group w-full md:w-auto">
-        <div
-          class="w-14 h-14 bg-background border-2 border-border text-foreground font-black text-xl flex items-center justify-center rounded-full mb-6 group-hover:border-accent group-hover:text-accent transition-all shadow-lg">
-          2
-        </div>
-        <h4 class="font-bold text-foreground mb-2 text-sm uppercase tracking-tight">
-          Budget Planning
-        </h4>
-        <p class="text-muted-foreground text-xs max-w-[150px] leading-tight">
-          Detailed cost estimation and financial structuring for the
-          project.
-        </p>
-      </div>
-      <div class="relative z-10 flex flex-col items-center text-center group w-full md:w-auto">
-        <div
-          class="w-14 h-14 bg-background border-2 border-border text-foreground font-black text-xl flex items-center justify-center rounded-full mb-6 group-hover:border-accent group-hover:text-accent transition-all shadow-lg">
-          3
-        </div>
-        <h4 class="font-bold text-foreground mb-2 text-sm uppercase tracking-tight">
-          Land Verification
-        </h4>
-        <p class="text-muted-foreground text-xs max-w-[150px] leading-tight">
-          Legal search and site analysis to ensure a clean title and
-          buildable terrain.
-        </p>
-      </div>
-      <div class="relative z-10 flex flex-col items-center text-center group w-full md:w-auto">
-        <div
-          class="w-14 h-14 bg-background border-2 border-border text-foreground font-black text-xl flex items-center justify-center rounded-full mb-6 group-hover:border-accent group-hover:text-accent transition-all shadow-lg">
-          4
-        </div>
-        <h4 class="font-bold text-foreground mb-2 text-sm uppercase tracking-tight">
-          Architectural Design
-        </h4>
-        <p class="text-muted-foreground text-xs max-w-[150px] leading-tight">
-          Collaborative drafting of blueprints and 3D visualizations.
-        </p>
-      </div>
-      <div class="relative z-10 flex flex-col items-center text-center group w-full md:w-auto">
-        <div
-          class="w-14 h-14 bg-background border-2 border-border text-foreground font-black text-xl flex items-center justify-center rounded-full mb-6 group-hover:border-accent group-hover:text-accent transition-all shadow-lg">
-          5
-        </div>
-        <h4 class="font-bold text-foreground mb-2 text-sm uppercase tracking-tight">
-          Approvals & Documentation
-        </h4>
-        <p class="text-muted-foreground text-xs max-w-[150px] leading-tight">
-          Handling all NCA and County government permits and legal
-          paperwork.
-        </p>
-      </div>
-      <div class="relative z-10 flex flex-col items-center text-center group w-full md:w-auto">
-        <div
-          class="w-14 h-14 bg-background border-2 border-border text-foreground font-black text-xl flex items-center justify-center rounded-full mb-6 group-hover:border-accent group-hover:text-accent transition-all shadow-lg">
-          6
-        </div>
-        <h4 class="font-bold text-foreground mb-2 text-sm uppercase tracking-tight">
-          Structured Construction
-        </h4>
-        <p class="text-muted-foreground text-xs max-w-[150px] leading-tight">
-          Phased build with weekly milestones and transparent progress
-          reporting.
-        </p>
-      </div>
-      <div class="relative z-10 flex flex-col items-center text-center group w-full md:w-auto">
-        <div
-          class="w-14 h-14 bg-background border-2 border-border text-foreground font-black text-xl flex items-center justify-center rounded-full mb-6 group-hover:border-accent group-hover:text-accent transition-all shadow-lg">
-          7
-        </div>
-        <h4 class="font-bold text-foreground mb-2 text-sm uppercase tracking-tight">
-          Handover & Warranty
-        </h4>
-        <p class="text-muted-foreground text-xs max-w-[150px] leading-tight">
-          Final inspection, key handover, and post-occupancy support.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="services" class="py-24 px-6 bg-foreground text-background relative overflow-hidden">
-  <div
-    class="absolute top-0 right-0 w-64 h-64 bg-primary opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2">
-  </div>
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-end mb-20">
-      <div>
-        <span class="text-secondary font-black uppercase tracking-widest text-xs mb-4 block">Core Expertise</span>
-        <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none">
-          Engineering <span class="text-primary">Solutions</span> For
-          Every Scale.
-        </h2>
-      </div>
-      <div class="max-w-md">
-        <div class="w-16 h-1 bg-background mb-2"></div>
-        <p class="text-sm uppercase tracking-widest font-bold opacity-60 leading-relaxed">
-          We provide comprehensive engineering and architectural
-          services, from initial conceptual design to final occupancy
-          and management.
-        </p>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-background/10 border border-background/10">
-      <div class="group p-10 hover:bg-background transition-all duration-500 hover:text-foreground">
-        <div
-          class="w-14 h-14 bg-secondary text-foreground flex items-center justify-center rounded-sm mb-8 transition-transform group-hover:scale-110">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-drafting-compass w-8 h-8" aria-hidden="true">
-            <path d="m12.99 6.74 1.93 3.44"></path>
-            <path d="M19.136 12a10 10 0 0 1-14.271 0"></path>
-            <path d="m21 21-2.16-3.84"></path>
-            <path d="m3 21 8.02-14.26"></path>
-            <circle cx="12" cy="5" r="2"></circle>
-          </svg>
-        </div>
-        <h3 class="text-xl font-black uppercase tracking-widest mb-4 group-hover:tracking-[0.2em] transition-all">
-          Architectural Design
-        </h3>
-        <p class="text-xs font-bold uppercase tracking-widest opacity-60 leading-relaxed mb-8">
-          Creating sustainable, modern structures that blend form and
-          functionality seamlessly.
-        </p>
-        <button
-          class="flex items-center space-x-2 text-xs font-black uppercase tracking-widest border-b-2 border-current pb-1 transition-colors hover:text-primary">
-          <span>Learn More</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-chevron-right w-4 h-4" aria-hidden="true">
-            <path d="m9 18 6-6-6-6"></path>
-          </svg>
-        </button>
-      </div>
-      <div class="group p-10 hover:bg-background transition-all duration-500 hover:text-foreground">
-        <div
-          class="w-14 h-14 bg-accent text-foreground flex items-center justify-center rounded-sm mb-8 transition-transform group-hover:scale-110">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-box w-8 h-8" aria-hidden="true">
-            <path
-              d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z">
-            </path>
-            <path d="m3.3 7 8.7 5 8.7-5"></path>
-            <path d="M12 22V12"></path>
-          </svg>
-        </div>
-        <h3 class="text-xl font-black uppercase tracking-widest mb-4 group-hover:tracking-[0.2em] transition-all">
-          Project Management
-        </h3>
-        <p class="text-xs font-bold uppercase tracking-widest opacity-60 leading-relaxed mb-8">
-          Full-cycle management ensuring timelines, budgets, and quality
-          standards are exceeded.
-        </p>
-        <button
-          class="flex items-center space-x-2 text-xs font-black uppercase tracking-widest border-b-2 border-current pb-1 transition-colors hover:text-primary">
-          <span>Learn More</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-chevron-right w-4 h-4" aria-hidden="true">
-            <path d="m9 18 6-6-6-6"></path>
-          </svg>
-        </button>
-      </div>
-      <div class="group p-10 hover:bg-background transition-all duration-500 hover:text-foreground">
-        <div
-          class="w-14 h-14 bg-chart-4 text-foreground flex items-center justify-center rounded-sm mb-8 transition-transform group-hover:scale-110">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-tower-control w-8 h-8" aria-hidden="true">
-            <path d="M18.2 12.27 20 6H4l1.8 6.27a1 1 0 0 0 .95.73h10.5a1 1 0 0 0 .96-.73Z"></path>
-            <path d="M8 13v9"></path>
-            <path d="M16 22v-9"></path>
-            <path d="m9 6 1 7"></path>
-            <path d="m15 6-1 7"></path>
-            <path d="M12 6V2"></path>
-            <path d="M13 2h-2"></path>
-          </svg>
-        </div>
-        <h3 class="text-xl font-black uppercase tracking-widest mb-4 group-hover:tracking-[0.2em] transition-all">
-          Structural Engineering
-        </h3>
-        <p class="text-xs font-bold uppercase tracking-widest opacity-60 leading-relaxed mb-8">
-          Innovative structural solutions designed for longevity and
-          environmental resilience.
-        </p>
-        <button
-          class="flex items-center space-x-2 text-xs font-black uppercase tracking-widest border-b-2 border-current pb-1 transition-colors hover:text-primary">
-          <span>Learn More</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-chevron-right w-4 h-4" aria-hidden="true">
-            <path d="m9 18 6-6-6-6"></path>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="py-24 bg-muted/30">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-16">
-      <div>
-        <h2 class="text-4xl font-bold text-foreground mb-4">
-          Portfolio Highlights
-        </h2>
-        <p class="text-muted-foreground">
-          Luxury and family homes delivered across the country.
-        </p>
-      </div>
-      <a class="flex items-center text-foreground font-bold hover:text-accent transition-colors mt-6 md:mt-0 group"
-        href="/portfolio">View All Projects
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="lucide lucide-arrow-right ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform"
-          aria-hidden="true">
-          <path d="M5 12h14"></path>
-          <path d="m12 5 7 7-7 7"></path>
-        </svg></a>
+      <div class="w-24 h-1 bg-accent mx-auto"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      <div
-        class="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all group border border-border/50">
-        <div class="relative h-72 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=1200"
-            alt="The Azure Villa"
-            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-          <div
-            class="absolute top-4 left-4 bg-background/90 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-widest text-foreground">
-            Luxury
-          </div>
+      {% for feature in features %}
+      <div class="glass-dark p-10 rounded-[2.5rem] hover:bg-white transition-all duration-700 group hover:-translate-y-2 shadow-2xl">
+        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-10 bg-white/5 text-accent group-hover:bg-texts group-hover:text-white transition-all duration-500 shadow-xl">
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide w-8 h-8" aria-hidden="true">
+            {# Standard Lucide Icons for Each Feature #}
+            {% if forloop.counter == 1 %}<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path>
+            {% elif forloop.counter == 2 %}<path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path>
+            {% elif forloop.counter == 3 %}<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle>
+            {% elif forloop.counter == 4 %}<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path>
+            {% elif forloop.counter == 5 %}<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path>
+            {% elif forloop.counter == 6 %}<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"></path>
+            {% endif %}
+          </svg>
         </div>
-        <div class="p-8">
-          <div class="flex items-center text-muted-foreground text-xs mb-3 uppercase tracking-wider font-bold">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-map-pin w-3 h-3 mr-1 text-accent" aria-hidden="true">
-              <path
-                d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
-              </path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            <!-- -->Runda, Nairobi
-          </div>
-          <h3 class="text-2xl font-bold text-foreground mb-3">
-            The Azure Villa
-          </h3>
-          <div class="flex justify-between items-center text-sm text-muted-foreground border-t border-border/50 pt-4">
-            <span>Duration: <b class="text-foreground">14 Months</b></span><a class="text-accent font-bold"
-              href="/portfolio">Details</a>
-          </div>
-        </div>
+        <h3 class="text-xl font-bold mb-4 group-hover:text-texts transition-colors font-sans">{{ feature.title }}</h3>
+        <p class="text-white/40 leading-relaxed font-medium group-hover:text-texts/60 transition-colors">
+          {{ feature.description }}
+        </p>
       </div>
-      <div
-        class="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all group border border-border/50">
-        <div class="relative h-72 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6199f74009?auto=format&fit=crop&q=80&w=1200"
-            alt="Oasis Heights"
-            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-          <div
-            class="absolute top-4 left-4 bg-background/90 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-widest text-foreground">
-            Villa
-          </div>
-        </div>
-        <div class="p-8">
-          <div class="flex items-center text-muted-foreground text-xs mb-3 uppercase tracking-wider font-bold">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-map-pin w-3 h-3 mr-1 text-accent" aria-hidden="true">
-              <path
-                d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
-              </path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            <!-- -->Karen, Nairobi
-          </div>
-          <h3 class="text-2xl font-bold text-foreground mb-3">
-            Oasis Heights
-          </h3>
-          <div class="flex justify-between items-center text-sm text-muted-foreground border-t border-border/50 pt-4">
-            <span>Duration: <b class="text-foreground">12 Months</b></span><a class="text-accent font-bold"
-              href="/portfolio">Details</a>
-          </div>
-        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<section class="py-32 bg-background relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-1/3 h-full bg-accent/5 -skew-x-12 translate-x-1/2"></div>
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-12 text-left">
+      <div class="max-w-2xl">
+        <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">Transparent Execution</span>
+        <h2 class="text-4xl md:text-6xl font-serif font-bold text-texts leading-tight">
+          Our 7-Step Architectural Journey
+        </h2>
       </div>
-      <div
-        class="bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all group border border-border/50">
-        <div class="relative h-72 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200"
-            alt="Serene Ridge Estate"
-            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-          <div
-            class="absolute top-4 left-4 bg-background/90 backdrop-blur px-3 py-1 text-xs font-bold uppercase tracking-widest text-foreground">
-            Family Home
-          </div>
+      <p class="text-texts/50 font-medium max-w-sm mb-2">
+        A meticulously structured process from initial concept to the day we hand over your keys.
+      </p>
+    </div>
+    
+    <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      {% for step in steps %}
+      <div class="glass glass-border p-10 rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
+        <div class="absolute -top-4 -right-4 text-8xl font-black text-texts/5 italic group-hover:text-accent/10 transition-colors">{{ forloop.counter }}</div>
+        <h4 class="font-bold text-texts mb-4 text-lg pr-4 group-hover:text-accent transition-all font-sans">
+          {{ step.title }}
+        </h4>
+        <p class="text-texts/50 text-sm leading-relaxed font-medium relative z-10 transition-colors group-hover:text-texts/70">
+           {{ step.description }}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<section id="services" class="py-32 bg-background relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center max-w-3xl mx-auto mb-24">
+      <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">Our Specializations</span>
+      <h2 class="text-4xl md:text-6xl font-serif font-bold text-texts leading-tight">
+        Elite Engineering & Architectural Excellence
+      </h2>
+    </div>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div class="glass glass-border rounded-[3rem] p-12 hover:shadow-2xl transition-all duration-700 bg-white/40">
+        <div class="w-20 h-20 rounded-2xl bg-texts text-white flex items-center justify-center mb-10 shadow-xl">
+           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide w-10 h-10" aria-hidden="true">
+            <path d="m2 22 1-1h3l9-9"></path><path d="M14 2h.01"></path><path d="M7 2h.01"></path><path d="M3.5 15.5 8 11"></path><path d="m5 11 3 3"></path><path d="M19 13.5v7a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h7"></path><path d="M11 2h.01"></path><path d="m17 2 3.3 3.3c.39.39.39 1.02 0 1.41L17 10"></path><path d="M13 2v8"></path>
+          </svg>
         </div>
-        <div class="p-8">
-          <div class="flex items-center text-muted-foreground text-xs mb-3 uppercase tracking-wider font-bold">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-map-pin w-3 h-3 mr-1 text-accent" aria-hidden="true">
-              <path
-                d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
-              </path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            <!-- -->Tatu City, Kiambu
-          </div>
-          <h3 class="text-2xl font-bold text-foreground mb-3">
-            Serene Ridge Estate
-          </h3>
-          <div class="flex justify-between items-center text-sm text-muted-foreground border-t border-border/50 pt-4">
-            <span>Duration: <b class="text-foreground">10 Months</b></span><a class="text-accent font-bold"
-              href="/portfolio">Details</a>
-          </div>
+        <h3 class="text-3xl font-serif font-bold text-texts mb-6">Innovative Civil Engineering</h3>
+        <p class="text-texts/60 leading-relaxed font-medium mb-10">
+          Our engineering team focuses on structural integrity and future-proof solutions. We use advanced BIM modeling to ensure every beam and column is optimized for safety and efficiency.
+        </p>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {% for item in expertise|slice:":4" %}
+          <li class="flex items-center space-x-3 text-texts/70 font-bold uppercase text-[10px] tracking-widest">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+            <span>{{ item }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="glass glass-border rounded-[3rem] p-12 hover:shadow-2xl transition-all duration-700 bg-white/40">
+        <div class="w-20 h-20 rounded-2xl bg-accent text-texts flex items-center justify-center mb-10 shadow-xl">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide w-10 h-10" aria-hidden="true">
+            <path d="M3 14h18"></path><path d="M3 18h18"></path><path d="M4 10V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"></path><path d="m12 2 4 4-4 4-4-4 4-4z"></path>
+          </svg>
         </div>
+        <h3 class="text-3xl font-serif font-bold text-texts mb-6">Architectural Masterpieces</h3>
+        <p class="text-texts/60 leading-relaxed font-medium mb-10">
+          We believe architecture should tell a story. From ultra-modern villas to sustainable commercial hubs, our designs balance aesthetics with functionality and cultural context.
+        </p>
+         <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {% for item in expertise|slice:"4:8" %}
+          <li class="flex items-center space-x-3 text-texts/70 font-bold uppercase text-[10px] tracking-widest">
+            <span class="w-1.5 h-1.5 rounded-full bg-texts"></span>
+            <span>{{ item }}</span>
+          </li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
   </div>
 </section>
-<section class="py-20 bg-accent">
-  <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-10">
-    <div class="text-foreground max-w-xl">
-      <h2 class="text-4xl font-black uppercase tracking-tighter mb-4">
+<section class="py-32 bg-texts relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-12">
+      <div class="max-w-2xl">
+        <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">Our Portfolio</span>
+        <h2 class="text-4xl md:text-6xl font-serif font-bold text-white leading-tight">
+          Crafting Landmark Residences
+        </h2>
+      </div>
+      <a href="/portfolio" class="text-white border-b-2 border-accent pb-2 font-bold uppercase tracking-widest text-[10px] hover:text-accent transition-colors">
+        Browse All Projects
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {% if available_properties %}
+        {% for property in available_properties|slice:":3" %}
+        <div class="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl">
+          {% if property.image %}
+          <img src="{{ property.image.url }}" alt="{{ property.title }}" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" />
+          {% else %}
+           <div class="w-full h-full bg-white/5 flex items-center justify-center">
+             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide w-12 h-12 text-white/20"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+           </div>
+          {% endif %}
+          <div class="absolute inset-0 bg-gradient-to-t from-texts via-texts/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+          <div class="absolute bottom-0 left-0 w-full p-10">
+              <div class="glass glass-border p-8 rounded-[2rem] shadow-2xl backdrop-blur-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <span class="text-accent font-bold uppercase tracking-widest text-[9px] mb-3 block">{{ property.location }}</span>
+                  <h4 class="text-2xl font-serif font-bold text-texts mb-4">{{ property.title }}</h4>
+                  <div class="flex items-center justify-between">
+                      <span class="text-texts/40 font-bold text-xs">Explore Project</span>
+                      <a href="{% url 'available_homes:single' property.id %}" class="w-10 h-10 rounded-full bg-texts text-white flex items-center justify-center hover:bg-accent transition-colors">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                      </a>
+                  </div>
+              </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+      <!-- Fallback static items if no properties found in context -->
+      <div class="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800" alt="The Azure Villa" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" />
+        <div class="absolute inset-0 bg-gradient-to-t from-texts via-texts/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+        <div class="absolute bottom-0 left-0 w-full p-10">
+            <div class="glass glass-border p-8 rounded-[2rem] shadow-2xl backdrop-blur-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="text-accent font-bold uppercase tracking-widest text-[9px] mb-3 block">Runda</span>
+                <h4 class="text-2xl font-serif font-bold text-texts mb-4">The Azure Villa</h4>
+                <div class="flex items-center justify-between">
+                    <span class="text-texts/40 font-bold text-xs">Featured Project</span>
+                    <a href="/portfolio" class="w-10 h-10 rounded-full bg-texts text-white flex items-center justify-center hover:bg-accent transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6199f74009?auto=format&fit=crop&q=80&w=800" alt="Karen Oasis" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" />
+        <div class="absolute inset-0 bg-gradient-to-t from-texts via-texts/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+        <div class="absolute bottom-0 left-0 w-full p-10">
+            <div class="glass glass-border p-8 rounded-[2rem] shadow-2xl backdrop-blur-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="text-accent font-bold uppercase tracking-widest text-[9px] mb-3 block">Karen</span>
+                <h4 class="text-2xl font-serif font-bold text-texts mb-4">Karen Oasis</h4>
+                <div class="flex items-center justify-between">
+                    <span class="text-texts/40 font-bold text-xs">Featured Project</span>
+                    <a href="/portfolio" class="w-10 h-10 rounded-full bg-texts text-white flex items-center justify-center hover:bg-accent transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="group relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800" alt="Serene Ridge" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" />
+        <div class="absolute inset-0 bg-gradient-to-t from-texts via-texts/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+        <div class="absolute bottom-0 left-0 w-full p-10">
+            <div class="glass glass-border p-8 rounded-[2rem] shadow-2xl backdrop-blur-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                <span class="text-accent font-bold uppercase tracking-widest text-[9px] mb-3 block">Tatu City</span>
+                <h4 class="text-2xl font-serif font-bold text-texts mb-4">Serene Ridge</h4>
+                <div class="flex items-center justify-between">
+                    <span class="text-texts/40 font-bold text-xs">Featured Project</span>
+                    <a href="/portfolio" class="w-10 h-10 rounded-full bg-texts text-white flex items-center justify-center hover:bg-accent transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide w-4 h-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+<section class="py-20 bg-accent relative overflow-hidden group">
+  <div class="absolute inset-0 bg-texts/10 skew-y-6 translate-y-20 group-hover:translate-y-10 transition-transform duration-1000"></div>
+  <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
+    <div class="text-texts max-w-xl">
+      <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
         Free Diaspora Home Building Guide
       </h2>
-      <p class="text-foreground/80 text-lg font-medium">
-        Download our comprehensive manual on navigating land laws,
-        approvals, and construction costs in Kenya from abroad.
+      <p class="text-texts/70 text-lg font-medium leading-relaxed">
+        Download our comprehensive manual on navigating land laws, approvals, and construction costs in Kenya from abroad.
       </p>
     </div>
-    <div class="flex w-full lg:w-auto shadow-2xl">
-      <input type="email" placeholder="Your email address"
-        class="px-6 py-4 w-full md:w-80 focus:outline-none bg-background text-foreground placeholder:text-foreground/50" /><button
-        class="bg-foreground text-background px-8 py-4 font-black uppercase tracking-widest hover:bg-foreground/90 transition-colors">
+    <div class="flex flex-col sm:flex-row w-full lg:w-auto gap-4">
+      <input type="email" placeholder="Enter your email"
+        class="px-8 py-5 w-full md:w-80 glass glass-border bg-white/20 text-texts placeholder:text-texts/40 focus:outline-none focus:ring-2 focus:ring-texts/20 rounded-full font-bold text-sm" />
+      <button
+        class="bg-texts text-white px-10 py-5 font-bold uppercase tracking-[0.2em] hover:bg-secondary transition-all rounded-full shadow-2xl text-[10px]">
         GET THE GUIDE
       </button>
     </div>
