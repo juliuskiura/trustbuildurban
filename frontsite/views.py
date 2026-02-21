@@ -138,3 +138,8 @@ def services(request):
 def portfolio(request):
     """Render the portfolio page"""
     return render(request, "portfolio/portfolio.html")
+
+
+def contact(request):
+    """Render the contact page"""
+    return render(request, "contact/contact.html")
