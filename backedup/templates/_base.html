@@ -1,0 +1,185 @@
+<!-- templates/_base.html -->
+
+{% load compress %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>TrustBuild Urban | Premium Real Estate Design & Build</title>
+    {% endblock %}
+    {% block meta_description %}
+    <meta name="description"
+        content="Premium Real Estate Design & Build Consultancy. We bridge the gap for diaspora clients through transparency and world-class management." />
+    {% endblock %}
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
+
+    <style>
+        /* Immediate navbar fix for FOUC */
+        #navbar.is-top { background: transparent; backdrop-filter: none; }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-foreground bg-background">
+    <nav id="navbar"
+        class="fixed w-[calc(100%-2rem)] left-4 right-4 top-4 z-50 transition-all duration-500 rounded-2xl {% if request.path == '/' %}is-top{% else %}glass py-3{% endif %}">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+            <a class="flex flex-col group" href="/">
+                <span class="text-xl md:text-2xl font-bold tracking-tighter text-current leading-none">TRUSTBUILD</span>
+                <span class="text-[8px] tracking-[0.4em] font-bold uppercase opacity-80">Urban Design & Build</span>
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-10">
+                <a class="text-xs font-semibold uppercase tracking-widest hover:text-gold transition-colors" href="/">Home</a>
+                <a class="text-xs font-semibold uppercase tracking-widest hover:text-gold transition-colors" href="/about">About</a>
+                <a class="text-xs font-semibold uppercase tracking-widest hover:text-gold transition-colors" href="/services">Services</a>
+                <a class="text-xs font-semibold uppercase tracking-widest hover:text-gold transition-colors" href="/portfolio">Portfolio</a>
+                <a class="text-xs font-semibold uppercase tracking-widest hover:text-gold transition-colors" href="/available">Available</a>
+                <a class="text-xs font-semibold uppercase tracking-widest hover:text-gold transition-colors" href="/blog">Blog</a>
+                <a class="bg-gold hover:bg-gold-hover text-white px-6 py-3 rounded-xl text-[10px] font-black tracking-widest transition-all shadow-lg hover:shadow-gold/20"
+                    href="/contact">CONSULTATION</a>
+            </div>
+
+            <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-xl glass hover:bg-white/10 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-menu">
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 right-0 mt-2 glass-dark rounded-2xl mx-4 overflow-hidden animate-fade-up">
+            <div class="flex flex-col p-6 space-y-4">
+                <a class="text-sm font-bold text-white uppercase tracking-widest border-b border-white/10 pb-2" href="/">Home</a>
+                <a class="text-sm font-bold text-white uppercase tracking-widest border-b border-white/10 pb-2" href="/about">About</a>
+                <a class="text-sm font-bold text-white uppercase tracking-widest border-b border-white/10 pb-2" href="/services">Services</a>
+                <a class="text-sm font-bold text-white uppercase tracking-widest border-b border-white/10 pb-2" href="/portfolio">Portfolio</a>
+                <a class="text-sm font-bold text-white uppercase tracking-widest border-b border-white/10 pb-2" href="/available">Available</a>
+                <a class="w-full bg-gold text-white text-center py-4 rounded-xl text-xs font-black tracking-widest" href="/contact">CONSULTATION</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-h-screen">
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+
+        <footer class="bg-navy text-white pt-24 pb-12 overflow-hidden relative">
+            <!-- Decorative light patterns -->
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] -mr-64 -mt-64"></div>
+            
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+                    <div class="space-y-8">
+                        <div class="flex flex-col">
+                            <span class="text-2xl font-bold tracking-tighter">TRUSTBUILD</span>
+                            <span class="text-[10px] tracking-[0.4em] font-bold uppercase text-gold">Urban Design & Build</span>
+                        </div>
+                        <p class="text-slate-light leading-relaxed text-sm">
+                            Kenya's most trusted partner for structured home building. We bridge the gap for diaspora clients through transparency and world-class management.
+                        </p>
+                        <div class="flex space-x-4">
+                            {% for social in 'facebook,instagram,linkedin' %}
+                            <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-gold hover:text-white transition-all">
+                                <span class="sr-only">{{ social }}</span>
+                                <div class="w-5 h-5"></div> <!-- Placeholder for icons -->
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-black uppercase tracking-widest mb-8 text-gold">Quick Links</h4>
+                        <ul class="space-y-4 text-slate-light text-sm font-medium">
+                            <li><a class="hover:text-gold transition-colors" href="/about">Our Story</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="/portfolio">Recent Projects</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="/process">The 7-Step Process</a></li>
+                            <li><a class="hover:text-gold transition-colors" href="/available">Available Homes</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-black uppercase tracking-widest mb-8 text-gold">Inquiries</h4>
+                        <ul class="space-y-4 text-slate-light text-sm font-medium">
+                            <li class="flex items-center space-x-3">
+                                <span class="text-gold font-bold">T:</span>
+                                <span>+254 712 345 678</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <span class="text-gold font-bold">E:</span>
+                                <span>info@trustbuildurban.co.ke</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <span class="text-gold font-bold">A:</span>
+                                <span class="leading-relaxed">Riverside Square, Riverside Dr,<br>Nairobi, Kenya</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-black uppercase tracking-widest mb-8 text-gold">Newsletter</h4>
+                        <p class="text-slate-light mb-6 text-sm">Stay updated with building trends in Kenya.</p>
+                        <form class="flex p-1 rounded-2xl glass-dark">
+                            <input type="email" placeholder="Email address"
+                                class="bg-transparent px-4 py-3 w-full text-sm focus:outline-none placeholder:text-white/30" />
+                            <button class="bg-white text-navy px-6 py-3 rounded-xl hover:bg-gold hover:text-white transition-all text-[10px] font-black tracking-widest">JOIN</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest text-slate-light">
+                    <p>© 2024 TrustBuild Urban Design & Build. All rights reserved.</p>
+                    <div class="flex space-x-8 mt-6 md:mt-0">
+                        <a href="#" class="hover:text-gold transition-colors">Privacy</a>
+                        <a href="#" class="hover:text-gold transition-colors">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('nav-scrolled');
+                navbar.classList.remove('is-top');
+                navbar.classList.add('py-3');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                {% if request.path == '/' %}
+                navbar.classList.add('is-top');
+                {% endif %}
+                navbar.classList.remove('py-3');
+            }
+        });
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

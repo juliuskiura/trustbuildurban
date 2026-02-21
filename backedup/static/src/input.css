@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* Premium Design System for TrustBuild Urban */
+:root {
+  /* Brand Colors */
+  --navy: #001A33;
+    --navy-light: #002D59;
+    --gold: #C5A059;
+    --gold-hover: #A68041;
+    --slate: #475569;
+    --slate-light: #94A3B8;
+  
+    /* Vibrant Accent requested by user */
+    --vibrant-blue: #2a28e7;
+  
+    /* Base Semantic Variables (Tailwind v4 theme colors) */
+    --background: oklch(0.99 0.005 240);
+    --foreground: oklch(0.15 0.03 240);
+  
+    --primary: var(--navy);
+    --primary-foreground: oklch(1 0 0);
+  
+    --secondary: var(--slate);
+    --secondary-foreground: oklch(1 0 0);
+  
+    --accent: var(--gold);
+    --accent-foreground: oklch(0.15 0.03 240);
+  
+    --card: oklch(1 0 0 / 0.7);
+    --card-foreground: var(--foreground);
+  
+    --border: oklch(0.9 0.01 240);
+    --muted: oklch(0.96 0.01 240);
+    --muted-foreground: oklch(0.5 0.05 240);
+  
+    /* Typography */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+  
+    /* Glassmorphism Defaults */
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+  
+    --radius: 0.75rem;
+  }
+  
+  .dark {
+  --background: oklch(0.12 0.02 240);
+    --foreground: oklch(0.98 0.01 240);
+  
+    --glass-bg: rgba(0, 26, 51, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+    --color-navy-light: var(--navy-light);
+    --color-gold: var(--gold);
+    --color-gold-hover: var(--gold-hover);
+    --color-slate: var(--slate);
+    --color-slate-light: var(--slate-light);
+    --color-vibrant-blue: var(--vibrant-blue);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-border: var(--border);
+  --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+  
+    --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  
+  --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+  }
+  
+  @layer base {
+    html {
+      scroll-behavior: smooth;
+    }
+  
+        body {
+          @apply bg-background text-foreground antialiased font-sans;
+        }
+    
+        h1,
+        h2,
+        h3,
+        .font-serif {
+          @apply font-serif;
+        }
+        }
+  
+        /* Glassmorphism Utilities */
+        @utility glass {
+          background: var(--glass-bg);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid var(--glass-border);
+          box-shadow: var(--glass-shadow);
+        }
+        @utility glass-dark {
+          background: rgba(0, 0, 0, 0.3);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    
+        @utility glass-card {
+          @apply glass rounded-2xl p-6 transition-all duration-300;
+    
+          &:hover {
+            @apply -translate-y-1;
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.12);
+          }
+        }
+    @utility text-balance {
+      text-wrap: balance;
+    }
+/* Navigation Utilities */
+@utility nav-scrolled {
+  @apply glass py-3;
+}
+/* Animations */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+}
+}
+@utility animate-fade-up {
+  animation: fade-up 0.6s ease-out forwards;
+}

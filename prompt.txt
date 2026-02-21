@@ -1,0 +1,183 @@
+You are a senior frontend engineer and UI/UX designer.
+
+This is a Real Estate Design & Build Consultancy website built with Django.
+The project structure includes:
+
+templates
+  (Django HTML templates)
+static
+ (CSS, JS, images)
+
+
+Theme configuration inside 
+input.css
+ 
+
+🎯 Objective
+
+Redesign the website to have a modern, premium, trustworthy look using glassmorphism principles.
+
+The final result should feel:
+
+Premium and high-end
+
+Trustworthy and stable
+
+Calm and consoling
+
+Architectural / real-estate professional
+
+Clean and spacious
+
+Avoid flashy startup vibes.
+
+🎨 Design System Requirements
+1️⃣ Glassmorphism Implementation
+
+Apply proper glassmorphism styling:
+
+Semi-transparent backgrounds 
+Subtle backdrop blur (backdrop-filter: blur())
+Soft borders 
+Soft layered shadows
+Depth layering (cards floating over background)
+Apply glassmorphism to:
+Navbar
+Hero content box
+Property cards
+Service cards
+CTA sections
+Footer panels
+Do NOT overuse blur.
+2️⃣ Navigation Improvement
+
+Redesign the navigation to feel premium and intuitive.
+Requirements:
+Sticky navbar
+Glass background with blur
+Smooth scroll behavior
+Clear hierarchy
+Proper spacing and alignment
+Elegant hover states
+Mobile responsive with animated hamburger menu
+Enhancement:
+Subtle shadow on scroll
+Active link state indicator
+Dropdown animation if needed
+3️⃣ Color System (Modify @input.css)
+
+Adjust theme colors to reflect:
+
+Trust
+
+Stability
+
+Luxury
+
+Calm professionalism
+
+Avoid:
+
+Neon
+
+Over-saturated gradients
+
+Startup-style bright blues
+
+Suggested direction:
+
+
+Soft slate tones
+
+Muted gold or warm accent
+
+Frosted white overlays
+
+Update:
+
+CSS variables
+
+Background colors
+
+Card colors
+
+Accent colors
+
+Button states
+
+Text hierarchy
+
+Ensure:
+
+Proper contrast ratio
+
+Accessible readability
+
+Subtle gradients if necessary
+4️⃣ Typography Improvements
+
+Increase spacing and breathing room
+
+Improve heading scale
+
+Refine font weight hierarchy
+
+More elegant button styles
+
+Proper line-height
+
+If possible:
+
+Suggest premium font pairing (Google Fonts compatible)
+
+5️⃣ UI Improvements
+
+Improve these sections if present:
+
+Hero section
+
+Services
+
+Featured properties
+
+About section
+
+Testimonials
+
+CTA
+
+Footer
+
+Ensure:
+
+Consistent spacing system
+
+Modern card layout
+
+Subtle hover animations
+
+Smooth transitions
+
+6️⃣ Responsiveness
+
+Ensure:
+
+Fully responsive layout
+
+Good spacing on tablet
+
+Clean stacking on mobile
+
+Mobile nav works perfectly
+
+7️⃣ Code Requirements
+
+Keep Django template structure intact
+
+Only modify frontend styling and markup where needed
+
+Use clean semantic HTML
+
+Do not break template inheritance
+
+Keep changes modular and maintainable

@@ -1,0 +1,75 @@
+<section class="py-32 bg-background relative overflow-hidden">
+  <div class="absolute top-0 left-0 w-full h-px bg-texts/5"></div>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+      <div class="animate-on-scroll">
+        <div class="flex items-center space-x-3 text-accent mb-6">
+          <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-shield-alert w-5 h-5" aria-hidden="true">
+                <path
+                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+                </path>
+                <path d="M12 8v4"></path>
+                <path d="M12 16h.01"></path>
+            </svg>
+          </div>
+          <span class="font-bold tracking-[0.3em] uppercase text-[10px]">{{ diaspora_section.subtitle }}</span>
+        </div>
+        <h2 class="text-4xl md:text-6xl font-serif font-bold text-texts mb-10 leading-[1.1]">
+          {{ diaspora_section.heading }}
+        </h2>
+        <div class="space-y-8 mb-12">
+          {% load static %}
+          {% for challenge in challenges %}
+          <div class="flex items-start space-x-5 group">
+            <div class="mt-1 bg-texts/5 p-2 rounded-xl group-hover:bg-texts group-hover:text-white transition-all">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-x w-4 h-4 transition-colors" aria-hidden="true">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-texts text-lg mb-1">{{ challenge }}</h4>
+              <p class="text-texts/50 text-sm leading-relaxed max-w-md">
+                Reliably eliminated through our corporate management systems and legally stamped contracts.
+              </p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="glass glass-border p-8 rounded-3xl border-l-4 border-l-accent shadow-xl bg-white/50">
+          <p class="text-texts font-serif text-xl italic leading-relaxed">
+            "{{ quote.attribution }}"
+          </p>
+        </div>
+      </div>
+      <div class="relative group">
+        <div class="absolute -inset-6 bg-accent/5 rounded-[4rem] group-hover:scale-105 transition-transform duration-700"></div>
+        <div class="relative z-10 w-full aspect-[4/5] overflow-hidden rounded-[3rem] shadow-2xl border-8 border-white">
+          <img alt="Modern Architecture" decoding="async" data-nimg="fill"
+            class="object-cover group-hover:scale-110 transition-all duration-1000" style="
+                      position: absolute;
+                      height: 100%;
+                      width: 100%;
+                      left: 0;
+                      top: 0;
+                      right: 0;
+                      bottom: 0;
+                      color: transparent;
+                    "
+            src="{{ featured_project.image_url }}" />
+            <div class="absolute inset-x-8 bottom-8">
+                <div class="glass glass-border p-6 rounded-2xl shadow-2xl backdrop-blur-2xl">
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-texts/40 mb-2">{{ featured_project.label }}</p>
+                    <p class="text-xl font-serif font-bold text-texts">{{ featured_project.title }}</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
