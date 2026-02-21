@@ -106,5 +106,35 @@ def available_homes(request):
     'buttonLink': '/available/'}
 
 }
-    
+
     return render(request, 'available_homes/available.html', {'pagedata': page})
+
+
+def about(request):
+    """Render the about page"""
+    return render(request, "about/about.html")
+
+
+def blog(request):
+    """Render the blog page"""
+    return render(request, "blog/blog.html")
+
+
+def guide(request):
+    """Render the guides page"""
+    return render(request, "guides/guide.html")
+
+
+def process(request):
+    """Render the process page"""
+    return render(request, "process/process.html")
+
+
+def services(request):
+    """Render the services page"""
+    return render(request, "services/services.html")
+
+
+def portfolio(request):
+    """Render the portfolio page"""
+    return render(request, "portfolio/portfolio.html")

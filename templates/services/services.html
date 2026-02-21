@@ -1,0 +1,138 @@
+{% extends "_base.html" %}
+
+{% block title %}
+<title>Our Services | TrustBuild Urban</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Specialized solutions in construction, project management, and structural engineering by TrustBuild Urban." />
+{% endblock %}
+
+{% block content %}
+<div class="pt-32 pb-24 bg-background">
+    <div class="max-w-7xl mx-auto px-6">
+        <header class="mb-32 text-center">
+            <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">What We Do</span>
+            <h1 class="text-5xl md:text-7xl font-serif font-bold text-foreground mb-6 max-w-4xl mx-auto">Specialized Solutions for Discerning Clients.</h1>
+            <p class="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                From the first site visit to the final coat of paint, we manage the complexities of construction so you don't have to.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 gap-16">
+            <!-- Consultancy -->
+            <div class="flex flex-col lg:flex-row items-center gap-16 p-8 lg:p-12 bg-white/40 backdrop-blur-xl rounded-[3rem] border border-border group hover:shadow-2xl transition-all duration-700 hover:-translate-y-2">
+                <div class="lg:w-1/2 relative">
+                    <div class="relative z-10">
+                        <div class="bg-accent/10 w-20 h-20 rounded-[2rem] flex items-center justify-center mb-10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe w-10 h-10" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                                <path d="M2 12h20"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl md:text-5xl font-serif font-bold text-foreground mb-6">Consultancy</h3>
+                        <p class="text-lg text-muted-foreground mb-10 leading-relaxed max-w-xl">
+                            Expert advice for your building project. We handle all the heavy lifting, ensuring your project meets both local regulations and international standards.
+                        </p>
+                        <a href="/contact" class="inline-flex items-center text-foreground font-black text-[10px] uppercase tracking-[0.2em] group-hover:tracking-[0.4em] transition-all border-b-2 border-accent pb-2">
+                            Learn More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-4 w-4 h-4 group-hover:translate-x-2 transition-transform text-accent" aria-hidden="true">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 overflow-hidden rounded-[2.5rem] h-[400px] lg:h-[500px] shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1541914590372-e01d89758e5a?auto=format&fit=crop&q=80&w=1200" alt="Consultancy" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" />
+                </div>
+            </div>
+
+            <!-- Construction -->
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-16 p-8 lg:p-12 bg-white/40 backdrop-blur-xl rounded-[3rem] border border-border group hover:shadow-2xl transition-all duration-700 hover:-translate-y-2">
+                <div class="lg:w-1/2 relative text-left lg:pl-12">
+                    <div class="relative z-10">
+                        <div class="bg-accent/10 w-20 h-20 rounded-[2rem] flex items-center justify-center mb-10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house w-10 h-10" aria-hidden="true">
+                                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                                <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl md:text-5xl font-serif font-bold text-foreground mb-6">Construction</h3>
+                        <p class="text-lg text-muted-foreground mb-10 leading-relaxed max-w-xl">
+                            Quality builds you can trust. We manage master craftsmen and premium materials to ensure your legacy is built to the highest possible standards.
+                        </p>
+                        <a href="/contact" class="inline-flex items-center text-foreground font-black text-[10px] uppercase tracking-[0.2em] group-hover:tracking-[0.4em] transition-all border-b-2 border-accent pb-2">
+                            Learn More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-4 w-4 h-4 group-hover:translate-x-2 transition-transform text-accent" aria-hidden="true">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 overflow-hidden rounded-[2.5rem] h-[400px] lg:h-[500px] shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200" alt="Construction" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" />
+                </div>
+            </div>
+
+            <!-- Project Management -->
+            <div class="flex flex-col lg:flex-row items-center gap-16 p-8 lg:p-12 bg-white/40 backdrop-blur-xl rounded-[3rem] border border-border group hover:shadow-2xl transition-all duration-700 hover:-translate-y-2">
+                <div class="lg:w-1/2 relative">
+                    <div class="relative z-10">
+                        <div class="bg-accent/10 w-20 h-20 rounded-[2rem] flex items-center justify-center mb-10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings w-10 h-10" aria-hidden="true">
+                                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl md:text-5xl font-serif font-bold text-foreground mb-6">Project Management</h3>
+                        <p class="text-lg text-muted-foreground mb-10 leading-relaxed max-w-xl">
+                            We manage everything for you. From procurement to labor management, we act as your local eyes and ears, treating your investment with the same care as our own.
+                        </p>
+                        <a href="/contact" class="inline-flex items-center text-foreground font-black text-[10px] uppercase tracking-[0.2em] group-hover:tracking-[0.4em] transition-all border-b-2 border-accent pb-2">
+                            Learn More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-4 w-4 h-4 group-hover:translate-x-2 transition-transform text-accent" aria-hidden="true">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 overflow-hidden rounded-[2.5rem] h-[400px] lg:h-[500px] shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=1200" alt="Project Management" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" />
+                </div>
+            </div>
+
+            <!-- Site Inspection -->
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-16 p-8 lg:p-12 bg-white/40 backdrop-blur-xl rounded-[3rem] border border-border group hover:shadow-2xl transition-all duration-700 hover:-translate-y-2">
+                <div class="lg:w-1/2 relative text-left lg:pl-12">
+                    <div class="relative z-10">
+                        <div class="bg-accent/10 w-20 h-20 rounded-[2rem] flex items-center justify-center mb-10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search w-10 h-10" aria-hidden="true">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-3xl md:text-5xl font-serif font-bold text-foreground mb-6">Site Inspection</h3>
+                        <p class="text-lg text-muted-foreground mb-10 leading-relaxed max-w-xl">
+                            Regular checks on your progress. We provide detailed reports and live video updates, ensuring radical transparency throughout the building lifecycle.
+                        </p>
+                        <a href="/contact" class="inline-flex items-center text-foreground font-black text-[10px] uppercase tracking-[0.2em] group-hover:tracking-[0.4em] transition-all border-b-2 border-accent pb-2">
+                            Learn More 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right ml-4 w-4 h-4 group-hover:translate-x-2 transition-transform text-accent" aria-hidden="true">
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 overflow-hidden rounded-[2.5rem] h-[400px] lg:h-[500px] shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&q=80&w=1200" alt="Site Inspection" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
