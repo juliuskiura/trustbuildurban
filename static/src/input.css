@@ -5,7 +5,8 @@
       --accent: #D4AF37;
       --secondary: #2a28e7;
       --tertiary: #2596be;
-      --alternate: #5958dc;
+      --alternate: #4F46E5;
+        --reddish: #E63946;
       --background: oklch(0.98 0.01 200);
       /* Very light background */
       --foreground: var(--texts);
