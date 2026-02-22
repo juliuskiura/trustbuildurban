@@ -19,6 +19,8 @@
     
       --primary: var(--texts);
       --primary-foreground: oklch(1 0 0);
+      --destructive: var(--reddish);
+      --destructive-foreground: oklch(1 0 0);
     
       --muted: oklch(0.96 0.01 200);
       --muted-foreground: oklch(0.5 0.05 200);

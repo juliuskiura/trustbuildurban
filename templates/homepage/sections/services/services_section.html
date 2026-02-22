@@ -8,20 +8,18 @@
     </div>
     
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-      <div class="glass glass-border rounded-[3rem] p-12 hover:shadow-2xl transition-all duration-700 bg-white/40">
-        <div class="w-20 h-20 rounded-2xl bg-texts text-white flex items-center justify-center mb-10 shadow-xl">
-           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide w-10 h-10" aria-hidden="true">
-            <path d="m2 22 1-1h3l9-9"></path><path d="M14 2h.01"></path><path d="M7 2h.01"></path><path d="M3.5 15.5 8 11"></path><path d="m5 11 3 3"></path><path d="M19 13.5v7a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h7"></path><path d="M11 2h.01"></path><path d="m17 2 3.3 3.3c.39.39.39 1.02 0 1.41L17 10"></path><path d="M13 2v8"></path>
-          </svg>
+      {% for service in services_section.services %}
+       <div class="glass glass-border rounded-[3rem] p-12 hover:shadow-2xl transition-all duration-700 bg-white/40">
+        <div class="w-20 h-20 rounded-2xl{% if forloop.counter == 1%} bg-texts {% else %} bg-secondary {% endif %} text-white flex items-center justify-center mb-10 shadow-xl">
+           {{ service.icon|safe }}
         </div>
-        <h3 class="text-3xl font-serif font-bold text-texts mb-6">{{ services_section.service_1.title }}</h3>
+        <h3 class="text-3xl font-serif font-bold text-texts mb-6">{{ service.title }}</h3>
         <p class="text-texts/60 leading-relaxed font-medium mb-10">
-          {{ services_section.service_1.description }}
-        </p>
+          {{ service.description }}
+        </p>       
+      
         <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {% for item in expertise|slice:":4" %}
+          {% for item in service.expertise %}
           <li class="flex items-center space-x-3 text-texts/70 font-bold uppercase text-[10px] tracking-widest">
             <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
             <span>{{ item }}</span>
@@ -29,28 +27,9 @@
           {% endfor %}
         </ul>
       </div>
+      {% endfor %}
 
-      <div class="glass glass-border rounded-[3rem] p-12 hover:shadow-2xl transition-all duration-700 bg-white/40">
-        <div class="w-20 h-20 rounded-2xl bg-accent text-texts flex items-center justify-center mb-10 shadow-xl">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide w-10 h-10" aria-hidden="true">
-            <path d="M3 14h18"></path><path d="M3 18h18"></path><path d="M4 10V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6"></path><path d="m12 2 4 4-4 4-4-4 4-4z"></path>
-          </svg>
-        </div>
-        <h3 class="text-3xl font-serif font-bold text-texts mb-6">{{ services_section.service_2.title }}</h3>
-        <p class="text-texts/60 leading-relaxed font-medium mb-10">
-          {{ services_section.service_2.description }}
-        </p>
-         <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {% for item in expertise|slice:"4:8" %}
-          <li class="flex items-center space-x-3 text-texts/70 font-bold uppercase text-[10px] tracking-widest">
-            <span class="w-1.5 h-1.5 rounded-full bg-texts"></span>
-            <span>{{ item }}</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
+     
     </div>
   </div>
 </section>

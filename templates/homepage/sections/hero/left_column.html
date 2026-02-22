@@ -23,16 +23,16 @@
   <!-- Statistics Row -->
   <div class="grid grid-cols-3 gap-8 mt-20 pt-10 border-t border-primary/5">
     <div>
-      <p class="text-3xl font-serif font-bold text-primary">{{ stats.happy_customers }}</p>
-      <p class="text-[10px] uppercase font-bold tracking-widest text-primary/40 mt-1">Happy Customers</p>
+      <p class="text-3xl font-serif font-bold text-primary">{{ hero.stats.happy_customers.value }}</p>
+      <p class="text-[10px] uppercase font-bold tracking-widest text-primary/40 mt-1">{{ hero.stats.happy_customers.label }}</p>
     </div>
     <div>
-      <p class="text-3xl font-serif font-bold text-primary">{{ stats.property_sales }}</p>
-      <p class="text-[10px] uppercase font-bold tracking-widest text-primary/40 mt-1">Property Sales</p>
+      <p class="text-3xl font-serif font-bold text-primary">{{ hero.stats.property_sales.value }}</p>
+      <p class="text-[10px] uppercase font-bold tracking-widest text-primary/40 mt-1">{{ hero.stats.property_sales.label }}</p>
     </div>
     <div>
-      <p class="text-3xl font-serif font-bold text-primary">{{ stats.award_winning }}</p>
-      <p class="text-[10px] uppercase font-bold tracking-widest text-primary/40 mt-1">Award Winning</p>
+      <p class="text-3xl font-serif font-bold text-primary">{{ hero.stats.award_winning.value }}</p>
+      <p class="text-[10px] uppercase font-bold tracking-widest text-primary/40 mt-1">{{ hero.stats.award_winning.label }}</p>
     </div>
   </div>
 </div>
