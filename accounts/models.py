@@ -1,18 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.db.models import Func
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.translation import gettext_lazy as _
-from django.db.models.signals import pre_save, post_save
-from django.dispatch import receiver
 from django.contrib.auth.models import Group
-from django.urls import reverse
-from django.contrib.auth.models import Group
-from core.fields import ReferenceField
-from django.db import models, IntegrityError, transaction
-
-class UUIDv7(Func):
-    function = 'uuidv7'
-
 
 class CustomAccountManager(BaseUserManager):
     # ...
@@ -58,9 +49,6 @@ class CustomAccountManager(BaseUserManager):
 
 
 class UserAccount(AbstractBaseUser, PermissionsMixin):
-    """Custom user account model with UUID as primary key."""    
-    id = models.UUIDField(primary_key=True, editable=False, db_index=True, db_default=UUIDv7())
-    reference = ReferenceField(app="AC", model="UA", format="appmodelX")
     email = models.EmailField(_('email address'), unique=True)
     username = models.CharField(max_length=150, unique=True, null=True, blank=True)
     first_name = models.CharField(max_length=150, null=True, blank=True)
@@ -88,15 +76,3 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
-    
-    def save(self, *args, **kwargs):
-        for _ in range(10):
-            try:
-                with transaction.atomic():
-                    return super().save(*args, **kwargs)
-            except IntegrityError:
-                if self._state.adding:
-                    setattr(self, self.reference_field_name, None)
-                    continue
-                raise
-        raise IntegrityError("Could not generate unique reference")

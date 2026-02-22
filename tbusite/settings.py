@@ -31,17 +31,25 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'compressor',
-    'frontsite',
-    'accounts',
-    'core',
+    "unfold",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "compressor",
+    "frontsite",
+    "accounts",
+    "core",
 ]
+
+
+# THIRD_PARTY_APPS=["unfold", "compressor"]
+# LOCAL_APPS=['frontsite', 'accounts', 'core']
+
+# INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS +  LOCAL_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,3 +151,25 @@ STATICFILES_FINDERS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = "accounts.UserAccount"
+
+# Django Unfold Theme Configuration
+UNFOLD = {
+     "BORDER_RADIUS": "6px",
+    "THEME": "light",  # Options: "system", "light", "dark"
+    "COLORS": {
+        "primary": {
+             '50': '#efeeff',
+            '100': '#e2e0ff',
+            '200': '#cac7fe',
+            '300': '#aaa5fc',
+            '400': '#8881f8',
+            '500': '#6b63f1',
+            '600': '#4f46e5',
+            '700': '#4038ca',
+            '800': '#3730a3',
+            '900': '#332e81',
+            '950': '#1e1b4b',
+        },
+    },
+}
