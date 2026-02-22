@@ -1,92 +1,16 @@
 {% extends "_base.html" %}
 
 {% block title %}
-<title>About | TrustBuild Urban</title>
+<title>{{ meta.title }}</title>
 {% endblock %}
 
 {% block meta_description %}
-<meta name="description" content="Learn about our mission of radical transparency and excellence in construction." />
+<meta name="description" content="{{ meta.description }}" />
 {% endblock %}
 
 {% block content %}
 <div class="pt-32 pb-24 bg-background">
-    <section class="max-w-7xl mx-auto px-6 mb-32">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-                <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">Our Story</span>
-                <h1 class="text-5xl md:text-7xl font-serif font-bold text-foreground mb-8 leading-tight">Excellence in Construction, Built on Trust.</h1>
-                <p class="text-lg text-muted-foreground mb-6 leading-relaxed">
-                    Founded on the principle of radical transparency, TrustBuild Urban has become the premier choice for Kenyans living abroad and local high-end homeowners. We recognized a massive gap in the market: the lack of corporate accountability in residential construction.
-                </p>
-                <p class="text-lg text-muted-foreground mb-8 leading-relaxed">
-                    Our mission is to provide a seamless, stress-free building experience where quality is never compromised, and every shilling is accounted for. We don't just build houses; we build legacies.
-                </p>
-                <div class="grid grid-cols-2 gap-8 border-t border-border pt-8">
-                    <div>
-                        <h4 class="text-4xl font-serif font-bold text-foreground mb-1">10+</h4>
-                        <p class="text-[10px] text-muted-foreground font-bold uppercase tracking-[0.4em]">Years Experience</p>
-                    </div>
-                    <div>
-                        <h4 class="text-4xl font-serif font-bold text-foreground mb-1">150+</h4>
-                        <p class="text-[10px] text-muted-foreground font-bold uppercase tracking-[0.4em]">Projects Completed</p>
-                    </div>
-                </div>
-            </div>
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1541914590372-e01d89758e5a?auto=format&amp;fit=crop&amp;q=80&amp;w=1200" alt="Architecture Team" class="rounded-2xl shadow-2xl" />
-                <div class="absolute -bottom-10 -left-10 bg-foreground p-10 hidden md:block rounded-xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check text-accent w-12 h-12 mb-4" aria-hidden="true">
-                        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
-                        <path d="m9 12 2 2 4-4"></path>
-                    </svg>
-                    <p class="text-background font-bold italic">"Transparency isn't a buzzword; it's our core architecture."</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-white py-32 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-24">
-                <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">The TrustBuild Standards</span>
-                <h2 class="text-4xl md:text-6xl font-serif font-bold text-foreground mb-4">Our Core Pillars</h2>
-                <div class="w-24 h-1 bg-accent mx-auto mt-8"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div class="bg-background/40 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-700 border border-border group hover:-translate-y-2">
-                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-10 bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-8 h-8" aria-hidden="true">
-                            <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
-                            <circle cx="12" cy="8" r="6"></circle>
-                        </svg>
-                    </div>
-                    <h4 class="text-2xl font-serif font-bold text-foreground mb-4">Uncompromising Quality</h4>
-                    <p class="text-muted-foreground leading-relaxed">We source premium materials and employ master craftsmen to ensure every finish is world-class.</p>
-                </div>
-                <div class="bg-background/40 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-700 border border-border group hover:-translate-y-2">
-                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-10 bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users w-8 h-8" aria-hidden="true">
-                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                            <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
-                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                        </svg>
-                    </div>
-                    <h4 class="text-2xl font-serif font-bold text-foreground mb-4">Client Partnership</h4>
-                    <p class="text-muted-foreground leading-relaxed">We act as your local eyes and ears, treating your investment with the same care as our own.</p>
-                </div>
-                <div class="bg-background/40 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-700 border border-border group hover:-translate-y-2">
-                    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-10 bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big w-8 h-8" aria-hidden="true">
-                            <path d="M21.801 10A10 10 0 1 1 17 3.335"></path>
-                            <path d="m9 11 3 3L22 4"></path>
-                        </svg>
-                    </div>
-                    <h4 class="text-2xl font-serif font-bold text-foreground mb-4">Ethical Conduct</h4>
-                    <p class="text-muted-foreground leading-relaxed">From legal land acquisition to labor management, we operate with absolute integrity.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    {% include "about/sections/story/story_section.html" %}
+    {% include "about/sections/pillars/pillars_section.html" %}
 </div>
 {% endblock content %}

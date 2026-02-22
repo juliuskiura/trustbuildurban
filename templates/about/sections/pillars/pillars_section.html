@@ -1,0 +1,22 @@
+{% if pillars_section %}
+<section class="bg-white py-32 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-24">
+            <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">{{ pillars_section.eyebrow }}</span>
+            <h2 class="text-4xl md:text-6xl font-serif font-bold text-foreground mb-4">{{ pillars_section.heading }}</h2>
+            <div class="w-24 h-1 bg-accent mx-auto mt-8"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {% for pillar in pillars_section.pillars %}
+            <div class="bg-background/40 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-700 border border-border group hover:-translate-y-2">
+                <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-10 bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500 shadow-xl">
+                    {{ pillar.icon|safe }}
+                </div>
+                <h4 class="text-2xl font-serif font-bold text-foreground mb-4">{{ pillar.title }}</h4>
+                <p class="text-muted-foreground leading-relaxed">{{ pillar.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

@@ -251,8 +251,6 @@ def index(request):
 
     # Challenges data
 
-
-   
     context = {
         # Meta
         "meta": meta,
@@ -272,6 +270,67 @@ def index(request):
     }
 
     return render(request, "homepage/index.html", context)
+
+
+def about(request):
+    """Render the about page"""
+    # Meta information
+    meta = {
+        "title": "About | TrustBuild Urban",
+        "description": "Learn about our mission of radical transparency and excellence in construction.",
+    }
+
+    # Story section data (hero section)
+    story_section = {
+        "eyebrow": "Our Story",
+        "heading": "Excellence in Construction, Built on Trust.",
+        "description_1": "Founded on the principle of radical transparency, TrustBuild Urban has become the premier choice for Kenyans living abroad and local high-end homeowners. We recognized a massive gap in the market: the lack of corporate accountability in residential construction.",
+        "description_2": "Our mission is to provide a seamless, stress-free building experience where quality is never compromised, and every shilling is accounted for. We don't just build houses; we build legacies.",
+        "image_url": "https://images.unsplash.com/photo-1541914590372-e01d89758e5a?auto=format&fit=crop&q=80&w=1200",
+        "image_alt": "Architecture Team",
+        "quote": "Transparency isn't a buzzword; it's our core architecture.",
+        "stats": {
+            "years_experience": {
+                "value": "10+",
+                "label": "Years Experience",
+            },
+            "projects_completed": {
+                "value": "150+",
+                "label": "Projects Completed",
+            },
+        },
+    }
+
+    # Core Pillars section data
+    pillars_section = {
+        "eyebrow": "The TrustBuild Standards",
+        "heading": "Our Core Pillars",
+        "pillars": [
+            {
+                "title": "Uncompromising Quality",
+                "description": "We source premium materials and employ master craftsmen to ensure every finish is world-class.",
+                "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-8 h-8" aria-hidden="true"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path><circle cx="12" cy="8" r="6"></circle></svg>""",
+            },
+            {
+                "title": "Client Partnership",
+                "description": "We act as your local eyes and ears, treating your investment with the same care as our own.",
+                "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users w-8 h-8" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg>""",
+            },
+            {
+                "title": "Ethical Conduct",
+                "description": "From legal land acquisition to labor management, we operate with absolute integrity.",
+                "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big w-8 h-8" aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg>""",
+            },
+        ],
+    }
+
+    context = {
+        "meta": meta,
+        "story_section": story_section,
+        "pillars_section": pillars_section,
+    }
+
+    return render(request, "about/about.html", context)
 
 
 def available_homes(request):
@@ -315,36 +374,364 @@ def available_homes(request):
     return render(request, "available_homes/available.html", {"pagedata": page})
 
 
-def about(request):
-    """Render the about page"""
-    return render(request, "about/about.html")
-
-
 def blog(request):
     """Render the blog page"""
-    return render(request, "blog/blog.html")
+    # Meta information
+    meta = {
+        "title": "Blog | TrustBuild Urban",
+        "description": "Stay updated with the latest in Kenyan construction, architectural trends, and diaspora investment strategies.",
+    }
+
+    # Blog header section
+    blog_header = {
+        "eyebrow": "Building Trends",
+        "heading": "TrustBuild Insights",
+        "description": "Stay updated with the latest in Kenyan construction, architectural trends, and diaspora investment strategies.",
+    }
+
+    # Blog grid section
+    blog_grid = {
+        "read_more_text": "Read More",
+        "posts": [
+            {
+                "category": "Construction",
+                "date": "Oct 24, 2024",
+                "title": "Coming Soon: Building Your Legacy",
+                "excerpt": "We are preparing a series of deep dives into the Kenyan building landscape. Stay tuned for expert insights.",
+                "image_url": None,
+            },
+            {
+                "category": "Construction",
+                "date": "Oct 24, 2024",
+                "title": "Coming Soon: Building Your Legacy",
+                "excerpt": "We are preparing a series of deep dives into the Kenyan building landscape. Stay tuned for expert insights.",
+                "image_url": None,
+            },
+            {
+                "category": "Construction",
+                "date": "Oct 24, 2024",
+                "title": "Coming Soon: Building Your Legacy",
+                "excerpt": "We are preparing a series of deep dives into the Kenyan building landscape. Stay tuned for expert insights.",
+                "image_url": None,
+            },
+        ],
+    }
+
+    context = {
+        "meta": meta,
+        "blog_header": blog_header,
+        "blog_grid": blog_grid,
+    }
+
+    return render(request, "blog/blog.html", context)
 
 
 def guide(request):
     """Render the guides page"""
-    return render(request, "guides/guide.html")
+    # Meta information
+    meta = {
+        "title": "Diaspora Guide | TrustBuild Urban",
+        "description": "The comprehensive blueprint for Kenyans living abroad to invest back home.",
+    }
+
+    # Guide hero section
+    guide_hero = {
+        "eyebrow": "Free Resource",
+        "heading": "The Diaspora Building Blueprint 2024",
+        "description": "Our comprehensive 40-page guide for Kenyans living abroad who want to invest in high-end real estate and custom home construction back home.",
+        "features": [
+            "Navigating Kenya's land laws and title verification.",
+            "Current construction costs per square meter (Luxury vs. Mid-Market).",
+            "How to legally supervise your project from thousands of miles away.",
+            "Managing family expectations vs. professional project management.",
+            "The legal requirements for NCA and County approvals.",
+        ],
+        "image_url": "https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?auto=format&fit=crop&q=80&w=800",
+        "image_alt": "Guide Preview",
+        "form": {
+            "title": "Enter your details to receive the PDF",
+            "name_placeholder": "Full Name",
+            "email_placeholder": "Email Address",
+            "button_text": "DOWNLOAD NOW",
+        },
+        "social_proof": {
+            "avatars": [
+                "https://i.pravatar.cc/100?u=1",
+                "https://i.pravatar.cc/100?u=2",
+                "https://i.pravatar.cc/100?u=3",
+                "https://i.pravatar.cc/100?u=4",
+            ],
+            "text": "Join 2,400+ Diaspora Investors",
+            "verified_text": "Verified by AAK Architects",
+        },
+    }
+
+    context = {
+        "meta": meta,
+        "guide_hero": guide_hero,
+    }
+
+    return render(request, "guides/guide.html", context)
 
 
 def process(request):
     """Render the process page"""
-    return render(request, "process/process.html")
+    # Meta information
+    meta = {
+        "title": "Our Process | TrustBuild Urban",
+        "description": "Discover our 7-step roadmap to predictable construction results in Kenya.",
+    }
+
+    # Process header section
+    process_header = {
+        "eyebrow": "How We Work",
+        "heading": "The 7-Step TrustBuild Roadmap",
+        "description": "Construction in Kenya doesn't have to be chaotic. We use a standardized corporate workflow to ensure predictable results every time.",
+    }
+
+    # Process steps section
+    process_steps = {
+        "quality_gate_label": "Quality Gate",
+        "quality_gate_text": "This stage must be signed off by both our lead engineer and the client before proceeding.",
+        "steps": [
+            {
+                "title": "Consultation",
+                "description": "Brainstorming and roadmap development.",
+            },
+            {
+                "title": "Feasibility",
+                "description": "Site visits and legal title verification.",
+            },
+            {
+                "title": "Concept",
+                "description": "Architectural designs and floor planning.",
+            },
+            {
+                "title": "Approvals",
+                "description": "NCA and County government legal sign-offs.",
+            },
+            {
+                "title": "Contracts",
+                "description": "Bill of quantities and fixed-price agreements.",
+            },
+            {
+                "title": "Construction",
+                "description": "Structured building with live video updates.",
+            },
+            {
+                "title": "Handover",
+                "description": "Quality verification and key ceremony.",
+            },
+        ],
+    }
+
+    # Process CTA section
+    process_cta = {
+        "heading": "Ready to take step one?",
+        "button_text": "Book Initial Consultation",
+    }
+
+    context = {
+        "meta": meta,
+        "process_header": process_header,
+        "process_steps": process_steps,
+        "process_cta": process_cta,
+    }
+
+    return render(request, "process/process.html", context)
 
 
 def services(request):
     """Render the services page"""
-    return render(request, "services/services.html")
+    # Meta information
+    meta = {
+        "title": "Our Services | TrustBuild Urban",
+        "description": "Specialized solutions in construction, project management, and structural engineering by TrustBuild Urban.",
+    }
+
+    # Services header section
+    services_header = {
+        "eyebrow": "What We Do",
+        "heading": "Specialized Solutions for Discerning Clients.",
+        "description": "From the first site visit to the final coat of paint, we manage the complexities of construction so you don't have to.",
+    }
+
+    # Services list section
+    services_list = {
+        "learn_more_text": "Learn More",
+        "services": [
+            {
+                "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe w-10 h-10" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>""",
+                "title": "Consultancy",
+                "description": "Expert advice for your building project. We handle all the heavy lifting, ensuring your project meets both local regulations and international standards.",
+                "image_url": "https://images.unsplash.com/photo-1541914590372-e01d89758e5a?auto=format&fit=crop&q=80&w=1200",
+            },
+            {
+                "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house w-10 h-10" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>""",
+                "title": "Construction",
+                "description": "Quality builds you can trust. We manage master craftsmen and premium materials to ensure your legacy is built to the highest possible standards.",
+                "image_url": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200",
+            },
+            {
+                "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings w-10 h-10" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>""",
+                "title": "Project Management",
+                "description": "We manage everything for you. From procurement to labor management, we act as your local eyes and ears, treating your investment with the same care as our own.",
+                "image_url": "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=1200",
+            },
+            {
+                "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search w-10 h-10" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>""",
+                "title": "Site Inspection",
+                "description": "Regular checks on your progress. We provide detailed reports and live video updates, ensuring radical transparency throughout the building lifecycle.",
+                "image_url": "https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?auto=format&fit=crop&q=80&w=1200",
+            },
+        ],
+    }
+
+    context = {
+        "meta": meta,
+        "services_header": services_header,
+        "services_list": services_list,
+    }
+
+    return render(request, "services/services.html", context)
 
 
 def portfolio(request):
     """Render the portfolio page"""
-    return render(request, "portfolio/portfolio.html")
+    # Meta information
+    meta = {
+        "title": "Our Portfolio | TrustBuild Urban",
+        "description": "Explore our architectural masterpieces across Nairobi and Kiambu.",
+    }
+
+    # Portfolio header section
+    portfolio_header = {
+        "heading": "Our Portfolio",
+        "description": "A showcase of architectural brilliance and construction precision across Nairobi, Kiambu, and beyond.",
+    }
+
+    # Portfolio projects section
+    portfolio_projects = {
+        "filters": ["All", "Ongoing", "Luxury", "Family Home", "Villa", "Mid-Market"],
+        "projects": [
+            {
+                "title": "Mountain View Estate",
+                "location": "Kiambu Road, Kiambu",
+                "status": "Ongoing",
+                "description": "A premium gated community featuring modern architectural lines and sustainable materials.",
+                "image_url": "/static/images/build1.jpeg",
+            },
+            {
+                "title": "The Urban Retreat",
+                "location": "Lavington, Nairobi",
+                "status": "Ongoing",
+                "description": "Sophisticated metropolitan living with an emphasis on privacy and luxury finishes.",
+                "image_url": "/static/images/build2.jpeg",
+            },
+            {
+                "title": "Azure Heights",
+                "location": "Parklands, Nairobi",
+                "status": "Ongoing",
+                "description": "Contemporary luxury apartments with panoramic city views and world-class amenities.",
+                "image_url": "/static/images/build3.jpeg",
+            },
+            {
+                "title": "Sunset Ridge",
+                "location": "Ngong, Kajiado",
+                "status": "Ongoing",
+                "description": "Family living redefined with expansive outdoor spaces and modern functional design.",
+                "image_url": "/static/images/build4.jpeg",
+            },
+            {
+                "title": "The Heritage Villa",
+                "location": "Tigoni, Kiambu",
+                "status": "Ongoing",
+                "description": "A timeless blend of classical architectural elements and contemporary luxury.",
+                "image_url": "/static/images/build5.jpeg",
+            },
+            {
+                "title": "Savanna Heights",
+                "location": "Runda, Nairobi",
+                "status": "Ongoing",
+                "description": "Exclusive villa development with seamless indoor-outdoor living spaces.",
+                "image_url": "/static/images/build6.jpeg",
+            },
+        ],
+    }
+
+    context = {
+        "meta": meta,
+        "portfolio_header": portfolio_header,
+        "portfolio_projects": portfolio_projects,
+    }
+
+    return render(request, "portfolio/portfolio.html", context)
 
 
 def contact(request):
     """Render the contact page"""
-    return render(request, "contact/contact.html")
+    # Meta information
+    meta = {
+        "title": "Contact Us | TrustBuild Urban",
+        "description": "Get in touch with TrustBuild Urban for your premium construction and design projects in Kenya.",
+    }
+
+    # Contact header section
+    contact_header = {
+        "eyebrow": "Get In Touch",
+        "heading": "Let's Build Your Legacy Together.",
+        "description": "Whether you're in the diaspora or local, we're here to provide the radical transparency and excellence your project deserves.",
+    }
+
+    # Contact content section
+    contact_content = {
+        "form": {
+            "name_label": "Full Name",
+            "name_placeholder": "John Doe",
+            "email_label": "Email Address",
+            "email_placeholder": "john@example.com",
+            "subject_label": "Subject",
+            "subject_options": [
+                "New Project Inquiry",
+                "Diaspora Consultation",
+                "Partnership Proposal",
+                "Other",
+            ],
+            "message_label": "Your Message",
+            "message_placeholder": "Tell us about your project...",
+            "submit_text": "Send Message",
+        },
+        "info": {
+            "title": "Contact Information",
+            "items": [
+                {
+                    "label": "Call Us",
+                    "value": "+254 712 345 678",
+                    "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone w-5 h-5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>""",
+                },
+                {
+                    "label": "Email Us",
+                    "value": "info@trustbuildurban.co.ke",
+                    "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-5 h-5"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/></svg>""",
+                },
+                {
+                    "label": "Visit Us",
+                    "value": "Riverside Square, Riverside Dr,<br>Nairobi, Kenya",
+                    "icon": """<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin w-5 h-5"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>""",
+                },
+            ],
+            "map": {
+                "image_url": "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=1200",
+                "alt_text": "Office Location Map",
+                "label": "Office Location",
+            },
+        },
+    }
+
+    context = {
+        "meta": meta,
+        "contact_header": contact_header,
+        "contact_content": contact_content,
+    }
+
+    return render(request, "contact/contact.html", context)
