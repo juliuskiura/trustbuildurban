@@ -1,0 +1,83 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}{{ page.seo_title|default:page.title }} | TrustBuild Urban{% endblock %}
+
+{% block meta_description %}{{ page.seo_description|default:page.page_type.description }}{% endblock %}
+
+{% block content %}
+<div class="page-wrapper">
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            {% for ancestor in page.get_ancestors %}
+                            <li class="breadcrumb-item"><a href="{{ ancestor.get_absolute_url }}">{{ ancestor.title }}</a></li>
+                            {% endfor %}
+                            <li class="breadcrumb-item active" aria-current="page">{{ page.title }}</li>
+                        </ol>
+                    </nav>
+                    <h1>{{ page.title }}</h1>
+                    {% if page.introduction %}
+                    <p class="page-introduction">{{ page.introduction }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page Content -->
+    <section class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% if page.body %}
+                    <div class="page-body">
+                        {{ page.body|linebreaks }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if page.stream_fields.exists %}
+                    <div class="page-stream-fields">
+                        {% for field in page.stream_fields.all %}
+                        <div class="stream-field stream-field-{{ field.block_type }}">
+                            {{ field.value|safe }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Child Pages (if any) -->
+    {% if page.get_children.exists %}
+    <section class="child-pages">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Subpages</h2>
+                    <div class="child-pages-grid">
+                        {% for child in page.get_children %}
+                        <div class="child-page-card">
+                            <a href="{{ child.get_absolute_url }}">
+                                <h3>{{ child.title }}</h3>
+                                {% if child.introduction %}
+                                <p>{{ child.introduction }}</p>
+                                {% endif %}
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

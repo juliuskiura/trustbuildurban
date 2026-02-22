@@ -1,0 +1,38 @@
+<div class="animate-fade-in">
+  <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">{{ hero.tagline }}</span>
+  <h1 class="text-5xl md:text-7xl font-serif font-bold mb-8 leading-[1.1] text-primary">
+    {{ hero.heading_main }} <br/>
+    <span class="text-secondary italic">{{ hero.heading_highlight }}</span> {{ hero.heading_suffix }}
+  </h1>
+  <p class="text-lg md:text-xl mb-10 text-primary/60 font-medium max-w-lg leading-relaxed">
+    {{ hero.description }}
+  </p>
+  
+  <div class="flex flex-col sm:flex-row gap-6 items-center">
+    <a href="/contact"
+      class="bg-secondary hover:bg-primary text-white px-10 py-5 text-sm font-bold tracking-widest uppercase transition-all transform hover:-translate-y-1 shadow-2xl rounded-2xl w-full sm:w-auto text-center">
+      {{ hero.cta_primary_text }}</a>
+    <a href="#" class="flex items-center gap-4 group">
+      <div class="w-14 h-14 rounded-full bg-accent flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="lucide lucide-play w-5 h-5 ml-1"><path d="m7 4 12 8-12 8V4z"/></svg>
+      </div>
+      <span class="text-sm font-bold uppercase tracking-widest text-primary/80 group-hover:text-secondary transition-colors">{{ hero.cta_secondary_text }}</span>
+    </a>
+  </div>
+
+  <!-- Statistics Row -->
+  <div class="grid grid-cols-3 gap-8 mt-20 pt-10 border-t border-primary/5">
+    <div>
+      <p class="text-3xl font-serif font-bold text-primary">{{ hero.stats.happy_customers.value }}</p>
+      <p class="text-[10px] uppercase font-bold tracking-widest text-primary/40 mt-1">{{ hero.stats.happy_customers.label }}</p>
+    </div>
+    <div>
+      <p class="text-3xl font-serif font-bold text-primary">{{ hero.stats.property_sales.value }}</p>
+      <p class="text-[10px] uppercase font-bold tracking-widest text-primary/40 mt-1">{{ hero.stats.property_sales.label }}</p>
+    </div>
+    <div>
+      <p class="text-3xl font-serif font-bold text-primary">{{ hero.stats.award_winning.value }}</p>
+      <p class="text-[10px] uppercase font-bold tracking-widest text-primary/40 mt-1">{{ hero.stats.award_winning.label }}</p>
+    </div>
+  </div>
+</div>

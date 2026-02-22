@@ -1,0 +1,65 @@
+<article class="flex flex-col md:flex-row bg-white rounded-[2rem] overflow-hidden group hover:shadow-2xl transition-all duration-700 max-w-4xl border border-gray-100">
+    <!-- Image Wrapper -->
+    <div class="relative w-full md:w-[45%] h-64 md:h-auto overflow-hidden">
+        <img src="{{ home.imageUrl }}" alt="{{ home.title }}" 
+             class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"/>
+        
+        <!-- Status Badge -->
+        <div class="absolute top-6 left-6 bg-[#D4F4E4] text-[#2D8A5B] px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+            {{ home.status }}
+        </div>
+    </div>
+
+    <!-- Content Wrapper -->
+    <div class="p-8 md:p-10 flex flex-col justify-between flex-grow">
+        <div>
+            <!-- Location -->
+            <div class="flex items-center text-[#D4AF37] mb-2 text-[11px] font-bold uppercase tracking-wider">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                {{ home.location }}
+            </div>
+            
+            <!-- Title -->
+            <h2 class="text-3xl font-serif font-bold text-[#002147] mb-3 leading-tight">
+                {{ home.title }}
+            </h2>
+
+            <!-- Price -->
+            <div class="text-2xl font-bold text-[#002147] mb-8">
+                {{ home.price }}
+            </div>
+            
+            <!-- Features Grid -->
+            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-gray-100 mb-8">
+                <div class="flex flex-col items-center text-center">
+                    <div class="text-gray-400 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+                    </div>
+                    <span class="text-[10px] font-bold text-[#002147] uppercase tracking-wider">{{ home.beds }} Beds</span>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <div class="text-gray-400 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4 8 6"/><path d="M17 19v2"/><path d="M2 12h20"/><path d="M7 19v2"/><path d="M9 5 7.621 3.621A2.121 2.121 0 0 0 4 5v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></svg>
+                    </div>
+                    <span class="text-[10px] font-bold text-[#002147] uppercase tracking-wider">{{ home.baths }} Baths</span>
+                </div>
+                <div class="flex flex-col items-center text-center">
+                    <div class="text-gray-400 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m15 19-3 3-3-3"/><path d="m19 9 3 3-3 3"/><path d="M2 12h20"/><path d="m5 9-3 3 3 3"/><path d="m9 5 3-3 3 3"/></svg>
+                    </div>
+                    <span class="text-[10px] font-bold text-[#002147] uppercase tracking-wider">{{ home.sqft }} SQFT</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="w-full py-4 bg-[#002147] text-white font-bold uppercase tracking-widest text-[11px] flex items-center justify-center space-x-3 hover:bg-gray-900 transition-all rounded-lg shadow-lg">
+            <span>Inquire Now</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            </svg>
+        </button>
+    </div>
+</article>

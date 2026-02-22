@@ -1,0 +1,16 @@
+<section class="relative min-h-screen flex items-center bg-white pt-20 overflow-hidden">
+  <!-- Subtle background elements -->
+  <div class="absolute top-0 right-0 w-1/2 h-full bg-secondary/5 -skew-x-12 translate-x-1/4"></div>
+  <div class="absolute bottom-20 left-10 w-64 h-64 bg-accent/5 rounded-full blur-3xl"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <!-- Left Column: Content -->
+    {% include "homepage/sections/hero/left_column.html" %}
+
+      <!-- Right Column: Visuals -->
+    
+      {% include "homepage/sections/hero/right_column.html" %}
+    </div>
+  </div>
+</section>

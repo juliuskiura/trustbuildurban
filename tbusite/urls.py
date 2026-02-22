@@ -19,8 +19,18 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('frontsite.urls')),
+    path("admin/", admin.site.urls),
+    path("", include("homepage.urls")),
+    path("about/", include("about.urls")),
+    path("blog/", include("blog.urls")),
+    path("contact/", include("contact.urls")),
+    path("guide/", include("guides.urls")),
+    path("portfolio/", include("portfolio.urls")),
+    path("process/", include("process.urls")),
+    path("services/", include("services.urls")),
+    path("available/", include("available_homes.urls")),
+    # Pages app should be last to catch all remaining URLs
+    path("", include("pages.urls")),
 ]
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 

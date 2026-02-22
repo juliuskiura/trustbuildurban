@@ -1,0 +1,25 @@
+<section class="py-32 bg-texts text-white relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5"></div>
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-24">
+      <span class="text-accent font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">{{ features_section.eyebrow }}</span>
+      <h2 class="text-4xl md:text-6xl font-serif font-bold mb-8 leading-tight">
+        {{ features_section.heading }}
+      </h2>
+      <div class="w-24 h-1 bg-accent mx-auto"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      {% for feature in features_section.features %}
+      <div class="glass-dark p-10 rounded-[2.5rem] hover:bg-white transition-all duration-700 group hover:-translate-y-2 shadow-2xl">
+        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-10 bg-white/5 text-accent group-hover:bg-texts group-hover:text-white transition-all duration-500 shadow-xl">
+           {{ feature.icon_path|safe }}
+        </div>
+        <h3 class="text-xl font-bold mb-4 group-hover:text-texts transition-colors font-sans">{{ feature.title }}</h3>
+        <p class="text-white/40 leading-relaxed font-medium group-hover:text-texts/60 transition-colors">
+          {{ feature.description }}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

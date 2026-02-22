@@ -1,0 +1,50 @@
+{% extends "_base.html" %}
+
+{% block title %}
+<title>Available Residences | TrustBuild Urban</title>
+{% endblock %}
+
+{% block content %}
+<main class="pt-40 pb-32 bg-background relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 right-0 w-200 h-200 bg-accent/5 rounded-full blur-[150px] -mr-96 -mt-96"></div>
+    <div class="absolute bottom-0 left-0 w-150 h-150 bg-secondary/5 rounded-full blur-[120px] -ml-64 -mb-64"></div>
+
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+        {% with hero=pagedata.herosection %}
+        <div class="mb-32 text-center max-w-4xl mx-auto">
+            <div class="inline-flex items-center space-x-3 glass glass-border px-6 py-2 rounded-full mb-10 shadow-xl">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                <span class="text-[9px] font-bold uppercase tracking-[0.4em] text-texts/60">Move-In Ready Residences</span>
+            </div>
+            <h1 class="text-5xl md:text-8xl font-serif font-bold text-texts mb-10 leading-[1.1]">{{ hero.title }}</h1>
+            <p class="text-texts/50 text-xl font-medium leading-relaxed max-w-2xl mx-auto">{{ hero.description }}</p>
+        </div>
+        {% endwith %}
+
+        <!-- Properties Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+             {% for home in pagedata.homes %}
+                {% include "available_homes/single_property.html" %}
+            {% endfor %}
+        </div>
+
+        <!-- CTA Section -->
+        <div class="mt-40 relative group">
+            <div class="absolute inset-0 bg-texts rounded-[4rem] transform transition-transform group-hover:scale-[1.01] duration-700 shadow-2xl"></div>
+            <div class="absolute inset-0 bg-accent/10 rounded-[4rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            
+            <div class="relative p-16 md:p-32 text-center text-white overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                <h3 class="text-4xl md:text-6xl font-serif font-bold mb-8 text-balance relative z-10">{{ pagedata.cta_Section.title }}</h3>
+                <p class="text-white/50 mb-16 max-w-2xl mx-auto text-xl font-medium relative z-10 leading-relaxed">{{ pagedata.cta_Section.description }}</p>
+                
+                <a href="{{ pagedata.cta_Section.buttonLink }}" 
+                   class="inline-flex items-center justify-center px-16 py-6 bg-accent hover:bg-white text-texts font-bold uppercase tracking-[0.3em] text-[10px] rounded-full transition-all shadow-2xl hover:shadow-accent/40 transform hover:-translate-y-1 relative z-10">
+                    {{ pagedata.cta_Section.buttonText }}
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
