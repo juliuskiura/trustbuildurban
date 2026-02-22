@@ -8,7 +8,7 @@
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
     {% for project in portfolio_projects.projects %}
     <div class="group cursor-pointer">
-        <div class="relative aspect-[16/10] overflow-hidden rounded-2xl mb-8">
+        <div class="relative aspect-16/10 overflow-hidden rounded-2xl mb-8">
             {% if project.image_url %}
             <img src="{{ project.image_url }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" />
             {% endif %}
