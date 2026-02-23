@@ -21,8 +21,8 @@ class Page(MPTTModel):
     # Page identification
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
-    
-      # SEO fields
+
+    # SEO fields
     seo_title = models.CharField(
         max_length=70,
         blank=True,
@@ -37,7 +37,7 @@ class Page(MPTTModel):
     # Content fields
     introduction = models.TextField(blank=True)
     body = models.TextField(blank=True, help_text="Main content of the page")
-    
+
     # Custom template (overrides page type template)
     custom_template = models.CharField(
         max_length=200,
@@ -59,7 +59,7 @@ class Page(MPTTModel):
     is_published = models.BooleanField(default=False)
     published_date = models.DateTimeField(null=True, blank=True)
     expires_at = models.DateTimeField(null=True, blank=True)
-    
+
     # Go live / expire dates
     go_live_at = models.DateTimeField(null=True, blank=True)
     expire_at = models.DateTimeField(null=True, blank=True)
@@ -104,6 +104,40 @@ class Page(MPTTModel):
     def get_path(self):
         """Get the full path of the page"""
         return '/'.join([ancestor.slug for ancestor in self.get_ancestors(include_self=True)])
+
+    @classmethod
+    def get_root_page(cls):
+        """
+        Get the root page (page with no parent).
+        Returns the most specific subclass instance if multiple root pages exist.
+        """
+        from django.db import connection
+
+        # Try to get the root page using the most specific model first
+        # Get all subclasses of Page
+        subclasses = []
+        for subclass in cls.__subclasses__():
+            subclasses.append(subclass)
+            # Also get nested subclasses
+            for nested in subclass.__subclasses__():
+                subclasses.append(nested)
+
+        # Try each subclass in order of specificity (most specific first)
+        for subclass in subclasses:
+            try:
+                page = subclass.objects.filter(
+                    parent__isnull=True, is_published=True
+                ).first()
+                if page:
+                    return page
+            except Exception:
+                pass
+
+        # Fallback to generic Page
+        try:
+            return cls.objects.filter(parent__isnull=True, is_published=True).first()
+        except cls.DoesNotExist:
+            return None
 
     def get_template(self):
         """Get the template to use for rendering"""
