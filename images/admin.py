@@ -9,6 +9,12 @@ class ImageAdmin(admin.ModelAdmin):
     search_fields = ['alt_text', 'caption']
     ordering = ["-created_at"]
     readonly_fields = [
+        "image",
+        "url",
+        "alt_text",
+        "caption",
+        "width",
+        "height",
         "usage_count_display",
         "used_by_models_display",
     ]
