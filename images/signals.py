@@ -55,21 +55,21 @@ def update_image_usage_on_save(sender, instance, **kwargs):
     - An existing object's Image ForeignKey is changed
     """
     field_name = get_image_field_from_instance(instance)
-    
+
     if field_name is None:
         return
-    
+
     try:
         image = getattr(instance, field_name, None)
-        
+
         if image is None:
             # Image was removed, clean up usage record
             ImageUsage.objects.filter(
                 content_type=ContentType.objects.get_for_model(instance),
-                object_id=instance.pk
+                object_id=str(instance.pk),
             ).delete()
             return
-        
+
         # Check if this image is actually an Image instance
         if not isinstance(image, Image):
             # It might be an ID
@@ -77,16 +77,16 @@ def update_image_usage_on_save(sender, instance, **kwargs):
                 image = Image.objects.get(pk=image)
             except Image.DoesNotExist:
                 return
-        
+
         content_type = ContentType.objects.get_for_model(instance)
-        
+
         # Create or update usage record
         ImageUsage.objects.update_or_create(
             content_type=content_type,
-            object_id=instance.pk,
-            defaults={'image': image}
+            object_id=str(instance.pk),
+            defaults={"image": image},
         )
-        
+
     except Exception as e:
         # Silently handle errors to avoid disrupting normal model operations
         # In production, you might want to log these
@@ -100,19 +100,18 @@ def update_image_usage_on_delete(sender, instance, **kwargs):
     Signal handler to remove image usage when a model with an Image ForeignKey is deleted.
     """
     field_name = get_image_field_from_instance(instance)
-    
+
     if field_name is None:
         return
-    
+
     try:
         content_type = ContentType.objects.get_for_model(instance)
-        
+
         # Remove usage record
         ImageUsage.objects.filter(
-            content_type=content_type,
-            object_id=instance.pk
+            content_type=content_type, object_id=str(instance.pk)
         ).delete()
-        
+
     except Exception as e:
         import logging
         logging.warning(f"Error removing image usage: {e}")

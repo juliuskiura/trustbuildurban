@@ -207,7 +207,7 @@ class ImageUsage(models.Model):
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, related_name="image_usages"
     )
-    object_id = models.PositiveIntegerField()
+    object_id = models.CharField(max_length=40)
     content_object = GenericForeignKey("content_type", "object_id")
     created_at = models.DateTimeField(auto_now_add=True)
 
