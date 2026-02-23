@@ -31,7 +31,7 @@ class PageAdmin(MPTTModelAdmin):
         'show_in_menus',
         'created_at',
     ]
-    search_fields = ['title', 'slug', 'seo_title', 'seo_description']
+    search_fields = ["title", "slug", "meta_title", "meta_description"]
     prepopulated_fields = {'slug': ('title',)}
     readonly_fields = [
         'created_at', 
@@ -53,8 +53,8 @@ class PageAdmin(MPTTModelAdmin):
             "SEO",
             {
                 "fields": (
-                    "seo_title",
-                    "seo_description",
+                    "meta_title",
+                    "meta_description",
                 ),
                 "classes": ("collapse",),
             },

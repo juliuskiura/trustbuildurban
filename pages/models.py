@@ -97,16 +97,14 @@ class Page(MPTTModel):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255)
 
-    # SEO fields
-    seo_title = models.CharField(
+    # Meta fields for SEO
+    meta_title = models.CharField(
         max_length=70,
         blank=True,
-        help_text="Override the title in search engine results"
+        help_text="Override the title in search engine results",
     )
-    seo_description = models.CharField(
-        max_length=160,
-        blank=True,
-        help_text="Description for search engines"
+    meta_description = models.CharField(
+        max_length=160, blank=True, help_text="Description for search engines"
     )
 
     # Custom template (overrides page type template)
