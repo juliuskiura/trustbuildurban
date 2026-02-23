@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from core.models import PageBase
@@ -76,87 +77,103 @@ class Image(PageBase):
         return self.url
 
     def save(self, *args, **kwargs):
-        """Extract alt_text and caption from image EXIF data if not provided."""
+        """Extract alt_text, caption, width, height from image if not provided."""
         from PIL import Image as PILImage
-        import io
+        import os
 
         # Extract metadata from uploaded image if available
         if self.image:
             try:
-                # Open the image file
-                if hasattr(self.image, "path"):
-                    img = PILImage.open(self.image.path)
-                elif hasattr(self.image, "file"):
-                    img = PILImage.open(self.image.file)
-                else:
-                    img = None
+                img = None
+
+                # Try different ways to open the image
+                # Method 1: For files uploaded through Django admin
+                if hasattr(self.image, "temporary_file_path"):
+                    temp_path = self.image.temporary_file_path()
+                    if temp_path and os.path.exists(temp_path):
+                        img = PILImage.open(temp_path)
+
+                # Method 2: Check if image has a path attribute
+                if not img and hasattr(self.image, "path") and self.image.path:
+                    if os.path.exists(self.image.path):
+                        img = PILImage.open(self.image.path)
+
+                # Method 3: Check if image has a file attribute
+                if not img and hasattr(self.image, "file") and self.image.file:
+                    try:
+                        self.image.file.seek(0)
+                        img = PILImage.open(self.image.file)
+                    except:
+                        pass
+
+                # Method 4: Try name attribute (Django stores the filename here)
+                if not img and hasattr(self.image, "name") and self.image.name:
+                    # The name contains the upload_to path, try to construct full path
+                    full_path = os.path.join(settings.MEDIA_ROOT, self.image.name)
+                    if os.path.exists(full_path):
+                        img = PILImage.open(full_path)
 
                 if img:
                     # Get image dimensions
                     self.width, self.height = img.size
 
-                    # Try to extract EXIF data
-                    exif_data = img.getexif()
+                    # Extract alt_text from filename as primary source
+                    if not self.alt_text and hasattr(self.image, "name"):
+                        filename = self.image.name
+                        if filename:
+                            name_without_path = os.path.basename(filename)
+                            name_without_ext = os.path.splitext(name_without_path)[0]
+                            self.alt_text = (
+                                name_without_ext.replace("_", " ")
+                                .replace("-", " ")
+                                .title()
+                            )
 
-                    # Extract alt_text from EXIF if not provided
-                    if not self.alt_text:
-                        # Try common EXIF tags for description/alt text
-                        # 0x010E = ImageDescription
-                        # 0x9286 = UserComment
-                        # 0xFDE9 = OwnerName (sometimes used for captions)
-                        alt_text_sources = [
-                            exif_data.get(0x010E),  # ImageDescription
-                            exif_data.get(0x9286),  # UserComment
-                        ]
-                        for source in alt_text_sources:
-                            if source:
-                                # Decode if bytes
-                                if isinstance(source, bytes):
-                                    try:
-                                        source = source.decode("utf-8", errors="ignore")
-                                    except:
-                                        continue
-                                if source and source.strip():
-                                    self.alt_text = source.strip()[:200]
-                                    break
+                    # Extract caption from filename if not provided
+                    if not self.caption and hasattr(self.image, "name"):
+                        filename = self.image.name
+                        if filename:
+                            name_without_path = os.path.basename(filename)
+                            name_without_ext = os.path.splitext(name_without_path)[0]
+                            self.caption = (
+                                name_without_ext.replace("_", " ")
+                                .replace("-", " ")
+                                .title()
+                            )
 
-                        # If still no alt_text, use filename as fallback
-                        if not self.alt_text and hasattr(self.image, "name"):
-                            filename = self.image.name
-                            if filename:
-                                # Remove extension and underscores, capitalize words
-                                name_without_ext = (
-                                    filename.rsplit(".", 1)[0]
-                                    if "." in filename
-                                    else filename
-                                )
-                                self.alt_text = (
-                                    name_without_ext.replace("_", " ")
-                                    .replace("-", " ")
-                                    .title()
-                                )
+                    # Try to extract EXIF data as secondary source
+                    try:
+                        exif_data = img.getexif()
 
-                    # Extract caption from EXIF if not provided
-                    if not self.caption:
-                        # Try to get caption from XPComment (more common in Windows)
-                        # or from other metadata
-                        caption_sources = [
-                            exif_data.get(0x9286),  # UserComment
-                            exif_data.get(0x010E),  # ImageDescription
-                        ]
-                        for source in caption_sources:
-                            if source:
-                                if isinstance(source, bytes):
-                                    try:
-                                        source = source.decode("utf-8", errors="ignore")
-                                    except:
-                                        continue
-                                if source and source.strip():
-                                    self.caption = source.strip()[:200]
-                                    break
-            except Exception:
-                # If anything goes wrong with EXIF extraction, continue without it
-                pass
+                        # Override with EXIF if available and user didn't provide values
+                        if not self.alt_text:
+                            exif_alt = exif_data.get(0x010E) or exif_data.get(0x9286)
+                            if exif_alt:
+                                if isinstance(exif_alt, bytes):
+                                    exif_alt = exif_alt.decode("utf-8", errors="ignore")
+                                if exif_alt and exif_alt.strip():
+                                    self.alt_text = exif_alt.strip()[:200]
+
+                        if not self.caption:
+                            exif_caption = exif_data.get(0x9286) or exif_data.get(
+                                0x010E
+                            )
+                            if exif_caption:
+                                if isinstance(exif_caption, bytes):
+                                    exif_caption = exif_caption.decode(
+                                        "utf-8", errors="ignore"
+                                    )
+                                if exif_caption and exif_caption.strip():
+                                    self.caption = exif_caption.strip()[:200]
+                    except:
+                        pass
+
+            except Exception as e:
+                # Log the error for debugging but don't break the save
+                import logging
+
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error extracting image metadata: {e}")
 
         super().save(*args, **kwargs)
 
