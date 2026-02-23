@@ -30,36 +30,43 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    "unfold",
+DEFAULT_APPS = [
+    "django_daisy", # Custom admin interface app but must be put at the top to override default admin templates
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "compressor",
-    "mptt",
-    "pages",
-    "homepage",
-    "about",
-    "contact",
-    "process",
-    "available_homes",
-    "blog",
-    "guides",
-    "portfolio",
-    "services",
-    "accounts",
-    "core",
-    "images",
+    "django.contrib.humanize", 
 ]
 
 
-# THIRD_PARTY_APPS=["unfold", "compressor"]
-# LOCAL_APPS=['frontsite', 'accounts', 'core']
+THIRD_PARTY_APPS=[
+"compressor", 
+'django_cleanup.apps.CleanupConfig', 
+'mptt',
+]
 
-# INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS +  LOCAL_APPS
+LOCAL_APPS=[
+'frontsite', 
+'accounts', 
+'core',
+'pages',
+'homepage',
+'about',
+'contact',
+'process',
+'available_homes',
+'blog',
+'guides',
+'portfolio',
+'services',
+'images', 
+
+]
+
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS +  LOCAL_APPS
 
 
 MIDDLEWARE = [
@@ -70,21 +77,21 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "tbusite.middleware.AdminCustomCSSMiddleware",
+    # "tbusite.middleware.AdminCustomCSSMiddleware",
 ]
 
 ROOT_URLCONF = 'tbusite.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -168,24 +175,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "accounts.UserAccount"
-# openClaw:
-# Django Unfold Theme Configuration
-UNFOLD = {
-    "BORDER_RADIUS": "6px",
-    "THEME": "light",  # Options: "system", "light", "dark"
-    "COLORS": {
-        "primary": {
-            "50": "#efeeff",
-            "100": "#e2e0ff",
-            "200": "#cac7fe",
-            "300": "#aaa5fc",
-            "400": "#8881f8",
-            "500": "#6b63f1",
-            "600": "#4f46e5",
-            "700": "#4038ca",
-            "800": "#3730a3",
-            "900": "#332e81",
-            "950": "#1e1b4b",
-        },
-    },
-}

@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 from core.models import PageBase
 
 
@@ -26,6 +28,39 @@ class Image(PageBase):
 
     def __str__(self):
         return self.alt_text or f"Image {self.pk}"
+
+    @property
+    def usage_count(self):
+        """
+        Return the total number of times this image is used as a foreign key
+        across all models.
+        """
+        return ImageUsage.objects.filter(image=self).count()
+
+    @property
+    def used_by_models(self):
+        """
+        Return a list of model names that use this image.
+        """
+        return list(
+            ImageUsage.objects.filter(image=self)
+            .values_list("content_type__model", flat=True)
+            .distinct()
+        )
+
+    @property
+    def usage_details(self):
+        """
+        Return detailed usage information grouped by model.
+        """
+        from django.db.models import Count
+
+        return (
+            ImageUsage.objects.filter(image=self)
+            .values("content_type__model")
+            .annotate(count=Count("id"))
+            .order_by("-count")
+        )
 
     @property
     def image_url(self):
@@ -118,3 +153,55 @@ class Image(PageBase):
                 pass
 
         super().save(*args, **kwargs)
+
+
+class ImageUsage(models.Model):
+    """
+    Tracks usage of Image model across all foreign key relationships.
+
+    This model automatically records when an Image is used as a ForeignKey
+    in any other model throughout the project. It provides:
+    - Total usage count per image
+    - Breakdown by content type (which model is using it)
+    - Automatic tracking via Django signals
+
+    Usage example:
+        # Get usage count for an image
+        image = Image.objects.get(pk=1)
+        print(f"Used {image.usage_count} times")
+
+        # Get which models use this image
+        print(f"Used in: {image.used_by_models}")
+
+        # Get detailed usage
+        for usage in image.usage_details:
+            print(f"  {usage['content_type__model']}: {usage['count']} times")
+    """
+
+    image = models.ForeignKey(
+        Image, on_delete=models.CASCADE, related_name="usage_records"
+    )
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, related_name="image_usages"
+    )
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey("content_type", "object_id")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Image Usage"
+        verbose_name_plural = "Image Usages"
+        unique_together = ["content_type", "object_id", "image"]
+        indexes = [
+            models.Index(fields=["content_type", "object_id"]),
+            models.Index(fields=["image"]),
+        ]
+
+    def __str__(self):
+        return f"{self.image} used in {self.content_type.model} (ID: {self.object_id})"
+
+    @property
+    def used_object(self):
+        """Return the actual object that uses this image."""
+        return self.content_object
