@@ -1,6 +1,27 @@
 from django.db import models
 from django.db import models, IntegrityError, transaction
-# Create your models here.
+from django.db.models import Func
+
+
+class PageBase(models.Model):
+    """
+    Abstract base model for page components.
+    Provides common fields: uuid, created_at, updated_at
+    """
+
+    uuid = models.UUIDField(
+        db_default=Func(function="uuidv7"),
+        primary_key=True,
+        editable=False,
+        db_index=True,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
 class BaseModel(models.Model):
     """
     An abstract base model that provides common fields for all models.

@@ -1,6 +1,16 @@
 from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
-from .models import Page
+from .models import Page, Button
+
+
+@admin.register(Button)
+class ButtonAdmin(admin.ModelAdmin):
+    """Admin for reusable Button model"""
+
+    list_display = ["text", "style", "size", "order", "content_type", "created_at"]
+    list_filter = ["style", "size", "content_type"]
+    search_fields = ["text", "link"]
+    ordering = ["order", "created_at"]
 
 
 @admin.register(Page)
@@ -29,51 +39,60 @@ class PageAdmin(MPTTModelAdmin):
         'revision_number',
     ]
     fieldsets = (
-        ('Page Content', {
-            'fields': (
-                'parent',
-                'title',
-                'slug',
-            )
-        }),
-        ('Content', {
-            'fields': (
-                'introduction',
-                'body',
-            )
-        }),
-        ('SEO', {
-            'fields': (
-                'seo_title',
-                'seo_description',
-            ),
-            'classes': ('collapse',)
-        }),
-        ('Navigation', {
-            'fields': (
-                'show_in_menus',
-                'menu_order',
-            )
-        }),
-        ('Publishing', {
-            'fields': (
-                'is_published',
-                'published_date',
-                'go_live_at',
-                'expire_at',
-            )
-        }),
-        ('Advanced', {
-            'fields': (
-                'custom_template',
-                'created_by',
-                'last_modified_by',
-                'revision_number',
-            ),
-            'classes': ('collapse',)
-        }),
+        (
+            "Page Content",
+            {
+                "fields": (
+                    "parent",
+                    "title",
+                    "slug",
+                )
+            },
+        ),
+        (
+            "SEO",
+            {
+                "fields": (
+                    "seo_title",
+                    "seo_description",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
+            "Navigation",
+            {
+                "fields": (
+                    "show_in_menus",
+                    "menu_order",
+                )
+            },
+        ),
+        (
+            "Publishing",
+            {
+                "fields": (
+                    "is_published",
+                    "published_date",
+                    "go_live_at",
+                    "expire_at",
+                )
+            },
+        ),
+        (
+            "Advanced",
+            {
+                "fields": (
+                    "custom_template",
+                    "created_by",
+                    "last_modified_by",
+                    "revision_number",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
     )
-    
+
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         return qs.select_related('created_by', 'last_modified_by')

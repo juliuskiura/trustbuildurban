@@ -2,7 +2,82 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.models import ContentType
 from mptt.models import MPTTModel, TreeForeignKey
+from core.models import PageBase
+
+
+class ButtonStyle(models.TextChoices):
+    """Button style options"""
+
+    PRIMARY = "primary", "Primary"
+    SECONDARY = "secondary", "Secondary"
+    OUTLINE = "outline", "Outline"
+    GHOST = "ghost", "Ghost"
+    ACCENT = "accent", "Accent"
+
+
+class Button(PageBase):
+    """
+    Reusable button model that can be attached to any page component.
+    Uses GenericForeignKey to allow attachment to any model.
+    """
+
+    # Generic relation to any model
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, null=True, blank=True
+    )
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    content_object = GenericForeignKey("content_type", "object_id")
+
+    # Button content
+    text = models.CharField(max_length=100, blank=True)
+    link = models.CharField(max_length=200, blank=True)
+    icon = models.CharField(
+        max_length=500, blank=True, help_text="SVG icon code or icon class"
+    )
+
+    # Button styling
+    style = models.CharField(
+        max_length=20, choices=ButtonStyle.choices, default=ButtonStyle.PRIMARY
+    )
+    size = models.CharField(
+        max_length=20,
+        choices=[
+            ("small", "Small"),
+            ("medium", "Medium"),
+            ("large", "Large"),
+        ],
+        default="medium",
+    )
+
+    # Button behavior
+    is_external = models.BooleanField(default=False, help_text="Open in new tab")
+    is_full_width = models.BooleanField(default=False)
+
+    # Order
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "created_at"]
+        verbose_name = "Button"
+        verbose_name_plural = "Buttons"
+
+    def __str__(self):
+        return self.text or "Untitled Button"
+
+
+class PageComponent(models.Model):
+    """
+    Abstract base model for page components that can have buttons.
+    All page sections (Hero, Features, Services, etc.) can inherit from this.
+    """
+
+    buttons = GenericRelation(Button, related_query_name="components")
+
+    class Meta:
+        abstract = True
 
 
 class Page(MPTTModel):
@@ -33,10 +108,6 @@ class Page(MPTTModel):
         blank=True,
         help_text="Description for search engines"
     )
-
-    # Content fields
-    introduction = models.TextField(blank=True)
-    body = models.TextField(blank=True, help_text="Main content of the page")
 
     # Custom template (overrides page type template)
     custom_template = models.CharField(
