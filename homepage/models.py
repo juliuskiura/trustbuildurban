@@ -4,6 +4,7 @@ from pages.models import Page, Button
 from core.models import PageBase
 from ordered_model.models import OrderedModel
 
+
 class HomePage(Page):
     """
     HomePage model that inherits from the base Page model.
@@ -104,3 +105,66 @@ class Stats(PageBase, OrderedModel):
 
     def __str__(self):
         return f"{self.value} - {self.label}"
+
+
+class StatsSection(PageBase):
+    """
+    Stats section model with ForeignKey to HomePage.
+    Contains quote text, landmark projects info, and client reviews.
+    """
+
+    homepage = models.ForeignKey(
+        "homepage.HomePage", on_delete=models.CASCADE, related_name="stats_sections"
+    )
+
+    # Quote text
+    quote_text = models.TextField(
+        blank=True,
+        default="Integrity and innovation in every structure we touch. Engineering excellence from the ground up.",
+    )
+
+    # Landmark projects
+    landmark_projects_value = models.CharField(max_length=20, blank=True, default="850")
+    landmark_projects_label_text = models.CharField(
+        max_length=100, blank=True, default="Landmark Projects"
+    )
+
+    class Meta:
+        verbose_name = "Stats Section"
+        verbose_name_plural = "Stats Sections"
+
+    def __str__(self):
+        return f"Stats Section for {self.homepage.title}"
+
+
+class ClientReview(PageBase):
+    """
+    Client review child model for StatsSection.
+    Contains rating, total reviews, and button information.
+    """
+
+    stats_section = models.ForeignKey(
+        StatsSection, on_delete=models.CASCADE, related_name="client_reviews"
+    )
+
+    # Rating
+    rating = models.IntegerField(default=5, choices=[(i, str(i)) for i in range(1, 6)])
+
+    # Total reviews
+    total_reviews = models.CharField(max_length=20, blank=True, default="12,000+")
+
+    # Label text
+    label_text = models.CharField(max_length=100, blank=True, default="Client Reviews")
+
+    # Button
+    button_text = models.CharField(
+        max_length=100, blank=True, default="Discover Excellence"
+    )
+    button_link = models.CharField(max_length=200, blank=True, default="#")
+
+    class Meta:
+        verbose_name = "Client Review"
+        verbose_name_plural = "Client Reviews"
+
+    def __str__(self):
+        return f"Client Review ({self.rating} stars) - {self.total_reviews}"

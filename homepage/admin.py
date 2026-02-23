@@ -1,6 +1,6 @@
 from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
-from .models import HomePage, HeroSection, Stats
+from .models import HomePage, HeroSection, Stats, StatsSection, ClientReview
 from pages.models import Button
 
 
@@ -31,6 +31,23 @@ class StatsInline(admin.StackedInline):
     extra = 1
     can_delete = True
     fieldsets = ((None, {"fields": ("value", "label", "icon", "order")}),)
+
+
+class ClientReviewInline(admin.StackedInline):
+    """
+    Inline admin for ClientReview model.
+    """
+
+    model = ClientReview
+    extra = 1
+    can_delete = True
+    fieldsets = (
+        (None, {"fields": ("rating", "total_reviews", "label_text")}),
+        (
+            "Button",
+            {"fields": ("button_text", "button_link")},
+        ),
+    )
 
 
 class HeroSectionInline(admin.StackedInline):
@@ -81,12 +98,35 @@ class HeroSectionInline(admin.StackedInline):
     )
 
 
+class StatsSectionInline(admin.StackedInline):
+    """
+    Inline admin for StatsSection model.
+    """
+
+    model = StatsSection
+    extra = 1
+    can_delete = True
+    inlines = [ClientReviewInline]
+    fieldsets = (
+        (
+            "Quote",
+            {"fields": ("quote_text",)},
+        ),
+        (
+            "Landmark Projects",
+            {
+                "fields": ("landmark_projects_value", "landmark_projects_label_text"),
+            },
+        ),
+    )
+
+
 @admin.register(HomePage)
 class HomePageAdmin(MPTTModelAdmin):
     """
     Admin for HomePage model.
     """
-    inlines = [HeroSectionInline]
+    inlines = [HeroSectionInline, StatsSectionInline]
 
     list_display = [
         'title', 
@@ -182,3 +222,20 @@ class HeroSectionAdmin(admin.ModelAdmin):
 
     list_display = ["__str__", "homepage", "tagline"]
     search_fields = ["homepage__title", "tagline"]
+
+
+@admin.register(StatsSection)
+class StatsSectionAdmin(admin.ModelAdmin):
+    """Admin for StatsSection model"""
+
+    list_display = ["__str__", "homepage", "quote_text"]
+    search_fields = ["homepage__title", "quote_text"]
+    inlines = [ClientReviewInline]
+
+
+@admin.register(ClientReview)
+class ClientReviewAdmin(admin.ModelAdmin):
+    """Admin for ClientReview model"""
+
+    list_display = ["__str__", "stats_section", "rating", "total_reviews"]
+    search_fields = ["stats_section__homepage__title", "total_reviews"]
