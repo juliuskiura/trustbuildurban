@@ -1,0 +1,126 @@
+/* Custom styles for UNFOLD admin input fields with visible borders */
+
+/* Input fields with visible borders in UNFOLD admin */
+.w-full[type="text"],
+.w-full[type="email"],
+.w-full[type="password"],
+.w-full[type="number"],
+.w-full[type="url"],
+.w-full[type="tel"],
+.w-full[type="search"],
+.w-full[type="date"],
+.w-full[type="datetime-local"],
+.w-full[type="time"],
+.w-full[type="file"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+input[type="tel"],
+input[type="search"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="file"],
+textarea,
+select,
+.v-text-field input,
+.v-text-field textarea,
+.v-select__selection,
+[class*="v-text-field"],
+[class*="v-select"] input,
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+textarea,
+select {
+    border: 1px solid #d1d5db !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    background-color: #fff !important;
+}
+
+/* Focus state with visible border */
+.w-full:focus,
+input:focus,
+textarea:focus,
+select:focus,
+.v-text-field input:focus,
+.v-text-field textarea:focus,
+[class*="v-text-field"]:focus-within,
+[class*="v-select"]:focus-within {
+    border-color: #4f46e5 !important;
+    outline: 2px solid #4f46e5 !important;
+    outline-offset: 1px !important;
+}
+
+/* Hover state */
+.w-full:hover,
+input:hover,
+textarea:hover,
+select:hover,
+.v-text-field input:hover,
+.v-text-field textarea:hover {
+    border-color: #9ca3af !important;
+}
+
+/* Disabled state */
+input:disabled,
+textarea:disabled,
+select:disabled,
+.w-full:disabled {
+    background-color: #f3f4f6 !important;
+    border-color: #e5e7eb !important;
+    cursor: not-allowed !important;
+}
+
+/* Additional selectors for Unfold form fields */
+.field-text input,
+.field-textarea textarea,
+.field-number input,
+.field-email input,
+.field-url input,
+.field-date input,
+.field-datetime input,
+.自由形式,
+自由形式输入框,
+[data-field-type="text"],
+[data-field-type="textarea"],
+[data-field-type="number"],
+[data-field-type="email"],
+[data-field-type="url"],
+[data-field-type="date"],
+[data-field-type="datetime"] {
+    border: 1px solid #d1d5db !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    background-color: #fff !important;
+}
+
+/* Form row inputs */
+.form-row input,
+.form-row textarea,
+.form-row select {
+    border: 1px solid #d1d5db !important;
+    border-radius: 4px !important;
+    padding: 6px 8px !important;
+}
+
+/* Admin date inputs */
+.datetime input,
+.date input {
+    border: 1px solid #d1d5db !important;
+}
+
+/* File input */
+input[type="file"] {
+    border: 1px dashed #d1d5db !important;
+    padding: 8px !important;
+    background-color: #fafafa !important;
+}
+
+/* Checkbox and radio should not have border */
+input[type="checkbox"],
+input[type="radio"] {
+    border: none !important;
+    padding: 0 !important;
+}

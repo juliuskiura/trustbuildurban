@@ -62,13 +62,14 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "tbusite.middleware.AdminCustomCSSMiddleware",
 ]
 
 ROOT_URLCONF = 'tbusite.urls'
@@ -76,7 +77,7 @@ ROOT_URLCONF = 'tbusite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -162,24 +163,24 @@ STATICFILES_FINDERS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "accounts.UserAccount"
-
+# openClaw:
 # Django Unfold Theme Configuration
 UNFOLD = {
-     "BORDER_RADIUS": "6px",
+    "BORDER_RADIUS": "6px",
     "THEME": "light",  # Options: "system", "light", "dark"
     "COLORS": {
         "primary": {
-             '50': '#efeeff',
-            '100': '#e2e0ff',
-            '200': '#cac7fe',
-            '300': '#aaa5fc',
-            '400': '#8881f8',
-            '500': '#6b63f1',
-            '600': '#4f46e5',
-            '700': '#4038ca',
-            '800': '#3730a3',
-            '900': '#332e81',
-            '950': '#1e1b4b',
+            "50": "#efeeff",
+            "100": "#e2e0ff",
+            "200": "#cac7fe",
+            "300": "#aaa5fc",
+            "400": "#8881f8",
+            "500": "#6b63f1",
+            "600": "#4f46e5",
+            "700": "#4038ca",
+            "800": "#3730a3",
+            "900": "#332e81",
+            "950": "#1e1b4b",
         },
     },
 }
