@@ -78,8 +78,6 @@ def index(request):
         },
     }
 
-    feature_icon_width = 24
-    feature_icon_height = 24
 
     # Features section
     features_section = {
