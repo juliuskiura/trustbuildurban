@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.contenttypes.admin import GenericInlineModelAdmin
 from mptt.admin import MPTTModelAdmin
 from .models import (
     HomePage,
@@ -20,15 +21,18 @@ from .models import (
 from pages.models import Button
 
 
-class ButtonInline(admin.StackedInline):
+class ButtonInline(GenericInlineModelAdmin):
     """
     Inline admin for generic Button model.
     Allows adding unlimited buttons to any component.
+    Uses GenericInlineModelAdmin to work with GenericForeignKey.
     """
 
     model = Button
     extra = 1
     can_delete = True
+    ct_field = "content_type"
+    ct_fk_field = "object_id"
     fieldsets = (
         (None, {"fields": ("text", "link", "icon")}),
         (
@@ -46,7 +50,7 @@ class StatsInline(admin.StackedInline):
     model = Stats
     extra = 1
     can_delete = True
-    fieldsets = ((None, {"fields": ("value", "label", "icon", "order")}),)
+    fieldsets = ((None, {"fields": ("value", "label", )}),)
 
 
 class ClientReviewInline(admin.StackedInline):
@@ -403,6 +407,7 @@ class HeroSectionAdmin(admin.ModelAdmin):
 
     list_display = ["__str__", "homepage", "tagline"]
     search_fields = ["homepage__title", "tagline"]
+    # Note: Buttons are managed via HomePage admin inline, not here
 
 
 @admin.register(StatsSection)
