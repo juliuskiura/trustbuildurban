@@ -30,6 +30,8 @@ class Button(PageBase):
     )
     object_id = models.CharField(max_length=40, null=True, blank=True)
     content_object = GenericForeignKey("content_type", "object_id")
+    # Store content type info as JSON for flexibility with UUIDs
+    content_reference = models.JSONField(null=True, blank=True)
 
     # Button content
     text = models.CharField(max_length=100, blank=True)
@@ -66,6 +68,21 @@ class Button(PageBase):
 
     def __str__(self):
         return self.text or "Untitled Button"
+
+    def set_reference(self, instance):
+        """Serialize the app_label, model_name, and object_id of a related instance."""
+        content_type = ContentType.objects.get_for_model(instance)
+        self.content_reference = {
+            "app_label": content_type.app_label,
+            "model_name": content_type.model,
+            "object_id": str(instance.pk),
+        }
+
+    def save(self, *args, **kwargs):
+        """Override save to automatically serialize the reference if content_object is set."""
+        if self.content_object and not self.content_reference:
+            self.set_reference(self.content_object)
+        super().save(*args, **kwargs)
 
 
 class PageComponent(models.Model):
