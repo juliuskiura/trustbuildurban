@@ -1,68 +1,70 @@
 from django.shortcuts import render
 
+from process.models import ProcessPage, HeaderSection, ProcessSteps, ProcessCTA
+
 
 def process(request):
     """Render the process page"""
-    # Meta information
-    meta = {
-        "title": "Our Process | TrustBuild Urban",
-        "description": "Discover our 7-step roadmap to predictable construction results in Kenya.",
-    }
+    # Get the process page
+    process_page = ProcessPage.objects.filter(is_published=True).first()
 
-    # Process header section
-    process_header = {
-        "eyebrow": "How We Work",
-        "heading": "The 7-Step TrustBuild Roadmap",
-        "description": "Construction in Kenya doesn't have to be chaotic. We use a standardized corporate workflow to ensure predictable results every time.",
-    }
+    if not process_page:
+        # Fallback to basic context if no published page
+        return render(
+            request,
+            "process/process.html",
+            {
+                "meta": {
+                    "title": "Our Process | TrustBuild Urban",
+                    "description": "Discover our 7-step roadmap to predictable construction results in Kenya.",
+                }
+            },
+        )
 
-    # Process steps section
-    process_steps = {
-        "quality_gate_label": "Quality Gate",
-        "quality_gate_text": "This stage must be signed off by both our lead engineer and the client before proceeding.",
-        "steps": [
-            {
-                "title": "Consultation",
-                "description": "Brainstorming and roadmap development.",
-            },
-            {
-                "title": "Feasibility",
-                "description": "Site visits and legal title verification.",
-            },
-            {
-                "title": "Concept",
-                "description": "Architectural designs and floor planning.",
-            },
-            {
-                "title": "Approvals",
-                "description": "NCA and County government legal sign-offs.",
-            },
-            {
-                "title": "Contracts",
-                "description": "Bill of quantities and fixed-price agreements.",
-            },
-            {
-                "title": "Construction",
-                "description": "Structured building with live video updates.",
-            },
-            {
-                "title": "Handover",
-                "description": "Quality verification and key ceremony.",
-            },
-        ],
-    }
+    # Get sections
+    header_section = getattr(process_page, "process_header", None)
+    steps_section = process_page.process_steps_sections.first()
+    cta_section = process_page.process_cta_sections.first()
 
-    # Process CTA section
-    process_cta = {
-        "heading": "Ready to take step one?",
-        "button_text": "Book Initial Consultation",
-    }
-
+    # Build context from database
     context = {
-        "meta": meta,
-        "process_header": process_header,
-        "process_steps": process_steps,
-        "process_cta": process_cta,
+        "meta": {
+            "title": process_page.meta_title or "Our Process | TrustBuild Urban",
+            "description": process_page.meta_description
+            or "Discover our 7-step roadmap to predictable construction results in Kenya.",
+        }
     }
+
+    # Header section context
+    if header_section:
+        context["process_header"] = {
+            "eyebrow": header_section.eyebrow,
+            "heading": header_section.heading,
+            "description": header_section.description,
+        }
+
+    # Steps section context
+    if steps_section:
+        steps = []
+        for step in steps_section.steps.all():
+            steps.append(
+                {
+                    "title": step.title,
+                    "description": step.description,
+                }
+            )
+
+        context["process_steps"] = {
+            "quality_gate_label": steps_section.quality_gate_label,
+            "quality_gate_text": steps_section.quality_gate_text,
+            "steps": steps,
+        }
+
+    # CTA section context
+    if cta_section:
+        context["process_cta"] = {
+            "heading": cta_section.heading,
+            "button_text": cta_section.button_text,
+        }
 
     return render(request, "process/process.html", context)
