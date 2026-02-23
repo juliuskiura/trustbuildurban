@@ -1,6 +1,22 @@
 from django.contrib import admin
 from mptt.admin import MPTTModelAdmin
-from .models import HomePage, HeroSection, Stats, StatsSection, ClientReview
+from .models import (
+    HomePage,
+    HeroSection,
+    Stats,
+    StatsSection,
+    ClientReview,
+    # New models
+    DiasporaSection,
+    DiasporaChallenge,
+    FeaturesSection,
+    Feature,
+    StepsSection,
+    Step,
+    ServicesSection,
+    Service,
+    NewsletterSection,
+)
 from pages.models import Button
 
 
@@ -121,12 +137,177 @@ class StatsSectionInline(admin.StackedInline):
     )
 
 
+# ============== Diaspora Section Inlines ==============
+
+
+class DiasporaChallengeInline(admin.StackedInline):
+    """
+    Inline admin for DiasporaChallenge model.
+    """
+
+    model = DiasporaChallenge
+    extra = 1
+    can_delete = True
+    fieldsets = ((None, {"fields": ("title", "description", "order")}),)
+
+
+class DiasporaSectionInline(admin.StackedInline):
+    """
+    Inline admin for DiasporaSection model.
+    """
+
+    model = DiasporaSection
+    extra = 1
+    can_delete = True
+    inlines = [DiasporaChallengeInline]
+    fieldsets = (
+        (
+            "Content",
+            {"fields": ("eyebrow", "heading", "attribution")},
+        ),
+        (
+            "Featured Project",
+            {
+                "fields": (
+                    "featured_label",
+                    "featured_title",
+                    "featured_image",
+                    "featured_image_url",
+                )
+            },
+        ),
+    )
+
+
+# ============== Features Section Inlines ==============
+
+
+class FeatureInline(admin.StackedInline):
+    """
+    Inline admin for Feature model.
+    """
+
+    model = Feature
+    extra = 1
+    can_delete = True
+    fieldsets = ((None, {"fields": ("title", "description", "icon_path", "order")}),)
+
+
+class FeaturesSectionInline(admin.StackedInline):
+    """
+    Inline admin for FeaturesSection model.
+    """
+
+    model = FeaturesSection
+    extra = 1
+    can_delete = True
+    inlines = [FeatureInline]
+    fieldsets = (
+        (
+            "Content",
+            {"fields": ("eyebrow", "heading")},
+        ),
+    )
+
+
+# ============== Steps Section Inlines ==============
+
+
+class StepInline(admin.StackedInline):
+    """
+    Inline admin for Step model.
+    """
+
+    model = Step
+    extra = 1
+    can_delete = True
+    fieldsets = ((None, {"fields": ("title", "description", "order")}),)
+
+
+class StepsSectionInline(admin.StackedInline):
+    """
+    Inline admin for StepsSection model.
+    """
+
+    model = StepsSection
+    extra = 1
+    can_delete = True
+    inlines = [StepInline]
+    fieldsets = (
+        (
+            "Content",
+            {"fields": ("eyebrow", "heading", "description")},
+        ),
+    )
+
+
+# ============== Services Section Inlines ==============
+
+
+class ServiceInline(admin.StackedInline):
+    """
+    Inline admin for Service model.
+    """
+
+    model = Service
+    extra = 1
+    can_delete = True
+    fieldsets = (
+        (None, {"fields": ("title", "description", "icon", "expertise", "order")}),
+    )
+
+
+class ServicesSectionInline(admin.StackedInline):
+    """
+    Inline admin for ServicesSection model.
+    """
+
+    model = ServicesSection
+    extra = 1
+    can_delete = True
+    inlines = [ServiceInline]
+    fieldsets = (
+        (
+            "Content",
+            {"fields": ("subtitle", "heading")},
+        ),
+    )
+
+
+# ============== Newsletter Section Inlines ==============
+
+
+class NewsletterSectionInline(admin.StackedInline):
+    """
+    Inline admin for NewsletterSection model.
+    """
+
+    model = NewsletterSection
+    extra = 1
+    can_delete = True
+    inlines = [ButtonInline]
+    fieldsets = (
+        (
+            "Content",
+            {"fields": ("heading", "description", "placeholder")},
+        ),
+    )
+
+
 @admin.register(HomePage)
 class HomePageAdmin(MPTTModelAdmin):
     """
     Admin for HomePage model.
     """
-    inlines = [HeroSectionInline, StatsSectionInline]
+    inlines = [
+        HeroSectionInline,
+        StatsSectionInline,
+        DiasporaSectionInline,
+        FeaturesSectionInline,
+        StepsSectionInline,
+        ServicesSectionInline,
+        NewsletterSectionInline,
+    ]
 
     list_display = [
         'title', 
@@ -239,3 +420,86 @@ class ClientReviewAdmin(admin.ModelAdmin):
 
     list_display = ["__str__", "stats_section", "rating", "total_reviews"]
     search_fields = ["stats_section__homepage__title", "total_reviews"]
+
+
+# ============== Register New Models ==============
+
+
+@admin.register(DiasporaSection)
+class DiasporaSectionAdmin(admin.ModelAdmin):
+    """Admin for DiasporaSection model"""
+
+    list_display = ["__str__", "homepage", "eyebrow"]
+    search_fields = ["homepage__title", "eyebrow", "heading"]
+    inlines = [DiasporaChallengeInline]
+
+
+@admin.register(DiasporaChallenge)
+class DiasporaChallengeAdmin(admin.ModelAdmin):
+    """Admin for DiasporaChallenge model"""
+
+    list_display = ["__str__", "diaspora_section", "title", "order"]
+    search_fields = ["diaspora_section__homepage__title", "title"]
+    list_filter = ["diaspora_section"]
+
+
+@admin.register(FeaturesSection)
+class FeaturesSectionAdmin(admin.ModelAdmin):
+    """Admin for FeaturesSection model"""
+
+    list_display = ["__str__", "homepage", "eyebrow"]
+    search_fields = ["homepage__title", "eyebrow", "heading"]
+    inlines = [FeatureInline]
+
+
+@admin.register(Feature)
+class FeatureAdmin(admin.ModelAdmin):
+    """Admin for Feature model"""
+
+    list_display = ["__str__", "features_section", "title", "order"]
+    search_fields = ["features_section__homepage__title", "title"]
+    list_filter = ["features_section"]
+
+
+@admin.register(StepsSection)
+class StepsSectionAdmin(admin.ModelAdmin):
+    """Admin for StepsSection model"""
+
+    list_display = ["__str__", "homepage", "eyebrow"]
+    search_fields = ["homepage__title", "eyebrow", "heading"]
+    inlines = [StepInline]
+
+
+@admin.register(Step)
+class StepAdmin(admin.ModelAdmin):
+    """Admin for Step model"""
+
+    list_display = ["__str__", "steps_section", "title", "order"]
+    search_fields = ["steps_section__homepage__title", "title"]
+    list_filter = ["steps_section"]
+
+
+@admin.register(ServicesSection)
+class ServicesSectionAdmin(admin.ModelAdmin):
+    """Admin for ServicesSection model"""
+
+    list_display = ["__str__", "homepage", "subtitle"]
+    search_fields = ["homepage__title", "subtitle", "heading"]
+    inlines = [ServiceInline]
+
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    """Admin for Service model"""
+
+    list_display = ["__str__", "services_section", "title", "order"]
+    search_fields = ["services_section__homepage__title", "title"]
+    list_filter = ["services_section"]
+
+
+@admin.register(NewsletterSection)
+class NewsletterSectionAdmin(admin.ModelAdmin):
+    """Admin for NewsletterSection model"""
+
+    list_display = ["__str__", "homepage", "heading"]
+    search_fields = ["homepage__title", "heading", "cta_text"]

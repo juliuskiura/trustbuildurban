@@ -168,3 +168,301 @@ class ClientReview(PageBase):
 
     def __str__(self):
         return f"Client Review ({self.rating} stars) - {self.total_reviews}"
+
+
+# ============== Diaspora Section ==============
+
+
+class DiasporaSection(PageBase):
+    """
+    Diaspora section model with ForeignKey to HomePage.
+    Addresses challenges faced by diaspora builders in Kenya.
+    """
+
+    homepage = models.ForeignKey(
+        "homepage.HomePage", on_delete=models.CASCADE, related_name="diaspora_sections"
+    )
+
+    # Section content
+    eyebrow = models.CharField(
+        max_length=100,
+        blank=True,
+        default="The Diaspora Challenge",
+    )
+    heading = models.TextField(
+        blank=True,
+        default="Building in Kenya should not be a gamble.",
+    )
+    attribution = models.TextField(
+        blank=True,
+        default="TrustBuildUrban was founded to replace fear with structured, world-class building standards.",
+    )
+
+    # Featured project
+    featured_label = models.CharField(
+        max_length=100, blank=True, default="Featured Project"
+    )
+    featured_title = models.CharField(
+        max_length=200, blank=True, default="The Grand Residence, Runda"
+    )
+    featured_image = models.ForeignKey(
+        "images.Image",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="diaspora_featured_images",
+    )
+    featured_image_url = models.URLField(max_length=500, blank=True)
+
+    class Meta:
+        verbose_name = "Diaspora Section"
+        verbose_name_plural = "Diaspora Sections"
+
+    def __str__(self):
+        return f"Diaspora Section for {self.homepage.title}"
+
+
+class DiasporaChallenge(PageBase, OrderedModel):
+    """
+    Challenge child model for DiasporaSection.
+    Uses OrderedModel for ordering challenges.
+    """
+
+    diaspora_section = models.ForeignKey(
+        DiasporaSection, on_delete=models.CASCADE, related_name="challenges"
+    )
+
+    # Challenge content
+    title = models.CharField(max_length=200, blank=True)
+    description = models.TextField(blank=True)
+
+    # Order
+    order_with_respect_to = "diaspora_section"
+
+    class Meta(OrderedModel.Meta):
+        verbose_name = "Diaspora Challenge"
+        verbose_name_plural = "Diaspora Challenges"
+
+    def __str__(self):
+        return self.title
+
+
+# ============== Features Section ==============
+
+
+class FeaturesSection(PageBase):
+    """
+    Features section model with ForeignKey to HomePage.
+    Highlights why diaspora families trust TrustBuildUrban.
+    """
+
+    homepage = models.ForeignKey(
+        "homepage.HomePage", on_delete=models.CASCADE, related_name="features_sections"
+    )
+
+    # Section content
+    eyebrow = models.CharField(
+        max_length=100,
+        blank=True,
+        default="The TrustBuildUrban Standard",
+    )
+    heading = models.TextField(
+        blank=True,
+        default="Why Hundreds of Diaspora Families Trust Us",
+    )
+
+    class Meta:
+        verbose_name = "Features Section"
+        verbose_name_plural = "Features Sections"
+
+    def __str__(self):
+        return f"Features Section for {self.homepage.title}"
+
+
+class Feature(PageBase, OrderedModel):
+    """
+    Feature child model for FeaturesSection.
+    Uses OrderedModel for ordering features.
+    """
+
+    features_section = models.ForeignKey(
+        FeaturesSection, on_delete=models.CASCADE, related_name="features"
+    )
+
+    # Feature content
+    title = models.CharField(max_length=200, blank=True)
+    description = models.TextField(blank=True)
+    icon_path = models.TextField(blank=True, help_text="SVG icon code")
+
+    # Order
+    order_with_respect_to = "features_section"
+
+    class Meta(OrderedModel.Meta):
+        verbose_name = "Feature"
+        verbose_name_plural = "Features"
+
+    def __str__(self):
+        return self.title
+
+
+# ============== Steps Section ==============
+
+
+class StepsSection(PageBase):
+    """
+    Steps section model with ForeignKey to HomePage.
+    Shows the 7-step architectural journey.
+    """
+
+    homepage = models.ForeignKey(
+        "homepage.HomePage", on_delete=models.CASCADE, related_name="steps_sections"
+    )
+
+    # Section content
+    eyebrow = models.CharField(
+        max_length=100,
+        blank=True,
+        default="Transparent Execution",
+    )
+    heading = models.TextField(
+        blank=True,
+        default="Our 7-Step Architectural Journey",
+    )
+    description = models.TextField(
+        blank=True,
+        default="A meticulously structured process from initial concept to the day we hand over your keys.",
+    )
+
+    class Meta:
+        verbose_name = "Steps Section"
+        verbose_name_plural = "Steps Sections"
+
+    def __str__(self):
+        return f"Steps Section for {self.homepage.title}"
+
+
+class Step(PageBase, OrderedModel):
+    """
+    Step child model for StepsSection.
+    Uses OrderedModel for ordering steps.
+    """
+
+    steps_section = models.ForeignKey(
+        StepsSection, on_delete=models.CASCADE, related_name="steps"
+    )
+
+    # Step content
+    title = models.CharField(max_length=200, blank=True)
+    description = models.TextField(blank=True)
+
+    # Order
+    order_with_respect_to = "steps_section"
+
+    class Meta(OrderedModel.Meta):
+        verbose_name = "Step"
+        verbose_name_plural = "Steps"
+
+    def __str__(self):
+        return self.title
+
+
+# ============== Services Section ==============
+
+
+class ServicesSection(PageBase):
+    """
+    Services section model with ForeignKey to HomePage.
+    Shows elite engineering and architectural services.
+    """
+
+    homepage = models.ForeignKey(
+        "homepage.HomePage", on_delete=models.CASCADE, related_name="services_sections"
+    )
+
+    # Section content
+    subtitle = models.CharField(
+        max_length=100,
+        blank=True,
+        default="Our Specializations",
+    )
+    heading = models.TextField(
+        blank=True,
+        default="Elite Engineering & Architectural Excellence",
+    )
+
+    class Meta:
+        verbose_name = "Services Section"
+        verbose_name_plural = "Services Sections"
+
+    def __str__(self):
+        return f"Services Section for {self.homepage.title}"
+
+
+class Service(PageBase, OrderedModel):
+    """
+    Service child model for ServicesSection.
+    Uses OrderedModel for ordering services.
+    """
+
+    services_section = models.ForeignKey(
+        ServicesSection, on_delete=models.CASCADE, related_name="services"
+    )
+
+    # Service content
+    title = models.CharField(max_length=200, blank=True)
+    description = models.TextField(blank=True)
+    icon = models.TextField(blank=True, help_text="SVG icon code")
+    expertise = models.TextField(
+        blank=True,
+        help_text="Comma-separated list of expertise areas",
+    )
+
+    # Order
+    order_with_respect_to = "services_section"
+
+    class Meta(OrderedModel.Meta):
+        verbose_name = "Service"
+        verbose_name_plural = "Services"
+
+    def __str__(self):
+        return self.title
+
+
+# ============== Newsletter Section ==============
+
+
+class NewsletterSection(PageBase):
+    """
+    Newsletter section model with ForeignKey to HomePage.
+    Captures leads with diaspora home building guide.
+    Uses generic Button model for CTA button.
+    """
+
+    homepage = models.ForeignKey(
+        "homepage.HomePage",
+        on_delete=models.CASCADE,
+        related_name="newsletter_sections",
+    )
+
+    # Generic relation to buttons - allows unlimited buttons
+    buttons = GenericRelation(Button, related_query_name="newsletter_sections")
+
+    # Section content
+    heading = models.TextField(
+        blank=True,
+        default="Free Diaspora Home Building Guide",
+    )
+    description = models.TextField(
+        blank=True,
+        default="Download our comprehensive manual on navigating land laws, approvals, and construction costs in Kenya from abroad.",
+    )
+    placeholder = models.CharField(
+        max_length=100, blank=True, default="Enter your email"
+    )
+
+    class Meta:
+        verbose_name = "Newsletter Section"
+        verbose_name_plural = "Newsletter Sections"
+
+    def __str__(self):
+        return f"Newsletter Section for {self.homepage.title}"
