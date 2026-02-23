@@ -35,6 +35,8 @@ class Image(PageBase):
         Return the total number of times this image is used as a foreign key
         across all models.
         """
+        if self._state.adding:
+            return 0
         return ImageUsage.objects.filter(image=self).count()
 
     @property
@@ -42,6 +44,8 @@ class Image(PageBase):
         """
         Return a list of model names that use this image.
         """
+        if self._state.adding:
+            return []
         return list(
             ImageUsage.objects.filter(image=self)
             .values_list("content_type__model", flat=True)
@@ -53,6 +57,8 @@ class Image(PageBase):
         """
         Return detailed usage information grouped by model.
         """
+        if self._state.adding:
+            return []
         from django.db.models import Count
 
         return (
