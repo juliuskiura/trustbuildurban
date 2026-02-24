@@ -30,23 +30,23 @@ class AIContentGenerateView(View):
                 {"success": False, "error": "Invalid JSON data"}, status=400
             )
 
-        prompt_type = data.get("prompt_type", "generic")
-        context = data.get("context", {})
-        field_name = data.get("field_name", "")
+        # Extract field context
+        field_label = data.get("field_label", "Content")
+        help_text = data.get("help_text", "")
+        max_length = data.get("max_length")
+        field_type = data.get("field_type", "TextField")
+        custom_prompt = data.get("custom_prompt")
+        related_values = data.get("related_values", {})
 
-        # Route to appropriate generation method based on prompt type
-        if prompt_type == "hero_description":
-            result = ai_generator.generate_hero_description(
-                tagline=context.get("tagline"),
-                heading_main=context.get("heading_main"),
-                company_name=context.get("company_name", "TrustBuildUrban"),
-            )
-        else:
-            # Generic content generation
-            prompt = data.get("prompt", "Generate content for this field.")
-            result = ai_generator.generate_content(
-                prompt=prompt, context=json.dumps(context) if context else None
-            )
+        # Use the enhanced generation method
+        result = ai_generator.generate_field_content(
+            field_label=field_label,
+            help_text=help_text,
+            max_length=max_length,
+            field_type=field_type,
+            custom_prompt=custom_prompt,
+            related_values=related_values,
+        )
 
         return JsonResponse(result)
 
@@ -59,6 +59,7 @@ def ai_generate_view(request):
     Function-based view for AI content generation.
 
     This is an alternative to the class-based view above.
+    Accepts field context including help_text, max_length, and custom prompts.
     """
     try:
         data = json.loads(request.body)
@@ -67,21 +68,22 @@ def ai_generate_view(request):
             {"success": False, "error": "Invalid JSON data"}, status=400
         )
 
-    prompt_type = data.get("prompt_type", "generic")
-    context = data.get("context", {})
+    # Extract field context
+    field_label = data.get("field_label", "Content")
+    help_text = data.get("help_text", "")
+    max_length = data.get("max_length")
+    field_type = data.get("field_type", "TextField")
+    custom_prompt = data.get("custom_prompt")
+    related_values = data.get("related_values", {})
 
-    # Route to appropriate generation method based on prompt type
-    if prompt_type == "hero_description":
-        result = ai_generator.generate_hero_description(
-            tagline=context.get("tagline"),
-            heading_main=context.get("heading_main"),
-            company_name=context.get("company_name", "TrustBuildUrban"),
-        )
-    else:
-        # Generic content generation
-        prompt = data.get("prompt", "Generate content for this field.")
-        result = ai_generator.generate_content(
-            prompt=prompt, context=json.dumps(context) if context else None
-        )
+    # Use the enhanced generation method
+    result = ai_generator.generate_field_content(
+        field_label=field_label,
+        help_text=help_text,
+        max_length=max_length,
+        field_type=field_type,
+        custom_prompt=custom_prompt,
+        related_values=related_values,
+    )
 
     return JsonResponse(result)

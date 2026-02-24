@@ -2,6 +2,7 @@
  * AI Content Generator Widget JavaScript
  * 
  * This module handles the AI content generation functionality in Django admin.
+ * Supports both text input and textarea widgets with context-aware generation.
  */
 
 (function() {
@@ -21,34 +22,67 @@
 
     function initAIWidgets(container) {
         container = container || document;
+
+        // Initialize generate buttons
         const buttons = container.querySelectorAll('.ai-generate-btn');
-        
         buttons.forEach(function(button) {
             if (!button.dataset.initialized) {
                 button.addEventListener('click', handleAIGenerate);
                 button.dataset.initialized = 'true';
             }
         });
+
+        // Initialize custom prompt buttons
+        const promptBtns = container.querySelectorAll('.ai-custom-prompt-btn');
+        promptBtns.forEach(function (btn) {
+            if (!btn.dataset.initialized) {
+                btn.addEventListener('click', openCustomPromptModal);
+                btn.dataset.initialized = 'true';
+            }
+        });
+
+        // Initialize modal close buttons
+        const closeBtns = container.querySelectorAll('.ai-modal-close, .ai-modal-cancel');
+        closeBtns.forEach(function (btn) {
+            if (!btn.dataset.initialized) {
+                btn.addEventListener('click', closeCustomPromptModal);
+                btn.dataset.initialized = 'true';
+            }
+        });
+
+        // Initialize modal generate buttons
+        const modalGenerateBtns = container.querySelectorAll('.ai-modal-generate');
+        modalGenerateBtns.forEach(function (btn) {
+            if (!btn.dataset.initialized) {
+                btn.addEventListener('click', handleCustomPromptGenerate);
+                btn.dataset.initialized = 'true';
+            }
+        });
     }
 
-    function handleAIGenerate(event) {
+    function handleAIGenerate(event, customPrompt) {
         event.preventDefault();
         
         const button = event.currentTarget;
-        const widget = button.closest('.ai-textarea-widget');
-        const textarea = widget.querySelector('textarea');
+        const widget = button.closest('.ai-widget');
+        const inputField = widget.querySelector('[data-ai-field="true"]');
         const btnText = button.querySelector('.ai-btn-text');
         const btnLoading = button.querySelector('.ai-btn-loading');
         const statusSpan = widget.querySelector('.ai-status');
 
-        // Get context data from related fields
-        const contextFields = button.dataset.contextFields.split(',').filter(f => f);
-        const contextData = {};
+        // Get field context from button data attributes
+        const fieldLabel = button.dataset.fieldLabel || 'Content';
+        const helpText = button.dataset.helpText || '';
+        const maxLength = button.dataset.maxLength || '';
+        const fieldType = button.dataset.fieldType || 'TextField';
+        const contextFields = (button.dataset.contextFields || '').split(',').filter(f => f);
 
+        // Get context data from related fields
+        const relatedValues = {};
         contextFields.forEach(function(fieldName) {
             const field = findFieldByName(fieldName, widget);
-            if (field) {
-                contextData[fieldName] = field.value;
+            if (field && field.value) {
+                relatedValues[fieldName] = field.value;
             }
         });
 
@@ -60,9 +94,12 @@
 
         // Prepare request data
         const requestData = {
-            prompt_type: button.dataset.prompt,
-            context: contextData,
-            field_name: textarea.name
+            field_label: fieldLabel,
+            help_text: helpText,
+            max_length: maxLength ? parseInt(maxLength) : null,
+            field_type: fieldType,
+            custom_prompt: customPrompt || null,
+            related_values: relatedValues
         };
 
         // Make API request
@@ -79,11 +116,11 @@
         })
         .then(function(data) {
             if (data.success) {
-                textarea.value = data.content;
+                inputField.value = data.content;
                 showStatus(statusSpan, 'Content generated successfully!', 'success');
                 
                 // Trigger change event for any listeners
-                textarea.dispatchEvent(new Event('change', { bubbles: true }));
+                inputField.dispatchEvent(new Event('change', { bubbles: true }));
             } else {
                 showStatus(statusSpan, data.error || 'Failed to generate content', 'error');
             }
@@ -99,6 +136,55 @@
         });
     }
 
+    function openCustomPromptModal(event) {
+        event.preventDefault();
+        const widget = event.currentTarget.closest('.ai-widget');
+        const modal = widget.querySelector('.ai-custom-prompt-modal');
+        if (modal) {
+            modal.style.display = 'block';
+            // Focus the textarea
+            const textarea = modal.querySelector('.ai-custom-prompt-input');
+            if (textarea) {
+                setTimeout(function () { textarea.focus(); }, 100);
+            }
+        }
+    }
+
+    function closeCustomPromptModal(event) {
+        event.preventDefault();
+        const modal = event.currentTarget.closest('.ai-custom-prompt-modal');
+        if (modal) {
+            modal.style.display = 'none';
+            // Clear the input
+            const textarea = modal.querySelector('.ai-custom-prompt-input');
+            if (textarea) {
+                textarea.value = '';
+            }
+        }
+    }
+
+    function handleCustomPromptGenerate(event) {
+        event.preventDefault();
+        const modal = event.currentTarget.closest('.ai-custom-prompt-modal');
+        const widget = event.currentTarget.closest('.ai-widget');
+        const textarea = modal.querySelector('.ai-custom-prompt-input');
+        const customPrompt = textarea ? textarea.value.trim() : '';
+
+        // Close the modal
+        modal.style.display = 'none';
+
+        // Trigger generation with custom prompt
+        const generateBtn = widget.querySelector('.ai-generate-btn');
+        if (generateBtn) {
+            // Create a synthetic event
+            const syntheticEvent = {
+                preventDefault: function () { },
+                currentTarget: generateBtn
+            };
+            handleAIGenerate(syntheticEvent, customPrompt);
+        }
+    }
+
     function findFieldByName(fieldName, widget) {
         // Try to find field in the same form
         const form = widget.closest('form');
@@ -112,9 +198,9 @@
         ];
 
         // Also try with form prefixes (for inlines)
-        const textareaName = widget.querySelector('textarea').name;
-        if (textareaName) {
-            const match = textareaName.match(/^(.+)-\d+-/);
+        const inputField = widget.querySelector('[data-ai-field="true"]');
+        if (inputField && inputField.name) {
+            const match = inputField.name.match(/^(.+)-\d+-/);
             if (match) {
                 patterns.push(`${match[1]}-${fieldName}`);
                 patterns.push(`id_${match[1]}-${fieldName}`);
@@ -178,6 +264,23 @@
         element.textContent = '';
         element.className = 'ai-status';
     }
+
+    // Close modals when clicking outside
+    document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('ai-custom-prompt-modal')) {
+            event.target.style.display = 'none';
+        }
+    });
+
+    // Handle escape key to close modals
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            const modals = document.querySelectorAll('.ai-custom-prompt-modal');
+            modals.forEach(function (modal) {
+                modal.style.display = 'none';
+            });
+        }
+    });
 
     // Expose for external use if needed
     window.AIContentGenerator = {

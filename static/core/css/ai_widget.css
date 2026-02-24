@@ -2,23 +2,35 @@
  * AI Content Generator Widget Styles
  */
 
-.ai-textarea-widget {
+/* Base Widget Container */
+.ai-widget {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.ai-textarea-widget textarea {
+.ai-widget-input-wrapper {
     width: 100%;
+}
+
+.ai-widget-input-wrapper textarea,
+.ai-widget-input-wrapper input {
+    width: 100%;
+}
+
+.ai-widget-textarea textarea {
     min-height: 100px;
 }
 
+/* Controls Container */
 .ai-widget-controls {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+        flex-wrap: wrap;
 }
 
+/* Generate Button */
 .ai-generate-btn {
     display: inline-flex;
     align-items: center;
@@ -50,12 +62,16 @@
     transform: none;
 }
 
+.ai-btn-icon {
+    font-size: 14px;
+}
 .ai-btn-loading {
     display: inline-flex;
     align-items: center;
     gap: 6px;
 }
 
+/* Spinner Animation */
 .ai-spinner {
     display: inline-block;
     width: 14px;
@@ -72,6 +88,27 @@
     }
 }
 
+/* Custom Prompt Button */
+.ai-custom-prompt-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ai-custom-prompt-btn:hover {
+    background: #e8e8e8;
+    border-color: #ccc;
+}
+
+/* Status Messages */
 .ai-status {
     font-size: 12px;
     padding: 4px 8px;
@@ -93,6 +130,140 @@
     color: #0c5460;
 }
 
+/* Field Hint */
+.ai-field-hint {
+    color: #666;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Custom Prompt Modal */
+.ai-custom-prompt-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.ai-modal-content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+.ai-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.ai-modal-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.ai-modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.ai-modal-close:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.ai-modal-body {
+    padding: 16px;
+}
+
+.ai-custom-prompt-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+}
+
+.ai-custom-prompt-input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.ai-custom-prompt-input::placeholder {
+    color: #999;
+}
+
+.ai-modal-hint {
+    margin-top: 8px;
+    color: #666;
+}
+
+.ai-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid #eee;
+    background: #f9f9f9;
+}
+
+.ai-modal-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ai-modal-cancel {
+    background: white;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.ai-modal-cancel:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+}
+
+.ai-modal-generate {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+}
+
+.ai-modal-generate:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
     .ai-generate-btn {
@@ -113,4 +284,99 @@
         background-color: #1e3a4a;
         color: #a8d8e8;
     }
+        .ai-custom-prompt-btn {
+            background: #333;
+            border-color: #444;
+        }
+    
+        .ai-custom-prompt-btn:hover {
+            background: #444;
+            border-color: #555;
+        }
+    
+        .ai-modal-content {
+            background: #1a1a1a;
+        }
+    
+        .ai-modal-header {
+            border-bottom-color: #333;
+        }
+    
+        .ai-modal-title {
+            color: #eee;
+        }
+    
+        .ai-modal-close {
+            color: #aaa;
+        }
+    
+        .ai-modal-close:hover {
+            background: #333;
+            color: #eee;
+        }
+    
+        .ai-custom-prompt-input {
+            background: #252525;
+            border-color: #444;
+            color: #eee;
+        }
+    
+        .ai-custom-prompt-input:focus {
+            border-color: #667eea;
+        }
+    
+        .ai-modal-footer {
+            border-top-color: #333;
+            background: #1a1a1a;
+        }
+    
+        .ai-modal-cancel {
+            background: #333;
+            border-color: #444;
+            color: #aaa;
+        }
+    
+        .ai-modal-cancel:hover {
+            background: #444;
+            border-color: #555;
+        }
+    
+        .ai-field-hint {
+            color: #aaa;
+        }
+        }
+    
+        /* Django Admin Specific Overrides */
+        /* These ensure the widget works well in Django admin */
+        .field-box .ai-widget {
+            margin-top: 0;
+        }
+    
+        .inline-group .ai-widget-controls {
+            margin-left: 0;
+        }
+    
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .ai-modal-content {
+                width: 95%;
+                margin: 10px;
+            }
+    
+            .ai-widget-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+    
+            .ai-generate-btn {
+                width: 100%;
+                justify-content: center;
+            }
+    
+            .ai-custom-prompt-btn {
+                width: 100%;
+                justify-content: center;
+                height: auto;
+                padding: 8px;
+            }
 }

@@ -1,5 +1,5 @@
 {% load i18n %}
-<div class="ai-widget ai-widget-textarea" data-field-type="{{ widget.ai_field_type }}">
+<div class="ai-widget ai-widget-universal" data-field-type="{{ widget.ai_field_type }}">
     <div class="ai-widget-input-wrapper">
         <textarea{% include "django/forms/widgets/attrs.html" %} data-ai-field="true">{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
     </div>
@@ -46,6 +46,11 @@
                 <button type="button" class="ai-modal-btn ai-modal-generate">Generate</button>
             </div>
         </div>
+    </div>
+    {% endif %}
+    {% if widget.ai_help_text %}
+    <div class="ai-field-hint">
+        <small>{{ widget.ai_help_text }}</small>
     </div>
     {% endif %}
 </div>

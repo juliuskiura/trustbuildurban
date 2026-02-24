@@ -1,7 +1,7 @@
 {% load i18n %}
-<div class="ai-widget ai-widget-textarea" data-field-type="{{ widget.ai_field_type }}">
+<div class="ai-widget ai-widget-input" data-field-type="CharField">
     <div class="ai-widget-input-wrapper">
-        <textarea{% include "django/forms/widgets/attrs.html" %} data-ai-field="true">{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
+        <input{% include "django/forms/widgets/attrs.html" %} type="text" data-ai-field="true" value="{{ widget.value }}">
     </div>
     <div class="ai-widget-controls">
         <button type="button" 
@@ -9,14 +9,13 @@
                 data-field-label="{{ widget.ai_field_label }}"
                 data-help-text="{{ widget.ai_help_text }}"
                 data-max-length="{{ widget.ai_max_length }}"
-                data-field-type="{{ widget.ai_field_type }}"
+                data-field-type="CharField"
                 data-context-fields="{{ widget.ai_context_fields }}"
                 data-loading-text="{{ widget.ai_loading_text }}">
             <span class="ai-btn-icon">✨</span>
             <span class="ai-btn-text">{{ widget.ai_button_text }}</span>
             <span class="ai-btn-loading" style="display: none;">
                 <span class="ai-spinner"></span>
-                {{ widget.ai_loading_text }}
             </span>
         </button>
         {% if widget.ai_allow_custom_prompt %}
@@ -35,11 +34,8 @@
             </div>
             <div class="ai-modal-body">
                 <textarea class="ai-custom-prompt-input" 
-                          placeholder="Enter specific instructions for content generation...&#10;&#10;Example: Write a description focusing on our transparent pricing model for diaspora clients."
-                          rows="3"></textarea>
-                <div class="ai-modal-hint">
-                    <small>Tip: Be specific about tone, length, and key points to include.</small>
-                </div>
+                          placeholder="Enter specific instructions for content generation..."
+                          rows="2"></textarea>
             </div>
             <div class="ai-modal-footer">
                 <button type="button" class="ai-modal-btn ai-modal-cancel">Cancel</button>
