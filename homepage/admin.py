@@ -16,6 +16,9 @@ from .models import (
     Service,
     NewsletterSection,
     NewsletterButton,
+    WhoWeAreSection,
+    StatsSection,
+    Stat,
 )
 
 
@@ -256,6 +259,60 @@ class NewsletterSectionInline(admin.StackedInline):
     )
 
 
+class WhoWeAreSectionInline(admin.StackedInline):
+    """
+    Inline admin for WhoWeAreSection model.
+    """
+
+    model = WhoWeAreSection
+    extra = 1
+    max_num = 1
+    can_delete = True
+    fieldsets = (
+        (
+            "Content",
+            {"fields": ("label", "heading", "description")},
+        ),
+        (
+            "Button",
+            {"fields": ("button_text", "button_link")},
+        ),
+        (
+            "Background",
+            {"fields": ("background_image", "background_image_url", "overlay_opacity")},
+        ),
+    )
+
+
+class StatInline(admin.TabularInline):
+    """
+    Inline admin for Stat model.
+    """
+
+    model = Stat
+    extra = 1
+    can_delete = True
+    fieldsets = ((None, {"fields": ("number", "subtitle", "order")}),)
+
+
+class StatsSectionInline(admin.StackedInline):
+    """
+    Inline admin for StatsSection model.
+    """
+
+    model = StatsSection
+    extra = 1
+    max_num = 1
+    can_delete = True
+    inlines = [StatInline]
+    fieldsets = (
+        (
+            "Content",
+            {"fields": ("header", "background_pattern")},
+        ),
+    )
+
+
 class ClientReviewInline(admin.StackedInline):
     """
     Inline admin for ClientReview model.
@@ -280,11 +337,13 @@ class HomePageAdmin(MPTTModelAdmin):
     """
     inlines = [
         HeroSectionInline,
+        WhoWeAreSectionInline,
         ClientReviewInline,
         DiasporaSectionInline,
         FeaturesSectionInline,
         StepsSectionInline,
         ServicesSectionInline,
+        StatsSectionInline,
         NewsletterSectionInline,
     ]
 
@@ -495,3 +554,32 @@ class NewsletterButtonAdmin(admin.ModelAdmin):
     list_display = ["__str__", "newsletter_section", "text", "style"]
     search_fields = ["newsletter_section__homepage__title", "text"]
     list_filter = ["newsletter_section", "style"]
+
+
+# ============== Register New Section Models ==============
+
+
+@admin.register(WhoWeAreSection)
+class WhoWeAreSectionAdmin(admin.ModelAdmin):
+    """Admin for WhoWeAreSection model"""
+
+    list_display = ["__str__", "homepage", "label"]
+    search_fields = ["homepage__title", "label", "heading"]
+
+
+@admin.register(StatsSection)
+class StatsSectionAdmin(admin.ModelAdmin):
+    """Admin for StatsSection model"""
+
+    list_display = ["__str__", "homepage", "header"]
+    search_fields = ["homepage__title", "header"]
+    inlines = [StatInline]
+
+
+@admin.register(Stat)
+class StatAdmin(admin.ModelAdmin):
+    """Admin for Stat model"""
+
+    list_display = ["__str__", "stats_section", "number", "subtitle", "order"]
+    search_fields = ["stats_section__homepage__title", "number", "subtitle"]
+    list_filter = ["stats_section"]
