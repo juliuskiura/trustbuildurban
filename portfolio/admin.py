@@ -34,21 +34,30 @@ class PortfolioProjectsSectionAdmin(admin.ModelAdmin):
 
 @admin.register(PortfolioProjectCategory)
 class PortfolioProjectCategoryAdmin(OrderedModelAdmin):
-    list_display = ["__str__", "projects_section", "name", "order"]
-    list_filter = ["projects_section"]
-    raw_id_fields = ["projects_section"]
+    list_display = ["__str__", "name", "order"]
+    search_fields = ["name"]
+
+
+class ProjectImageInline(admin.TabularInline):
+    """Inline admin for ProjectImage model."""
+
+    model = ProjectImage
+    extra = 1
+    can_delete = True
+    fieldsets = ((None, {"fields": ("image", "image_url", "is_cover")}),)
 
 
 @admin.register(PortfolioProject)
 class PortfolioProjectAdmin(OrderedModelAdmin):
-    list_display = ["__str__", "projects_section", "title", "status", "order"]
-    list_filter = ["projects_section", "status"]
-    raw_id_fields = ["projects_section"]
-    search_fields = ["projects_section__portfolio_page__title", "title", "location"]
-
-
-@admin.register(ProjectImage)
-class ProjectImageAdmin(admin.ModelAdmin):
-    list_display = ["__str__", "project", "is_cover"]
-    list_filter = ["is_cover", "project"]
-    raw_id_fields = ["project", "image"]
+    list_display = [
+        "__str__",
+        "category",
+        "title",
+        "status",
+        "duration",
+        "highlight_project",
+        "order",
+    ]
+    list_filter = ["category", "status", "highlight_project"]
+    search_fields = ["title", "location"]
+    inlines = [ProjectImageInline]

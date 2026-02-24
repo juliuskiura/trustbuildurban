@@ -1,6 +1,11 @@
 <!-- Stats Section - By The Numbers -->
 <section class="py-24 bg-white relative overflow-hidden">
-  <!-- Background Pattern (optional architectural line drawing) -->
+  {% if stats_section.background_pattern %}
+  <!-- Background Pattern from model -->
+  <div class="absolute inset-0 opacity-10 pointer-events-none bg-cover bg-center" style="background-image: url('{{ stats_section.background_pattern }}')">
+  </div>
+  {% else %}
+  <!-- Default Background Pattern (optional architectural line drawing) -->
   <div class="absolute inset-0 opacity-5 pointer-events-none">
     <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
       <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -9,14 +14,17 @@
       <rect width="100%" height="100%" fill="url(#grid)" />
     </svg>
   </div>
+  {% endif %}
 
   <div class="max-w-6xl mx-auto px-6 relative z-10">
     <!-- Header -->
+    {% if stats_section.header %}
     <div class="text-center mb-16">
       <h3 class="text-red-600 font-bold uppercase tracking-[0.2em] text-sm">
         {{ stats_section.header }}
       </h3>
     </div>
+    {% endif %}
 
     <!-- Stats Grid - 4 columns -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
@@ -34,32 +42,6 @@
         <p class="text-gray-600 font-medium mt-3 text-sm md:text-base">
           {{ stat.subtitle }}
         </p>
-      </div>
-      {% empty %}
-      <!-- Fallback default stats -->
-      <div class="text-center">
-        <div class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#001f3f] leading-none">
-          500<span class="text-lg md:text-2xl text-blue-400 align-super">+</span>
-        </div>
-        <p class="text-gray-600 font-medium mt-3 text-sm md:text-base">Projects Completed</p>
-      </div>
-      <div class="text-center">
-        <div class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#001f3f] leading-none">
-          15<span class="text-lg md:text-2xl text-blue-400 align-super">+</span>
-        </div>
-        <p class="text-gray-600 font-medium mt-3 text-sm md:text-base">Years Experience</p>
-      </div>
-      <div class="text-center">
-        <div class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#001f3f] leading-none">
-          200<span class="text-lg md:text-2xl text-blue-400 align-super">+</span>
-        </div>
-        <p class="text-gray-600 font-medium mt-3 text-sm md:text-base">Happy Clients</p>
-      </div>
-      <div class="text-center">
-        <div class="text-4xl md:text-5xl lg:text-6xl font-bold text-[#001f3f] leading-none">
-          50<span class="text-lg md:text-2xl text-blue-400 align-super">+</span>
-        </div>
-        <p class="text-gray-600 font-medium mt-3 text-sm md:text-base">Awards Won</p>
       </div>
       {% endfor %}
     </div>

@@ -19,6 +19,7 @@ from .models import (
     WhoWeAreSection,
     StatsSection,
     Stat,
+    PortFolioSection,
 )
 
 
@@ -313,6 +314,27 @@ class StatsSectionInline(admin.StackedInline):
     )
 
 
+class PortfolioSectionInline(admin.StackedInline):
+    """
+    Inline admin for PortfolioSection model.
+    """
+
+    model = PortFolioSection
+    extra = 1
+    max_num = 1
+    can_delete = True
+    fieldsets = (
+        (
+            "Content",
+            {"fields": ("eyebrow", "heading", "description")},
+        ),
+        (
+            "Button",
+            {"fields": ("button_text", "button_link")},
+        ),
+    )
+
+
 class ClientReviewInline(admin.StackedInline):
     """
     Inline admin for ClientReview model.
@@ -338,12 +360,13 @@ class HomePageAdmin(MPTTModelAdmin):
     inlines = [
         HeroSectionInline,
         WhoWeAreSectionInline,
+        StatsSectionInline,
         ClientReviewInline,
+        PortfolioSectionInline,
         DiasporaSectionInline,
         FeaturesSectionInline,
         StepsSectionInline,
         ServicesSectionInline,
-        StatsSectionInline,
         NewsletterSectionInline,
     ]
 
@@ -583,3 +606,11 @@ class StatAdmin(admin.ModelAdmin):
     list_display = ["__str__", "stats_section", "number", "subtitle", "order"]
     search_fields = ["stats_section__homepage__title", "number", "subtitle"]
     list_filter = ["stats_section"]
+
+
+@admin.register(PortFolioSection)
+class PortfolioSectionAdmin(admin.ModelAdmin):
+    """Admin for PortfolioSection model"""
+
+    list_display = ["__str__", "homepage", "eyebrow"]
+    search_fields = ["homepage__title", "eyebrow", "heading"]

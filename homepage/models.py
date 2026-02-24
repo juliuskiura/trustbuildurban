@@ -612,3 +612,38 @@ class Stat(PageBase):
 
     def __str__(self):
         return f"{self.number} - {self.subtitle}"
+
+
+class PortFolioSection(PageBase):
+    """
+    Portfolio section model with ForeignKey to HomePage.
+    Showcases completed projects with images and descriptions.
+    """
+
+    homepage = models.ForeignKey(
+        "homepage.HomePage", on_delete=models.CASCADE, related_name="portfolio_sections"
+    )
+
+    # Section content
+    eyebrow = models.CharField(
+        max_length=100,
+        blank=True,
+        default="Our Work",
+    )
+    heading = models.TextField(
+        blank=True,
+        default="A Glimpse of Our Architectural Excellence",
+    )
+    description = models.TextField(
+        blank=True,
+        default="Luxury and family homes delivered across the country.",
+    )
+    button_text = models.CharField(max_length=100, blank=True, default="View Portfolio")
+    button_link = models.CharField(max_length=200, blank=True, default="/portfolio")
+
+    class Meta:
+        verbose_name = "Portfolio Section"
+        verbose_name_plural = "Portfolio Sections"
+
+    def __str__(self):
+        return f"Portfolio Section for {self.homepage.title}"

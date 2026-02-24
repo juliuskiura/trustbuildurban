@@ -24,12 +24,15 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
       {% if available_properties %}
-        {% for property in available_properties|slice:":3" %}
+        {% for property in available_properties %}
         <div
           class="group bg-white rounded-2xl overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500">
           <div class="relative aspect-[4/3] overflow-hidden">
-            {% if property.image %}
-            <img src="{{ property.image.url }}" alt="{{ property.title }}"
+            {% if property.cover %}
+            <img src="{{ property.cover.url }}" alt="{{ property.title }}"
+              class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" />
+            {% elif property.image_url %}
+            <img src="{{ property.image_url }}" alt="{{ property.title }}"
               class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" />
             {% else %}
             <div class="w-full h-full bg-texts/5 flex items-center justify-center">
@@ -40,11 +43,13 @@
               </svg>
             </div>
             {% endif %}
+            {% if property.type %}
             <div class="absolute top-4 left-4">
               <span class="bg-white/95 text-texts font-bold uppercase tracking-widest text-[9px] px-4 py-2 rounded shadow-sm">
-                {% if forloop.counter == 1 %}LUXURY{% elif forloop.counter == 2 %}VILLA{% else %}FAMILY HOME{% endif %}
+                {{ property.type|upper }}
               </span>
             </div>
+            {% endif %}
             </div>
           <div class="p-8">
             <div class="flex items-center gap-2 mb-3">
@@ -54,56 +59,27 @@
                 <circle cx="12" cy="10" r="3" />
               </svg>
               <span class="text-accent font-bold uppercase tracking-widest text-[9px]">{{ property.location|upper }}</span>
+
+          
             </div>
           
             <h4 class="text-2xl font-serif font-bold text-[#001f3f] mb-6">{{ property.title }}</h4>
           
             <div class="flex items-center justify-between pt-6 border-t border-texts/5">
+              {% if property.duration %}
               <div class="flex items-center gap-2">
                 <span class="text-texts/40 text-xs font-medium">Duration:</span>
-                <span class="text-[#001f3f] font-bold text-xs">{% if forloop.counter == 1 %}14 Months{% elif forloop.counter == 2
-                  %}12 Months{% else %}10 Months{% endif %}</span>
+                <span class="text-[#001f3f] font-bold text-xs">{{ property.duration }} Months</span>
               </div>
-              <a href="{% url 'available_homes:single' property.id %}"
+              {% endif %}
+              <a href="/portfolio"
                 class="text-accent font-bold text-xs hover:underline decoration-2 underline-offset-4">Details</a>
             </div>
           </div>
         </div>
         {% endfor %}
       {% else %}
-      <!-- Fallback properties from backend context -->
-      {% for property in portfolio_section.fallback_properties %}
-      <div
-        class="group bg-white rounded-2xl overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500">
-        <div class="relative aspect-[4/3] overflow-hidden">
-          <img src="{{ property.image_url }}" alt="{{ property.title }}"
-            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-1000" />
-          <div class="absolute top-4 left-4">
-            <span
-              class="bg-white/95 text-texts font-bold uppercase tracking-widest text-[9px] px-4 py-2 rounded shadow-sm">{{ property.type|upper }}</span>
-          </div>
-        </div>
-        <div class="p-8">
-          <div class="flex items-center gap-2 mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin text-accent">
-              <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            <span class="text-accent font-bold uppercase tracking-widest text-[9px]">{{ property.location|upper }}</span>
-          </div>
-          <h4 class="text-2xl font-serif font-bold text-[#001f3f] mb-6">{{ property.title }}</h4>
-          <div class="flex items-center justify-between pt-6 border-t border-texts/5">
-            <div class="flex items-center gap-2">
-              <span class="text-texts/40 text-xs font-medium">Duration:</span>
-              <span class="text-[#001f3f] font-bold text-xs">{{ property.duration }}</span>
-            </div>
-            <a href="/portfolio"
-              class="text-accent font-bold text-xs hover:underline decoration-2 underline-offset-4">Details</a>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
+      <!-- No properties available - section will be empty -->
       {% endif %}
     </div>
   </div>

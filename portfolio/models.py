@@ -79,15 +79,8 @@ class PortfolioProjectCategory(PageBase,OrderedModel):
     Uses OrderedModel for ordering categories.
     """
 
-    projects_section = models.ForeignKey(
-        PortfolioProjectsSection, on_delete=models.CASCADE, related_name="categories"
-    )
-
     # Category content
     name = models.CharField(max_length=50, blank=True)
-
-    # Order
-    order_with_respect_to = "projects_section"
 
     class Meta(OrderedModel.Meta):
         verbose_name = "Portfolio Project Category"
@@ -103,18 +96,36 @@ class PortfolioProject(PageBase, OrderedModel):
     Uses OrderedModel for ordering projects.
     """
 
-    projects_section = models.ForeignKey(
-        PortfolioProjectsSection, on_delete=models.CASCADE, related_name="projects"
-    )
+    # Status choices
+    STATUS_CHOICES = [
+        ("ongoing", "Ongoing"),
+        ("completed", "Completed"),
+        ("planning", "Planning"),
+        ("on_hold", "On Hold"),
+    ]
 
     # Project content
     title = models.CharField(max_length=200, blank=True)
     location = models.CharField(max_length=200, blank=True)
-    status = models.CharField(max_length=50, blank=True)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, blank=True)
     description = models.TextField(blank=True)
 
-    # Order
-    order_with_respect_to = "projects_section"
+    # Duration in months
+    duration = models.PositiveIntegerField(
+        null=True, blank=True, help_text="Duration in months"
+    )
+
+    # Category for filtering - ForeignKey to PortfolioProjectCategory
+    category = models.ForeignKey(
+        PortfolioProjectCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="projects",
+    )
+
+    # Highlight flag - if True, will be visible in homepage
+    highlight_project = models.BooleanField(default=False)
 
     class Meta(OrderedModel.Meta):
         verbose_name = "Portfolio Project"
@@ -122,6 +133,12 @@ class PortfolioProject(PageBase, OrderedModel):
 
     def __str__(self):
         return self.title
+
+    def cover(self):
+        """Get the cover image for this project."""
+        return self.images.filter(is_cover=True).last().img()
+
+    
 
 
 class ProjectImage(PageBase):
@@ -153,3 +170,7 @@ class ProjectImage(PageBase):
 
     def __str__(self):
         return f"Image for {self.project.title}"
+    
+    def img(self):
+        """Return the cover image for this project."""
+        return self.image.image if self.image else None

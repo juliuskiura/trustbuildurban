@@ -3,9 +3,10 @@ from django.http import Http404
 from .models import (
     Page,
     HomePage,
-  
     NewsletterSection,
+    PortFolioSection,
 )
+from portfolio.models import PortfolioProject
 
 
 def index(request):
@@ -28,6 +29,7 @@ def index(request):
             "who_we_are_section",
             "stats_section",
             "stats_section__stats",
+            "portfolio_sections",
         )
         .filter(is_published=True)
         .first()
@@ -37,10 +39,12 @@ def index(request):
         homepage = HomePage.objects.first()
 
     # Meta information
-    meta = {
-        "title": "CivicCore Engineering | Premium Consultancy",
-        "description": "Engineering excellence from the ground up. We deliver innovative structural design, project management, and sustainable engineering solutions.",
-    }
+    meta = {}
+    if homepage:
+        meta = {
+            "title": homepage.meta_title or "",
+            "description": homepage.meta_description or "",
+        }
 
     # Hero section data from model
     hero = {
@@ -50,11 +54,11 @@ def index(request):
         "heading_suffix": "",
         "description": "",
         "buttons": [],
-        "image_url": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200",
-        "verified_text": "Verified",
-        "live_tracking_text": "Live Project Tracking",
-        "company_name": "TrustBuild",
-        "company_location": "Nairobi, Kenya",
+        "image_url": "",
+        "verified_text": "",
+        "live_tracking_text": "",
+        "company_name": "",
+        "company_location": "",
         "stats": {},
     }
 
@@ -97,11 +101,11 @@ def index(request):
 
     # Client review data from model
     client_review_data = {
-        "rating": 5,
-        "total_reviews": "12,000+",
-        "label_text": "Client Reviews",
-        "button_text": "Discover Excellence",
-        "button_link": "#",
+        "rating": 0,
+        "total_reviews": "",
+        "label_text": "",
+        "button_text": "",
+        "button_link": "",
     }
 
     client_review_obj = getattr(homepage, "client_reviews", None)
@@ -117,14 +121,14 @@ def index(request):
 
     # Diaspora section data from model
     diaspora_section_data = {
-        "eyebrow": "The Diaspora Challenge",
-        "heading": "Building in Kenya should not be a gamble.",
+        "eyebrow": "",
+        "heading": "",
         "challenges": [],
-        "attribution": "TrustBuildUrban was founded to replace fear with structured, world-class building standards.",
+        "attribution": "",
         "featured_project": {
-            "label": "Featured Project",
-            "title": "The Grand Residence, Runda",
-            "image_url": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=870&auto=format&fit=crop",
+            "label": "",
+            "title": "",
+            "image_url": "",
         },
     }
 
@@ -157,8 +161,8 @@ def index(request):
 
     # Features section data from model
     features_section_data = {
-        "eyebrow": "The TrustBuildUrban Standard",
-        "heading": "Why Hundreds of Diaspora Families Trust Us",
+        "eyebrow": "",
+        "heading": "",
         "features": [],
     }
 
@@ -182,9 +186,9 @@ def index(request):
 
     # Steps section data from model
     steps_section_data = {
-        "eyebrow": "Transparent Execution",
-        "heading": "Our 7-Step Architectural Journey",
-        "description": "A meticulously structured process from initial concept to the day we hand over your keys.",
+        "eyebrow": "",
+        "heading": "",
+        "description": "",
         "steps": [],
     }
 
@@ -208,8 +212,8 @@ def index(request):
 
     # Services section data from model
     services_section_data = {
-        "subtitle": "Our Specializations",
-        "heading": "Elite Engineering & Architectural Excellence",
+        "subtitle": "",
+        "heading": "",
         "services": [],
     }
 
@@ -239,10 +243,10 @@ def index(request):
 
     # Newsletter section data from model
     newsletter_data = {
-        "heading": "Free Diaspora Home Building Guide",
-        "description": "Download our comprehensive manual on navigating land laws, approvals, and construction costs in Kenya from abroad.",
-        "cta_text": "GET THE GUIDE",
-        "placeholder": "Enter your email",
+        "heading": "",
+        "description": "",
+        "cta_text": "",
+        "placeholder": "",
     }
 
     newsletter_section = getattr(homepage, "newsletter_sections", None)
@@ -261,12 +265,12 @@ def index(request):
 
     # Who We Are section data from model
     who_we_are_data = {
-        "label": "Who We Are",
-        "heading": "Committed, client-focused, and process-driven builders.",
-        "description": "We deliver world-class construction services with a focus on quality, transparency, and client satisfaction.",
-        "button_text": "Learn More",
-        "button_link": "/about",
-        "background_image_url": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1920",
+        "label": "",
+        "heading": "",
+        "description": "",
+        "button_text": "",
+        "button_link": "",
+        "background_image_url": "",
     }
 
     who_we_are_section = getattr(homepage, "who_we_are_section", None)
@@ -286,7 +290,8 @@ def index(request):
 
     # Stats section data from model
     stats_section_data = {
-        "header": "TRUSTBUILD URBAN BY THE NUMBERS",
+        "header": "",
+        "background_pattern": "",
         "stats": [],
     }
 
@@ -302,39 +307,40 @@ def index(request):
             )
         stats_section_data = {
             "header": stats_section.header,
+            "background_pattern": (
+                stats_section.background_pattern.image_url
+                if stats_section.background_pattern
+                else ""
+            ),
             "stats": stats_data,
         }
 
-    # Portfolio section - Keep as is (hardcoded fallback)
+    # Portfolio section data - fetch highlighted projects from portfolio app
+    available_properties = []
+    try:
+        # Get highlighted projects from PortfolioProject
+        highlighted_projects = PortfolioProject.objects.filter(highlight_project=True)[
+            :3
+        ]
+       
+    except Exception as e:
+        print(f"Error fetching portfolio projects: {e}")
+        pass
+
+    # Get portfolio section from database
     portfolio_section = {
-        "heading": "Portfolio Highlights",
-        "description": "Luxury and family homes delivered across the country.",
-        "view_all_text": "View All Projects",
-        # Fallback properties when no available_properties in context
-        "fallback_properties": [
-            {
-                "title": "The Azure Villa",
-                "location": "Runda, Nairobi",
-                "type": "Luxury",
-                "duration": "14 Months",
-                "image_url": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800",
-            },
-            {
-                "title": "Oasis Heights",
-                "location": "Karen, Nairobi",
-                "type": "Villa",
-                "duration": "12 Months",
-                "image_url": "https://images.unsplash.com/photo-1616012760010-8da02da071fd?q=80&w=1032",
-            },
-            {
-                "title": "Serene Ridge Estate",
-                "location": "Tatu City, Kiambu",
-                "type": "Family Home",
-                "duration": "10 Months",
-                "image_url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800",
-            },
-        ],
+        "heading": "",
+        "description": "",
+        "view_all_text": "",
     }
+    portfolio_sections = getattr(homepage, "portfolio_sections", None)
+    if portfolio_sections and portfolio_sections.exists():
+        portfolio_obj = portfolio_sections.first()
+        portfolio_section = {
+            "heading": portfolio_obj.heading,
+            "description": portfolio_obj.description,
+            "view_all_text": portfolio_obj.button_text,
+        }
 
     context = {
         # Meta
@@ -348,8 +354,9 @@ def index(request):
         "features_section": features_section_data,
         "steps_section": steps_section_data,
         "services_section": services_section_data,
-        # Portfolio - kept as is
+        # Portfolio
         "portfolio_section": portfolio_section,
+        "available_properties": highlighted_projects,
         # Newsletter
         "newsletter": newsletter_data,
         # New sections
