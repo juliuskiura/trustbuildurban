@@ -1,6 +1,5 @@
-from django.db import models
 from django.db import models, IntegrityError, transaction
-from django.db.models import Func
+import uuid
 
 
 class PageBase(models.Model):
@@ -10,7 +9,7 @@ class PageBase(models.Model):
     """
 
     uuid = models.UUIDField(
-        db_default=Func(function="uuidv7"),
+        default=uuid.uuid4,
         primary_key=True,
         editable=False,
         db_index=True,

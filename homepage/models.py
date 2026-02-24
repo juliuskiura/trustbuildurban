@@ -1,8 +1,7 @@
 from django.db import models
-from django.contrib.contenttypes.fields import GenericRelation
-from pages.models import Page, Button
 from core.models import PageBase
 from ordered_model.models import OrderedModel
+from pages.models import ButtonStyle, Page
 
 
 class HomePage(Page):
@@ -29,15 +28,12 @@ class HomePage(Page):
 class HeroSection(PageBase):
     """
     Hero section model with one-to-one relationship to HomePage.
-    Uses generic Button model for dynamic button support.
+    Uses HomeHeroButton child model for dynamic button support.
     """
 
     homepage = models.OneToOneField(
         "homepage.HomePage", on_delete=models.CASCADE, related_name="hero_section"
     )
-
-    # Generic relation to buttons - allows unlimited buttons
-    buttons = GenericRelation(Button, related_query_name="hero_sections")
 
     # Hero content
     tagline = models.CharField(max_length=200, blank=True)
@@ -80,6 +76,52 @@ class HeroSection(PageBase):
 
     def __str__(self):
         return f"Hero Section for {self.homepage.title}"
+
+
+class HomeHeroButton(PageBase, OrderedModel):
+    """
+    Button child model for HeroSection.
+    Uses OrderedModel for ordering buttons within a hero section.
+    """
+
+    hero_section = models.ForeignKey(
+        HeroSection, on_delete=models.CASCADE, related_name="buttons"
+    )
+
+    # Button content
+    text = models.CharField(max_length=100, blank=True)
+    link = models.CharField(max_length=200, blank=True)
+    icon = models.CharField(
+        max_length=500, blank=True, help_text="SVG icon code or icon class"
+    )
+
+    # Button styling
+    style = models.CharField(
+        max_length=20, choices=ButtonStyle.choices, default=ButtonStyle.PRIMARY
+    )
+    size = models.CharField(
+        max_length=20,
+        choices=[
+            ("small", "Small"),
+            ("medium", "Medium"),
+            ("large", "Large"),
+        ],
+        default="medium",
+    )
+
+    # Button behavior
+    is_external = models.BooleanField(default=False, help_text="Open in new tab")
+    is_full_width = models.BooleanField(default=False)
+
+    # Order
+    order_with_respect_to = "hero_section"
+
+    class Meta(OrderedModel.Meta):
+        verbose_name = "Hero Button"
+        verbose_name_plural = "Hero Buttons"
+
+    def __str__(self):
+        return self.text or "Untitled Hero Button"
 
 
 class Stats(PageBase, OrderedModel):
@@ -435,7 +477,7 @@ class NewsletterSection(PageBase):
     """
     Newsletter section model with ForeignKey to HomePage.
     Captures leads with diaspora home building guide.
-    Uses generic Button model for CTA button.
+    Uses NewsletterButton child model for CTA button.
     """
 
     homepage = models.ForeignKey(
@@ -443,9 +485,6 @@ class NewsletterSection(PageBase):
         on_delete=models.CASCADE,
         related_name="newsletter_sections",
     )
-
-    # Generic relation to buttons - allows unlimited buttons
-    buttons = GenericRelation(Button, related_query_name="newsletter_sections")
 
     # Section content
     heading = models.TextField(
@@ -466,3 +505,45 @@ class NewsletterSection(PageBase):
 
     def __str__(self):
         return f"Newsletter Section for {self.homepage.title}"
+
+
+class NewsletterButton(PageBase):
+    """
+    Button child model for NewsletterSection.
+    """
+
+    newsletter_section = models.ForeignKey(
+        NewsletterSection, on_delete=models.CASCADE, related_name="buttons"
+    )
+
+    # Button content
+    text = models.CharField(max_length=100, blank=True)
+    link = models.CharField(max_length=200, blank=True)
+    icon = models.CharField(
+        max_length=500, blank=True, help_text="SVG icon code or icon class"
+    )
+
+    # Button styling
+    style = models.CharField(
+        max_length=20, choices=ButtonStyle.choices, default=ButtonStyle.PRIMARY
+    )
+    size = models.CharField(
+        max_length=20,
+        choices=[
+            ("small", "Small"),
+            ("medium", "Medium"),
+            ("large", "Large"),
+        ],
+        default="medium",
+    )
+
+    # Button behavior
+    is_external = models.BooleanField(default=False, help_text="Open in new tab")
+    is_full_width = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Newsletter Button"
+        verbose_name_plural = "Newsletter Buttons"
+
+    def __str__(self):
+        return self.text or "Untitled Newsletter Button"

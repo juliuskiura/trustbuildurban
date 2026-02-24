@@ -1,9 +1,9 @@
 from django.contrib import admin
-from django.contrib.contenttypes.admin import GenericInlineModelAdmin
 from mptt.admin import MPTTModelAdmin
 from .models import (
     HomePage,
     HeroSection,
+    HomeHeroButton,
     Stats,
     StatsSection,
     ClientReview,
@@ -17,27 +17,23 @@ from .models import (
     ServicesSection,
     Service,
     NewsletterSection,
+    NewsletterButton,
 )
-from pages.models import Button
 
 
-class ButtonInline(GenericInlineModelAdmin):
+class HeroButtonInline(admin.StackedInline):
     """
-    Inline admin for generic Button model.
-    Allows adding unlimited buttons to any component.
-    Uses GenericInlineModelAdmin to work with GenericForeignKey.
+    Inline admin for HomeHeroButton model.
     """
 
-    model = Button
+    model = HomeHeroButton
     extra = 1
     can_delete = True
-    ct_field = "content_type"
-    ct_fk_field = "object_id"
     fieldsets = (
         (None, {"fields": ("text", "link", "icon")}),
         (
             "Styling",
-            {"fields": ("style", "size", "is_external", "is_full_width", "order")},
+            {"fields": ("style", "size", "is_external", "is_full_width")},
         ),
     )
 
@@ -79,7 +75,7 @@ class HeroSectionInline(admin.StackedInline):
     extra = 1
     max_num = 1
     can_delete = True
-    inlines = [ButtonInline, StatsInline]
+    inlines = [HeroButtonInline, StatsInline]
     fieldsets = (
         (
             "Hero Content",
@@ -152,7 +148,7 @@ class DiasporaChallengeInline(admin.StackedInline):
     model = DiasporaChallenge
     extra = 1
     can_delete = True
-    fieldsets = ((None, {"fields": ("title", "description", "order")}),)
+    fieldsets = ((None, {"fields": ("title", "description")}),)
 
 
 class DiasporaSectionInline(admin.StackedInline):
@@ -194,7 +190,7 @@ class FeatureInline(admin.StackedInline):
     model = Feature
     extra = 1
     can_delete = True
-    fieldsets = ((None, {"fields": ("title", "description", "icon_path", "order")}),)
+    fieldsets = ((None, {"fields": ("title", "description", "icon_path")}),)
 
 
 class FeaturesSectionInline(admin.StackedInline):
@@ -225,7 +221,7 @@ class StepInline(admin.StackedInline):
     model = Step
     extra = 1
     can_delete = True
-    fieldsets = ((None, {"fields": ("title", "description", "order")}),)
+    fieldsets = ((None, {"fields": ("title", "description")}),)
 
 
 class StepsSectionInline(admin.StackedInline):
@@ -256,9 +252,7 @@ class ServiceInline(admin.StackedInline):
     model = Service
     extra = 1
     can_delete = True
-    fieldsets = (
-        (None, {"fields": ("title", "description", "icon", "expertise", "order")}),
-    )
+    fieldsets = ((None, {"fields": ("title", "description", "icon", "expertise")}),)
 
 
 class ServicesSectionInline(admin.StackedInline):
@@ -281,6 +275,23 @@ class ServicesSectionInline(admin.StackedInline):
 # ============== Newsletter Section Inlines ==============
 
 
+class NewsletterButtonInline(admin.StackedInline):
+    """
+    Inline admin for NewsletterButton model.
+    """
+
+    model = NewsletterButton
+    extra = 1
+    can_delete = True
+    fieldsets = (
+        (None, {"fields": ("text", "link", "icon")}),
+        (
+            "Styling",
+            {"fields": ("style", "size", "is_external", "is_full_width")},
+        ),
+    )
+
+
 class NewsletterSectionInline(admin.StackedInline):
     """
     Inline admin for NewsletterSection model.
@@ -289,7 +300,7 @@ class NewsletterSectionInline(admin.StackedInline):
     model = NewsletterSection
     extra = 1
     can_delete = True
-    inlines = [ButtonInline]
+    inlines = [NewsletterButtonInline]
     fieldsets = (
         (
             "Content",
@@ -407,7 +418,17 @@ class HeroSectionAdmin(admin.ModelAdmin):
 
     list_display = ["__str__", "homepage", "tagline"]
     search_fields = ["homepage__title", "tagline"]
+    inlines = [HeroButtonInline]
     # Note: Buttons are managed via HomePage admin inline, not here
+
+
+@admin.register(HomeHeroButton)
+class HomeHeroButtonAdmin(admin.ModelAdmin):
+    """Admin for HomeHeroButton model"""
+
+    list_display = ["__str__", "hero_section", "text", "style", "order"]
+    search_fields = ["hero_section__homepage__title", "text"]
+    list_filter = ["hero_section", "style"]
 
 
 @admin.register(StatsSection)
@@ -507,4 +528,14 @@ class NewsletterSectionAdmin(admin.ModelAdmin):
     """Admin for NewsletterSection model"""
 
     list_display = ["__str__", "homepage", "heading"]
-    search_fields = ["homepage__title", "heading", "cta_text"]
+    search_fields = ["homepage__title", "heading"]
+    inlines = [NewsletterButtonInline]
+
+
+@admin.register(NewsletterButton)
+class NewsletterButtonAdmin(admin.ModelAdmin):
+    """Admin for NewsletterButton model"""
+
+    list_display = ["__str__", "newsletter_section", "text", "style"]
+    search_fields = ["newsletter_section__homepage__title", "text"]
+    list_filter = ["newsletter_section", "style"]
