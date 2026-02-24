@@ -19,6 +19,7 @@ from .models import (
     NewsletterSection,
     NewsletterButton,
 )
+from .forms import HeroSectionForm
 
 
 class HeroButtonInline(admin.StackedInline):
@@ -72,6 +73,7 @@ class HeroSectionInline(admin.StackedInline):
     """
 
     model = HeroSection
+    form = HeroSectionForm
     extra = 1
     max_num = 1
     can_delete = True
@@ -416,6 +418,7 @@ class HomePageAdmin(MPTTModelAdmin):
 class HeroSectionAdmin(admin.ModelAdmin):
     """Admin for HeroSection model"""
 
+    form = HeroSectionForm
     list_display = ["__str__", "homepage", "tagline"]
     search_fields = ["homepage__title", "tagline"]
     inlines = [HeroButtonInline]

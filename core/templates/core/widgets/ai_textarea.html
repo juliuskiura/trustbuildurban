@@ -1,0 +1,18 @@
+{% load i18n %}
+<div class="ai-textarea-widget">
+    <textarea{% include "django/forms/widgets/attrs.html" %}>{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
+    <div class="ai-widget-controls">
+        <button type="button" 
+                class="ai-generate-btn"
+                data-prompt="{{ widget.ai_prompt }}"
+                data-context-fields="{{ widget.ai_context_fields|join:',' }}"
+                data-loading-text="{{ widget.ai_loading_text }}">
+            <span class="ai-btn-text">{{ widget.ai_button_text }}</span>
+            <span class="ai-btn-loading" style="display: none;">
+                <span class="ai-spinner"></span>
+                {{ widget.ai_loading_text }}
+            </span>
+        </button>
+        <span class="ai-status" style="display: none;"></span>
+    </div>
+</div>

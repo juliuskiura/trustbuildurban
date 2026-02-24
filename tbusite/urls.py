@@ -17,8 +17,10 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+from core.views import ai_generate_view
 
 urlpatterns = [
+    path("admin/ai/generate/", ai_generate_view, name="admin_ai_generate"),
     path("admin/", admin.site.urls),
     # path("", include("homepage.urls")),
     path("about/", include("about.urls")),
