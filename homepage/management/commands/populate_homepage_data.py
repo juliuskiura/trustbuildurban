@@ -8,8 +8,6 @@ from django.db import transaction
 from homepage.models import (
     HomePage,
     HeroSection,
-    Stats,
-    StatsSection,
     ClientReview,
     DiasporaSection,
     DiasporaChallenge,
@@ -81,24 +79,14 @@ class Command(BaseCommand):
             "live_tracking_text": "Live Project Tracking",
             "show_verified_badge": True,
             "show_live_tracking": True,
-            "stats": {
-                "happy_customers": {"value": "5032", "label": "Happy Customers"},
-                "property_sales": {"value": "6700+", "label": "Property Sales"},
-                "award_winning": {"value": "205+", "label": "Award Winning"},
-            },
         }
 
-        stats_section_data = {
-            "quote_text": "Integrity and innovation in every structure we touch. Engineering excellence from the ground up.",
-            "landmark_projects_value": "850",
-            "landmark_projects_label_text": "Landmark Projects",
-            "client_reviews": {
-                "rating": 5,
-                "total_reviews": "12,000+",
-                "label_text": "Client Reviews",
-                "button_text": "Discover Excellence",
-                "button_link": "#",
-            },
+        client_review_data = {
+            "rating": 5,
+            "total_reviews": "12,000+",
+            "label_text": "Client Reviews",
+            "button_text": "Discover Excellence",
+            "button_link": "#",
         }
 
         diaspora_section_data = {
@@ -240,7 +228,7 @@ class Command(BaseCommand):
             self._print_dry_run(
                 homepage,
                 hero_data,
-                stats_section_data,
+                client_review_data,
                 diaspora_section_data,
                 features_section_data,
                 steps_section_data,
@@ -274,47 +262,15 @@ class Command(BaseCommand):
                 )
             )
 
-            # Create Hero Stats
-            for idx, (key, stat_data) in enumerate(hero_data["stats"].items()):
-                stat, created = Stats.objects.update_or_create(
-                    hero_section=hero_section,
-                    label=stat_data["label"],
-                    defaults={
-                        "value": stat_data["value"],
-                        "order": idx + 1,
-                    },
-                )
-                self.stdout.write(
-                    self.style.SUCCESS(
-                        f"  {'Created' if created else 'Updated'} Stat: {stat.label}"
-                    )
-                )
-
-            # 0b. Create Stats Section
-            stats_section, created = StatsSection.objects.update_or_create(
+            # 0b. Create Client Review (independent model)
+            review, created = ClientReview.objects.update_or_create(
                 homepage=homepage,
                 defaults={
-                    "quote_text": stats_section_data["quote_text"],
-                    "landmark_projects_value": stats_section_data["landmark_projects_value"],
-                    "landmark_projects_label_text": stats_section_data["landmark_projects_label_text"],
-                },
-            )
-            self.stdout.write(
-                self.style.SUCCESS(
-                    f"{'Created' if created else 'Updated'} StatsSection (ID: {stats_section.pk})"
-                )
-            )
-
-            # Create Client Reviews
-            review_data = stats_section_data["client_reviews"]
-            review, created = ClientReview.objects.update_or_create(
-                stats_section=stats_section,
-                defaults={
-                    "rating": review_data["rating"],
-                    "total_reviews": review_data["total_reviews"],
-                    "label_text": review_data["label_text"],
-                    "button_text": review_data["button_text"],
-                    "button_link": review_data["button_link"],
+                    "rating": client_review_data["rating"],
+                    "total_reviews": client_review_data["total_reviews"],
+                    "label_text": client_review_data["label_text"],
+                    "button_text": client_review_data["button_text"],
+                    "button_link": client_review_data["button_link"],
                 },
             )
             self.stdout.write(
@@ -474,7 +430,7 @@ class Command(BaseCommand):
         self,
         homepage,
         hero_data,
-        stats_section_data,
+        client_review_data,
         diaspora_data,
         features_data,
         steps_data,
@@ -492,16 +448,10 @@ class Command(BaseCommand):
         self.stdout.write(f"   - description: {hero_data['description']}")
         self.stdout.write(f"   - company_name: {hero_data['company_name']}")
         self.stdout.write(f"   - company_location: {hero_data['company_location']}")
-        self.stdout.write("   - Stats:")
-        for key, stat in hero_data["stats"].items():
-            self.stdout.write(f"     * {stat['label']}: {stat['value']}")
 
-        self.stdout.write("\n0b. StatsSection:")
-        self.stdout.write(f"   - quote_text: {stats_section_data['quote_text'][:50]}...")
-        self.stdout.write(f"   - landmark_projects: {stats_section_data['landmark_projects_value']}")
-        self.stdout.write("   - ClientReview:")
-        self.stdout.write(f"     * rating: {stats_section_data['client_reviews']['rating']}")
-        self.stdout.write(f"     * total_reviews: {stats_section_data['client_reviews']['total_reviews']}")
+        self.stdout.write("\n0b. ClientReview:")
+        self.stdout.write(f"   - rating: {client_review_data['rating']}")
+        self.stdout.write(f"   - total_reviews: {client_review_data['total_reviews']}")
 
         self.stdout.write("\n1. DiasporaSection:")
         self.stdout.write(f"   - eyebrow: {diaspora_data['eyebrow']}")

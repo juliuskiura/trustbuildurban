@@ -4,8 +4,6 @@ from .models import (
     HomePage,
     HeroSection,
     HomeHeroButton,
-    Stats,
-    StatsSection,
     ClientReview,
     # New models
     DiasporaSection,
@@ -38,34 +36,6 @@ class HeroButtonInline(admin.StackedInline):
     )
 
 
-class StatsInline(admin.StackedInline):
-    """
-    Inline admin for Stats model.
-    """
-
-    model = Stats
-    extra = 1
-    can_delete = True
-    fieldsets = ((None, {"fields": ("value", "label", )}),)
-
-
-class ClientReviewInline(admin.StackedInline):
-    """
-    Inline admin for ClientReview model.
-    """
-
-    model = ClientReview
-    extra = 1
-    can_delete = True
-    fieldsets = (
-        (None, {"fields": ("rating", "total_reviews", "label_text")}),
-        (
-            "Button",
-            {"fields": ("button_text", "button_link")},
-        ),
-    )
-
-
 class HeroSectionInline(admin.StackedInline):
     """
     Inline admin for HeroSection model.
@@ -75,7 +45,7 @@ class HeroSectionInline(admin.StackedInline):
     extra = 1
     max_num = 1
     can_delete = True
-    inlines = [HeroButtonInline, StatsInline]
+    inlines = [HeroButtonInline]
     fieldsets = (
         (
             "Hero Content",
@@ -109,29 +79,6 @@ class HeroSectionInline(admin.StackedInline):
                     "company_name",
                     "company_location",
                 )
-            },
-        ),
-    )
-
-
-class StatsSectionInline(admin.StackedInline):
-    """
-    Inline admin for StatsSection model.
-    """
-
-    model = StatsSection
-    extra = 1
-    can_delete = True
-    inlines = [ClientReviewInline]
-    fieldsets = (
-        (
-            "Quote",
-            {"fields": ("quote_text",)},
-        ),
-        (
-            "Landmark Projects",
-            {
-                "fields": ("landmark_projects_value", "landmark_projects_label_text"),
             },
         ),
     )
@@ -309,6 +256,23 @@ class NewsletterSectionInline(admin.StackedInline):
     )
 
 
+class ClientReviewInline(admin.StackedInline):
+    """
+    Inline admin for ClientReview model.
+    """
+
+    model = ClientReview
+    extra = 1
+    can_delete = True
+    fieldsets = (
+        (None, {"fields": ("rating", "total_reviews", "label_text")}),
+        (
+            "Button",
+            {"fields": ("button_text", "button_link")},
+        ),
+    )
+
+
 @admin.register(HomePage)
 class HomePageAdmin(MPTTModelAdmin):
     """
@@ -316,7 +280,7 @@ class HomePageAdmin(MPTTModelAdmin):
     """
     inlines = [
         HeroSectionInline,
-        StatsSectionInline,
+        ClientReviewInline,
         DiasporaSectionInline,
         FeaturesSectionInline,
         StepsSectionInline,
@@ -431,21 +395,13 @@ class HomeHeroButtonAdmin(admin.ModelAdmin):
     list_filter = ["hero_section", "style"]
 
 
-@admin.register(StatsSection)
-class StatsSectionAdmin(admin.ModelAdmin):
-    """Admin for StatsSection model"""
-
-    list_display = ["__str__", "homepage", "quote_text"]
-    search_fields = ["homepage__title", "quote_text"]
-    inlines = [ClientReviewInline]
-
-
 @admin.register(ClientReview)
 class ClientReviewAdmin(admin.ModelAdmin):
     """Admin for ClientReview model"""
 
-    list_display = ["__str__", "stats_section", "rating", "total_reviews"]
-    search_fields = ["stats_section__homepage__title", "total_reviews"]
+    list_display = ["__str__", "homepage", "rating", "total_reviews"]
+    search_fields = ["homepage__title", "total_reviews"]
+    list_filter = ["homepage"]
 
 
 # ============== Register New Models ==============

@@ -1,8 +1,6 @@
 {% load i18n %}
 <div class="ai-widget ai-widget-input" data-field-type="CharField">
-    <div class="ai-widget-input-wrapper">
-        <input{% include "django/forms/widgets/attrs.html" %} type="text" data-ai-field="true" value="{{ widget.value }}">
-    </div>
+    <input{% include "django/forms/widgets/attrs.html" %} type="text" data-ai-field="true" value="{{ widget.value }}">
     <div class="ai-widget-controls">
         <button type="button" 
                 class="ai-generate-btn"

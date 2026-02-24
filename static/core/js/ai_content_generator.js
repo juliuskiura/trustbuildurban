@@ -65,7 +65,21 @@
         
         const button = event.currentTarget;
         const widget = button.closest('.ai-widget');
-        const inputField = widget.querySelector('[data-ai-field="true"]');
+
+        // Find the input field - try multiple selectors
+        let inputField = widget.querySelector('[data-ai-field="true"]');
+        if (!inputField) {
+            inputField = widget.querySelector('textarea');
+        }
+        if (!inputField) {
+            inputField = widget.querySelector('input[type="text"]');
+        }
+
+        if (!inputField) {
+            console.error('AI Widget: Could not find input field');
+            return;
+        }
+
         const btnText = button.querySelector('.ai-btn-text');
         const btnLoading = button.querySelector('.ai-btn-loading');
         const statusSpan = widget.querySelector('.ai-status');
@@ -88,8 +102,8 @@
 
         // Show loading state
         button.disabled = true;
-        btnText.style.display = 'none';
-        btnLoading.style.display = 'inline-flex';
+        if (btnText) btnText.style.display = 'none';
+        if (btnLoading) btnLoading.style.display = 'inline-flex';
         hideStatus(statusSpan);
 
         // Prepare request data
@@ -115,12 +129,20 @@
             return response.json();
         })
         .then(function(data) {
-            if (data.success) {
+            if (data.success && data.content) {
+            // Set the value
                 inputField.value = data.content;
-                showStatus(statusSpan, 'Content generated successfully!', 'success');
                 
-                // Trigger change event for any listeners
+                // Trigger multiple events for Django admin compatibility
                 inputField.dispatchEvent(new Event('change', { bubbles: true }));
+                inputField.dispatchEvent(new Event('input', { bubbles: true }));
+
+                // Also trigger jQuery events if available
+                if (typeof django !== 'undefined' && django.jQuery) {
+                    django.jQuery(inputField).trigger('change');
+                }
+
+                showStatus(statusSpan, 'Content generated successfully!', 'success');
             } else {
                 showStatus(statusSpan, data.error || 'Failed to generate content', 'error');
             }
@@ -131,8 +153,8 @@
         .finally(function() {
             // Reset button state
             button.disabled = false;
-            btnText.style.display = 'inline';
-            btnLoading.style.display = 'none';
+            if (btnText) btnText.style.display = 'inline';
+            if (btnLoading) btnLoading.style.display = 'none';
         });
     }
 
@@ -198,7 +220,7 @@
         ];
 
         // Also try with form prefixes (for inlines)
-        const inputField = widget.querySelector('[data-ai-field="true"]');
+        const inputField = widget.querySelector('[data-ai-field="true"]') || widget.querySelector('textarea, input');
         if (inputField && inputField.name) {
             const match = inputField.name.match(/^(.+)-\d+-/);
             if (match) {

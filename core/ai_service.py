@@ -146,7 +146,7 @@ class AIContentGenerator:
                 "You are a professional content writer. Write compelling, professional, "
                 "and engaging content. Keep the content concise and impactful."
             )
-        messages.append({"role": "system", "content": system_message})
+        messages.append({"role": "user", "content": system_message})
 
         # Build user message with context
         user_message_parts = []
@@ -182,11 +182,13 @@ class AIContentGenerator:
             if response.status_code == 200:
                 result = response.json()
                 content = result.get("choices", [{}])[0].get("message", {}).get("content", "")
+                print(content.strip())
                 return {
                     "success": True,
                     "content": content.strip(),
                     "error": None
                 }
+                
             else:
                 error_msg = f"API Error: {response.status_code}"
                 try:

@@ -9,16 +9,13 @@
     gap: 8px;
 }
 
-.ai-widget-input-wrapper {
+.ai-widget textarea,
+.ai-widget input[type="text"] {
     width: 100%;
 }
 
-.ai-widget-input-wrapper textarea,
-.ai-widget-input-wrapper input {
-    width: 100%;
-}
-
-.ai-widget-textarea textarea {
+.ai-widget-textarea textarea,
+.ai-widget-universal textarea {
     min-height: 100px;
 }
 

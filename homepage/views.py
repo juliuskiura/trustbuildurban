@@ -3,18 +3,7 @@ from django.http import Http404
 from .models import (
     Page,
     HomePage,
-    HeroSection,
-    Stats,
-    StatsSection,
-    ClientReview,
-    DiasporaSection,
-    DiasporaChallenge,
-    FeaturesSection,
-    Feature,
-    StepsSection,
-    Step,
-    ServicesSection,
-    Service,
+  
     NewsletterSection,
 )
 
@@ -24,9 +13,8 @@ def index(request):
     homepage = (
         HomePage.objects.select_related("hero_section")
         .prefetch_related(
-            "hero_section__stats",
-            "stats_sections",
-            "stats_sections__client_reviews",
+            "hero_section__buttons",
+            "client_reviews",
             "diaspora_sections",
             "diaspora_sections__challenges",
             "features_sections",
@@ -37,6 +25,9 @@ def index(request):
             "services_sections__services",
             "newsletter_sections",
             "newsletter_sections__buttons",
+            "who_we_are_section",
+            "stats_section",
+            "stats_section__stats",
         )
         .filter(is_published=True)
         .first()
@@ -58,8 +49,7 @@ def index(request):
         "heading_highlight": "",
         "heading_suffix": "",
         "description": "",
-        "cta_primary_text": "Get Started",
-        "cta_secondary_text": "Watch video",
+        "buttons": [],
         "image_url": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200",
         "verified_text": "Verified",
         "live_tracking_text": "Live Project Tracking",
@@ -70,14 +60,28 @@ def index(request):
 
     hero_section = getattr(homepage, "hero_section", None)
     if hero_section:
+        # Get buttons (already prefetched)
+        hero_buttons = []
+        for button in hero_section.buttons.all():
+            hero_buttons.append(
+                {
+                    "text": button.text,
+                    "link": button.link,
+                    "icon": button.icon,
+                    "style": button.style,
+                    "size": button.size,
+                    "is_external": button.is_external,
+                    "is_full_width": button.is_full_width,
+                }
+            )
+
         hero = {
             "tagline": hero_section.tagline,
             "heading_main": hero_section.heading_main,
             "heading_highlight": hero_section.heading_highlight,
             "heading_suffix": hero_section.heading_suffix,
             "description": hero_section.description,
-            "cta_primary_text": "Get Started",
-            "cta_secondary_text": "Watch video",
+            "buttons": hero_buttons,
             "image_url": (
                 hero_section.background_image.image_url
                 if hero_section.background_image
@@ -89,49 +93,27 @@ def index(request):
             "company_location": hero_section.company_location,
             "show_verified_badge": hero_section.show_verified_badge,
             "show_live_tracking": hero_section.show_live_tracking,
-            "stats": {},
         }
-        # Get hero stats (already prefetched)
-        for stat in hero_section.stats.all():
-            hero["stats"][stat.label.lower().replace(" ", "_")] = {
-                "value": stat.value,
-                "label": stat.label,
-            }
 
-    # Stats section data from model
-    stats_section_data = {
-        "quote_text": "Integrity and innovation in every structure we touch. Engineering excellence from the ground up.",
-        "landmark_projects": {"value": "850", "label_text": "Landmark Projects"},
-        "client_reviews": {
-            "rating": 5,
-            "total_reviews": "12,000+",
-            "label_text": "Client Reviews",
-            "button_text": "Discover Excellence",
-            "button_link": "#",
-        },
+    # Client review data from model
+    client_review_data = {
+        "rating": 5,
+        "total_reviews": "12,000+",
+        "label_text": "Client Reviews",
+        "button_text": "Discover Excellence",
+        "button_link": "#",
     }
 
-    stats_section_obj = getattr(homepage, "stats_sections", None)
-    if stats_section_obj and stats_section_obj.exists():
-        stats_section_obj = stats_section_obj.first()
-        stats_section_data = {
-            "quote_text": stats_section_obj.quote_text,
-            "landmark_projects": {
-                "value": stats_section_obj.landmark_projects_value,
-                "label_text": stats_section_obj.landmark_projects_label_text,
-            },
-            "client_reviews": {},
+    client_review_obj = getattr(homepage, "client_reviews", None)
+    if client_review_obj and client_review_obj.exists():
+        client_review_obj = client_review_obj.first()
+        client_review_data = {
+            "rating": client_review_obj.rating,
+            "total_reviews": client_review_obj.total_reviews,
+            "label_text": client_review_obj.label_text,
+            "button_text": client_review_obj.button_text,
+            "button_link": client_review_obj.button_link,
         }
-        # Get client reviews (already prefetched)
-        client_review = stats_section_obj.client_reviews.first()
-        if client_review:
-            stats_section_data["client_reviews"] = {
-                "rating": client_review.rating,
-                "total_reviews": client_review.total_reviews,
-                "label_text": client_review.label_text,
-                "button_text": client_review.button_text,
-                "button_link": client_review.button_link,
-            }
 
     # Diaspora section data from model
     diaspora_section_data = {
@@ -277,6 +259,52 @@ def index(request):
         if cta_button:
             newsletter_data["cta_text"] = cta_button.text
 
+    # Who We Are section data from model
+    who_we_are_data = {
+        "label": "Who We Are",
+        "heading": "Committed, client-focused, and process-driven builders.",
+        "description": "We deliver world-class construction services with a focus on quality, transparency, and client satisfaction.",
+        "button_text": "Learn More",
+        "button_link": "/about",
+        "background_image_url": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1920",
+    }
+
+    who_we_are_section = getattr(homepage, "who_we_are_section", None)
+    if who_we_are_section:
+        who_we_are_data = {
+            "label": who_we_are_section.label,
+            "heading": who_we_are_section.heading,
+            "description": who_we_are_section.description,
+            "button_text": who_we_are_section.button_text,
+            "button_link": who_we_are_section.button_link,
+            "background_image_url": (
+                who_we_are_section.background_image.image_url
+                if who_we_are_section.background_image
+                else who_we_are_section.background_image_url
+            ),
+        }
+
+    # Stats section data from model
+    stats_section_data = {
+        "header": "TRUSTBUILD URBAN BY THE NUMBERS",
+        "stats": [],
+    }
+
+    stats_section = getattr(homepage, "stats_section", None)
+    if stats_section:
+        stats_data = []
+        for stat in stats_section.stats.all():
+            stats_data.append(
+                {
+                    "number": stat.number,
+                    "subtitle": stat.subtitle,
+                }
+            )
+        stats_section_data = {
+            "header": stats_section.header,
+            "stats": stats_data,
+        }
+
     # Portfolio section - Keep as is (hardcoded fallback)
     portfolio_section = {
         "heading": "Portfolio Highlights",
@@ -313,8 +341,8 @@ def index(request):
         "meta": meta,
         # Hero
         "hero": hero,
-        # Stats
-        "stats_section": stats_section_data,
+        # Client Review
+        "client_review": client_review_data,
         # Sections from models
         "diaspora_section": diaspora_section_data,
         "features_section": features_section_data,
@@ -324,6 +352,9 @@ def index(request):
         "portfolio_section": portfolio_section,
         # Newsletter
         "newsletter": newsletter_data,
+        # New sections
+        "who_we_are": who_we_are_data,
+        "stats_section": stats_section_data,
         "star_range": list(range(1, 6)),
     }
 

@@ -124,69 +124,15 @@ class HomeHeroButton(PageBase, OrderedModel):
         return self.text or "Untitled Hero Button"
 
 
-class Stats(PageBase, OrderedModel):
+class ClientReview(PageBase):
     """
-    Stats model with ForeignKey to HeroSection.
-    Allows multiple stat items per hero section.
-    """
-
-    hero_section = models.ForeignKey(
-        HeroSection, on_delete=models.CASCADE, related_name="stats"
-    )
-
-    # Stat content
-    value = models.CharField(max_length=20, blank=True)
-    label = models.CharField(max_length=100, blank=True)
-    order_with_respect_to = 'hero_section'
-
-    # Order
-
-    class Meta(OrderedModel.Meta):
-        verbose_name = "Stat"
-        verbose_name_plural = "Stats"
-
-    def __str__(self):
-        return f"{self.value} - {self.label}"
-
-
-class StatsSection(PageBase):
-    """
-    Stats section model with ForeignKey to HomePage.
-    Contains quote text, landmark projects info, and client reviews.
+    Client review model with ForeignKey to HomePage.
+    Contains rating, total reviews, and button information.
+    Independent model (not related to StatsSection).
     """
 
     homepage = models.ForeignKey(
-        "homepage.HomePage", on_delete=models.CASCADE, related_name="stats_sections"
-    )
-
-    # Quote text
-    quote_text = models.TextField(
-        blank=True,
-        default="Integrity and innovation in every structure we touch. Engineering excellence from the ground up.",
-    )
-
-    # Landmark projects
-    landmark_projects_value = models.CharField(max_length=20, blank=True, default="850")
-    landmark_projects_label_text = models.CharField(
-        max_length=100, blank=True, default="Landmark Projects"
-    )
-
-    class Meta:
-        verbose_name = "Stats Section"
-        verbose_name_plural = "Stats Sections"
-
-    def __str__(self):
-        return f"Stats Section for {self.homepage.title}"
-
-
-class ClientReview(PageBase):
-    """
-    Client review child model for StatsSection.
-    Contains rating, total reviews, and button information.
-    """
-
-    stats_section = models.ForeignKey(
-        StatsSection, on_delete=models.CASCADE, related_name="client_reviews"
+        "homepage.HomePage", on_delete=models.CASCADE, related_name="client_reviews"
     )
 
     # Rating
@@ -547,3 +493,122 @@ class NewsletterButton(PageBase):
 
     def __str__(self):
         return self.text or "Untitled Newsletter Button"
+
+
+# ============== Who We Are Section ==============
+
+
+class WhoWeAreSection(PageBase):
+    """
+    Who We Are section with background image.
+    Full-width section with dark overlay and centered content.
+    """
+
+    homepage = models.OneToOneField(
+        "homepage.HomePage", on_delete=models.CASCADE, related_name="who_we_are_section"
+    )
+
+    # Section content
+    label = models.CharField(
+        max_length=100,
+        blank=True,
+        default="Who We Are",
+    )
+    heading = models.TextField(
+        blank=True,
+        default="Committed, client-focused, and process-driven builders.",
+    )
+    description = models.TextField(
+        blank=True,
+        default="We deliver world-class construction services with a focus on quality, transparency, and client satisfaction.",
+    )
+
+    # Button
+    button_text = models.CharField(max_length=100, blank=True, default="Learn More")
+    button_link = models.CharField(max_length=200, blank=True, default="/about")
+
+    # Background image
+    background_image = models.ForeignKey(
+        "images.Image",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="who_we_are_sections",
+    )
+    background_image_url = models.URLField(max_length=500, blank=True)
+
+    # Overlay
+    overlay_opacity = models.IntegerField(
+        default=40, help_text="Overlay opacity percentage (0-100)"
+    )
+
+    class Meta:
+        verbose_name = "Who We Are Section"
+        verbose_name_plural = "Who We Are Sections"
+
+    def __str__(self):
+        return f"Who We Are Section for {self.homepage.title}"
+
+
+# ============== Stats Section ==============
+
+
+class StatsSection(PageBase):
+    """
+    Stats section - 'By The Numbers' statistics.
+    4-column grid for social proof.
+    """
+
+    homepage = models.OneToOneField(
+        "homepage.HomePage", on_delete=models.CASCADE, related_name="stats_section"
+    )
+
+    # Section content
+    header = models.CharField(
+        max_length=100,
+        blank=True,
+        default="TRUSTBUILD URBAN BY THE NUMBERS",
+    )
+
+    # Background pattern/image
+    background_pattern = models.ForeignKey(
+        "images.Image",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="stats_backgrounds",
+    )
+
+    class Meta:
+        verbose_name = "Stats Section"
+        verbose_name_plural = "Stats Sections"
+
+    def __str__(self):
+        return f"Stats Section for {self.homepage.title}"
+
+
+class Stat(PageBase):
+    """
+    Statistic child model for StatsSection.
+    """
+
+    stats_section = models.ForeignKey(
+        StatsSection, on_delete=models.CASCADE, related_name="stats"
+    )
+
+    # Stat content
+    number = models.CharField(max_length=20, blank=True, default="500+")
+    subtitle = models.CharField(
+        max_length=100, blank=True, default="Projects Completed"
+    )
+
+    # Order for sorting
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta:
+        verbose_name = "Stat"
+        verbose_name_plural = "Stats"
+        ordering = ["order"]
+
+    def __str__(self):
+        return f"{self.number} - {self.subtitle}"
