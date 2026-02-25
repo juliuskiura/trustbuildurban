@@ -143,7 +143,7 @@ class AvailableHomeAdmin(OrderedModelAdmin):
     ]
     list_filter = ["status", "is_featured"]
     search_fields = ["title", "location", "price"]
-    raw_id_fields = ["image"]
+
     inlines = [
         AvailableHomeImageInline,
         BathroomInformationInline,

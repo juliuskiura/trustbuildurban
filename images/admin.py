@@ -29,7 +29,7 @@ class ImageAdmin(admin.ModelAdmin):
         "usage_details_display",
     ]
     fieldsets = (
-        (None, {"fields": ("image", "url")}),
+        (None, {"fields": ("image",)}),
         ("Image Details", {"fields": ("alt_text", "caption")}),
         (
             "Metadata",

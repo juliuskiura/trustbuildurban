@@ -88,16 +88,6 @@ class AvailableHome(PageBase, OrderedModel):
         blank=True, help_text="Detailed description of the property"
     )
 
-    # Image - using ForeignKey to Image model
-    image = models.ForeignKey(
-        "images.Image",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="available_homes",
-    )
-    image_url = models.URLField(max_length=500, null=True, blank=True)
-
     # Featured flag - if True, will be displayed prominently
     is_featured = models.BooleanField(default=False)
 
