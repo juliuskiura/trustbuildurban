@@ -1,26 +1,77 @@
 from django.contrib import admin
+from django.contrib.admin.actions import delete_selected
 from django.utils.html import format_html
+from django.http import HttpResponseRedirect, HttpResponse
+from django.template.loader import render_to_string
+from django.urls import path
 from .models import Image, ImageUsage
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ["alt_text", "caption", "usage_count_display", "created_at"]
+    list_display = [
+        "thumbnail",
+        "alt_text",
+        "caption",
+        "usage_count_display",
+        "created_at",
+    ]
     search_fields = ['alt_text', 'caption']
     ordering = ["-created_at"]
     readonly_fields = [
-      
         "width",
         "height",
         "usage_count_display",
         "used_by_models_display",
+        "thumbnail",
     ]
+    fieldsets = (
+        (None, {"fields": ("image", "url")}),
+        ("Image Details", {"fields": ("alt_text", "caption")}),
+        (
+            "Metadata",
+            {
+                "fields": (
+                    "width",
+                    "height",
+                    "usage_count_display",
+                    "used_by_models_display",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+
+    # Enable multiple file upload
+    change_form_template = "admin/images/image/change_form.html"
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                "upload-multiple/",
+                self.admin_site.admin_view(self.upload_multiple_view),
+                name="images_image_upload_multiple",
+            ),
+        ]
+        return custom_urls + urls
+
+    def thumbnail(self, obj):
+        """Display thumbnail of the image."""
+        if obj.image_url:
+            return format_html(
+                '<img src="{}" style="width: 100px; height: auto; border-radius: 4px;">',
+                obj.image_url,
+            )
+        return "-"
+
+    thumbnail.short_description = "Preview"
 
     def usage_count_display(self, obj):
         """Display method for usage_count property."""
         count = obj.usage_count
         return format_html(
-            '<span class="{}</span>">{}</span>',
+            '<span class="{}">{}</span>',
             "text-success" if count > 0 else "text-muted",
             count,
         )
@@ -36,6 +87,46 @@ class ImageAdmin(admin.ModelAdmin):
         return ", ".join(models)
 
     used_by_models_display.short_description = "Used By"
+
+    def upload_multiple_view(self, request):
+        """Handle multiple image upload."""
+        from django.urls import path
+
+        if request.method == "POST":
+            files = request.FILES.getlist("images")
+            uploaded_count = 0
+            for f in files:
+                Image.objects.create(
+                    image=f,
+                    alt_text=f.name.rsplit(".", 1)[0]
+                    .replace("_", " ")
+                    .replace("-", " ")
+                    .title(),
+                )
+                uploaded_count += 1
+            self.message_user(
+                request, f"Successfully uploaded {uploaded_count} images."
+            )
+            return HttpResponseRedirect("../")
+
+        # Render the upload form
+        context = {
+            "title": "Upload Multiple Images",
+            "app_label": "images",
+            "opts": self.model._meta,
+        }
+        return HttpResponse(
+            render_to_string("admin/images/image/upload_multiple.html", context)
+        )
+
+    # Add custom actions
+    actions = ["delete_selected", "upload_multiple"]
+
+    def upload_multiple(self, request, queryset):
+        """Custom action to redirect to multiple upload page."""
+        return HttpResponseRedirect("upload-multiple/")
+
+    upload_multiple.short_description = "Upload multiple images"
 
 
 @admin.register(ImageUsage)

@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}Upload Multiple Images | Django site admin{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">Django administration</h1>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div class="module" id="changelist">
+        <h2>Upload Multiple Images</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <label for="id_images">Select Images:</label>
+                <input type="file" name="images" id="id_images" multiple accept="image/*">
+                <p class="help">You can select multiple images at once (Ctrl+Click or Cmd+Click)</p>
+            </div>
+            <div class="submit-row">
+                <input type="submit" value="Upload Images" class="default">
+                <a href="../" class="button cancel-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
