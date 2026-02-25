@@ -244,6 +244,26 @@ class Page(MPTTModel):
         context = self.get_context(request)
         return render(request, self.get_template(), context)
 
+    def get_specific(self):
+        """
+        Return the instance as its most specific subclass.
+        Uses content types to find the specific instance.
+        """
+        # If it's already a subclass, return self
+        if self.__class__ is not Page:
+            return self
+
+        # Otherwise, try to find the specific subclass
+        # This is a simple implementation of multi-table inheritance retrieval
+        for subclass in self.__class__.__subclasses__():
+            try:
+                specific_instance = getattr(self, subclass.__name__.lower())
+                return specific_instance
+            except (AttributeError, subclass.DoesNotExist):
+                continue
+        
+        return self
+
     def save(self, *args, **kwargs):
         self.revision_number += 1
         super().save(*args, **kwargs)

@@ -1,0 +1,225 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+<title>3036 N Kedzie Ave, Chicago, IL 60618 | TrustBuild Urban</title>
+{% endblock %}
+{% block content %}
+<div class="bg-white font-sans text-texts pt-24 lg:pt-28">
+    <!-- Sticky Sub-Nav (Desktop Only) -->
+    <nav class="sticky top-[76px] lg:top-[84px] z-40 bg-white border-b border-gray-200 hidden lg:block">
+        <div class="max-w-7xl mx-auto px-6 flex items-center space-x-8 h-14 text-[11px] font-bold uppercase tracking-widest text-texts/60">
+            <a href="#overview" class="text-texts border-b-2 border-texts h-full flex items-center">Overview</a>
+            <a href="#about" class="hover:text-texts transition-colors h-full flex items-center">About This Home</a>
+            <a href="#details" class="hover:text-texts transition-colors h-full flex items-center">Property Details</a>
+            <a href="#neighborhood" class="hover:text-texts transition-colors h-full flex items-center">Neighborhood</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+        
+        <!-- Image Gallery Grid (Exact Redfin Layout: 1 Large Left, 2 Stacked Right) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8 rounded-xl overflow-hidden h-[300px] md:h-[550px]">
+            <!-- Main Image -->
+            <div class="h-full">
+                <img src="https://ssl.cdn-redfin.com/system_files/media/1197311_JPG/item_40.jpg" alt="Main View" class="w-full h-full object-cover">
+            </div>
+            <!-- Stacked Right Images -->
+            <div class="grid grid-rows-2 gap-2 h-full">
+                <div class="h-full overflow-hidden">
+                    <img src="https://ssl.cdn-redfin.com/system_files/media/1197311_JPG/genLdpUgcMediaBrowserUrlComp/item_33.jpg" class="w-full h-full object-cover">
+                </div>
+                <div class="relative h-full overflow-hidden group cursor-pointer">
+                    <img src="https://ssl.cdn-redfin.com/system_files/media/1197311_JPG/genLdpUgcMediaBrowserUrlComp/item_8.jpg" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center text-white font-bold text-lg">
+                        <div class="border-2 border-white px-6 py-2 rounded-lg bg-black/40">33 photos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Left Column: Content -->
+            <div class="lg:w-[70%]">
+                <!-- Header Info (Exact Redfin Re-alignment) -->
+                <div id="overview" class="mb-10 pb-10 border-b border-gray-100 flex flex-col md:flex-row justify-between gap-8">
+                    <div class="flex-grow">
+                        <div class="flex items-center space-x-2 text-green-700 font-bold text-[10px] uppercase tracking-widest mb-4 bg-green-50 w-fit px-3 py-1 rounded-full">
+                            <span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span>
+                            <span>FOR SALE</span>
+                        </div>
+                        
+                        <div class="flex items-baseline space-x-4 mb-4">
+                            <h1 class="text-4xl md:text-5xl font-black text-texts tracking-tight leading-none">$900,000</h1>
+                            <span class="text-texts/40 text-sm font-medium">Est. $5,405/mo</span>
+                        </div>
+
+                        <div class="flex items-center space-x-6 mb-6">
+                            <div class="flex items-baseline space-x-1">
+                                <span class="text-3xl font-bold">5</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-gray-500">bd</span>
+                            </div>
+                            <div class="w-px h-8 bg-gray-200"></div>
+                            <div class="flex items-baseline space-x-1">
+                                <span class="text-3xl font-bold">4</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-gray-500">ba</span>
+                            </div>
+                            <div class="w-px h-8 bg-gray-200"></div>
+                            <div class="flex items-baseline space-x-1">
+                                <span class="text-3xl font-bold">—</span>
+                                <span class="text-[11px] font-bold uppercase tracking-wider text-gray-500">sq ft</span>
+                            </div>
+                        </div>
+
+                        <div class="text-xl md:text-2xl font-bold text-texts/80">
+                            3036 N Kedzie Ave, Chicago, IL 60618
+                        </div>
+                    </div>
+
+                    <!-- Mini Map Box Placeholder -->
+                    <div class="hidden md:block w-56 h-36 rounded-2xl overflow-hidden border border-gray-200 relative group cursor-pointer shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-8 h-8 bg-accent rounded-full border-4 border-white shadow-xl animate-bounce"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About section -->
+                <section id="about" class="mb-12">
+                    <h2 class="text-2xl font-serif font-black text-texts mb-8">About This Home</h2>
+                    <div class="prose prose-gray max-w-none text-texts/70 leading-relaxed mb-10 text-lg">
+                        <p>Well-maintained building featuring two legal dwelling units, plus a separate third unit currently operating as a short-term rental. Ideal for investors or owner-occupants looking to offset expenses with supplemental income. The lower level offers additional finished space with strong potential for conversion to an ADU (Accessory Dwelling Unit) or future duplex-down expansion (subject to zoning approval and City of Chicago regulations).</p>
+                        <p class="mt-4">Outdoor highlights include a private rear patio and an oversized two-car garage, a rare find in the area. Prime location with excellent access to public transportation including nearby CTA bus routes and convenient access to the CTA Blue Line and CTA Brown Line.</p>
+                    </div>
+                    
+                    <!-- Summary Highlights -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <div class="p-8 bg-gray-50/50 rounded-2xl border border-gray-100 flex flex-col items-center text-center space-y-4">
+                            <div class="p-4 bg-white rounded-xl shadow-sm text-accent">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            </div>
+                            <div>
+                                <div class="font-bold text-lg text-texts leading-tight">Multi-family</div>
+                                <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mt-1">Property Type</div>
+                            </div>
+                        </div>
+                        <div class="p-8 bg-gray-50/50 rounded-2xl border border-gray-100 flex flex-col items-center text-center space-y-4">
+                            <div class="p-4 bg-white rounded-xl shadow-sm text-accent">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            </div>
+                            <div>
+                                <div class="font-bold text-lg text-texts leading-tight">1898</div>
+                                <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mt-1">Year Built</div>
+                            </div>
+                        </div>
+                        <div class="p-8 bg-gray-50/50 rounded-2xl border border-gray-100 flex flex-col items-center text-center space-y-4">
+                            <div class="p-4 bg-white rounded-xl shadow-sm text-accent">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                            </div>
+                            <div>
+                                <div class="font-bold text-lg text-texts leading-tight">2 car garage</div>
+                                <div class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mt-1">Parking</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Property Details Section -->
+                <section id="details" class="mb-12 pt-12 border-t border-gray-100">
+                    <h2 class="text-2xl font-serif font-black text-texts mb-10 text-center md:text-left">Detailed Property Information</h2>
+                    
+                    <div class="space-y-12">
+                        <!-- Interior -->
+                        <div class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                            <h3 class="text-xs font-black uppercase tracking-widest text-accent mb-8 flex items-center">
+                                Interior Highlights
+                                <span class="bg-gray-100 h-px flex-grow ml-6"></span>
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                <div class="space-y-4">
+                                    <h4 class="font-bold text-texts flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-accent"><path d="M2 20h20"/><path d="M7 20V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12"/></svg>
+                                        Bedroom Information
+                                    </h4>
+                                    <ul class="text-sm text-texts/60 space-y-3 font-medium">
+                                        <li class="flex justify-between border-b border-gray-50 pb-2"><span>Total Bedrooms</span> <span class="text-texts font-bold">5</span></li>
+                                        <li class="flex justify-between border-b border-gray-50 pb-2"><span>Additional Room Possible</span> <span class="text-texts font-bold">Yes</span></li>
+                                    </ul>
+                                </div>
+                                <div class="space-y-4">
+                                    <h4 class="font-bold text-texts flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-accent"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                                        Bathroom Information
+                                    </h4>
+                                    <ul class="text-sm text-texts/60 space-y-3 font-medium">
+                                        <li class="flex justify-between border-b border-gray-50 pb-2"><span>Full Bathrooms</span> <span class="text-texts font-bold">4</span></li>
+                                        <li class="flex justify-between border-b border-gray-50 pb-2"><span>Luxuries</span> <span class="text-texts font-bold italic">Soaking Tub</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Parking -->
+                        <div class="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                            <h3 class="text-xs font-black uppercase tracking-widest text-accent mb-8 flex items-center">
+                                Parking & Exterior
+                                <span class="bg-gray-100 h-px flex-grow ml-6"></span>
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                <div class="space-y-4">
+                                    <h4 class="font-bold text-texts flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mr-3 text-accent"><rect x="1" y="3" width="22" height="18" rx="2" ry="2"/></svg>
+                                        Garage Information
+                                    </h4>
+                                    <ul class="text-sm text-texts/60 space-y-3 font-medium">
+                                        <li class="flex justify-between border-b border-gray-50 pb-2"><span>Spaces</span> <span class="text-texts font-bold">2 (Oversized)</span></li>
+                                        <li class="flex justify-between border-b border-gray-50 pb-2"><span>Feature</span> <span class="text-texts font-bold">Detached</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Sidebar (Sticky Sidebar Enhanced) -->
+            <div class="lg:w-[30%]">
+                <div class="sticky top-28 lg:top-40 space-y-8">
+                    <!-- Action Card -->
+                    <div class="p-8 border border-gray-100 rounded-[2.5rem] shadow-2xl bg-white relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -mr-16 -mt-16 blur-2xl transition-all group-hover:bg-accent/10"></div>
+                        
+                        <button class="w-full py-6 bg-[#E63946] text-white font-bold uppercase tracking-[0.2em] text-xs rounded-2xl shadow-xl hover:shadow-red-200 hover:-translate-y-1 transition-all mb-4 relative z-10">
+                            Request showing
+                        </button>
+                        <button class="w-full py-6 border-2 border-texts text-texts font-bold uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-gray-50 hover:-translate-y-1 transition-all mb-10 relative z-10">
+                            Start an offer
+                        </button>
+                        
+                        <div class="pt-8 border-t border-gray-100 flex flex-col items-center space-y-4 relative z-10">
+                           <a href="/contact" class="text-[11px] font-bold text-accent uppercase tracking-widest hover:text-secondary transition-colors">Ask a question</a>
+                           <div class="h-1 w-1 rounded-full bg-gray-200"></div>
+                           <a href="tel:7085782846" class="text-lg font-black text-texts tracking-tighter">(708) 578-2846</a>
+                        </div>
+                    </div>
+
+                    <!-- Listed By Card -->
+                    <div class="p-8 bg-gray-50/50 rounded-[2.5rem] border border-gray-100 flex items-center space-x-6">
+                        <div class="w-16 h-16 rounded-2xl bg-white p-1 shadow-sm overflow-hidden rotate-3 flex-shrink-0">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&q=80" alt="Agent" class="w-full h-full object-cover rounded-xl grayscale hover:grayscale-0 transition-all">
+                        </div>
+                        <div>
+                            <div class="text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-1">Exclusive Listing</div>
+                            <div class="font-black text-texts">Camie Cirrincione</div>
+                            <div class="text-[10px] font-bold text-accent uppercase tracking-wider">Premium Partner</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</div>
+{% endblock %}
