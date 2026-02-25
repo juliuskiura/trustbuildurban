@@ -3,7 +3,8 @@ from django.contrib.admin.actions import delete_selected
 from django.utils.html import format_html
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template.loader import render_to_string
-from django.urls import path
+from django.urls import path, reverse
+from django.views.decorators.csrf import csrf_exempt
 from .models import Image, ImageUsage
 
 
@@ -44,6 +45,7 @@ class ImageAdmin(admin.ModelAdmin):
 
     # Enable multiple file upload
     change_form_template = "admin/images/image/change_form.html"
+    change_list_template = "admin/images/image/change_list.html"
 
     def get_urls(self):
         urls = super().get_urls()
@@ -88,6 +90,7 @@ class ImageAdmin(admin.ModelAdmin):
 
     used_by_models_display.short_description = "Used By"
 
+    @csrf_exempt
     def upload_multiple_view(self, request):
         """Handle multiple image upload."""
         from django.urls import path

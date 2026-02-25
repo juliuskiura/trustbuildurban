@@ -1,28 +1,312 @@
-{% extends "admin/base.html" %}
-{% load i18n %}
-
-{% block title %}Upload Multiple Images | Django site admin{% endblock %}
-
-{% block branding %}
-<h1 id="site-name">Django administration</h1>
-{% endblock %}
-
-{% block content %}
-<div id="content-main">
-    <div class="module" id="changelist">
-        <h2>Upload Multiple Images</h2>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-row">
-                <label for="id_images">Select Images:</label>
-                <input type="file" name="images" id="id_images" multiple accept="image/*">
-                <p class="help">You can select multiple images at once (Ctrl+Click or Cmd+Click)</p>
-            </div>
-            <div class="submit-row">
-                <input type="submit" value="Upload Images" class="default">
-                <a href="../" class="button cancel-link">Cancel</a>
-            </div>
-        </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Multiple Images</title>
+    <style>
+        :root {
+            --primary-color: #0f766e;
+            --primary-hover: #115e59;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+        
+        .admin-header {
+            background-color: #1f2937;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-header h1 {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .upload-card {
+            background: var(--card-bg);
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .card-header p {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+        }
+        
+        .file-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px dashed var(--border-color);
+            border-radius: 0.5rem;
+            background: #fafafa;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .file-input:hover {
+            border-color: var(--primary-color);
+            background: #f0fdfa;
+        }
+        
+        .file-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .help-text {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+        
+        .submit-row {
+            display: flex;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.625rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f9fafb;
+        }
+        
+        .drop-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: 0.5rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fafafa;
+        }
+        
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: var(--primary-color);
+            background: #f0fdfa;
+        }
+        
+        .drop-zone-icon {
+            font-size: 3rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .drop-zone-text {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .drop-zone-hint {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .selected-files {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f0fdfa;
+            border-radius: 0.375rem;
+            display: none;
+        }
+        
+        .selected-files.show {
+            display: block;
+        }
+        
+        .selected-files h4 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .file-list {
+            list-style: none;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .file-list li {
+            padding: 0.25rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>Django Administration</h1>
     </div>
-</div>
-{% endblock %}
+    
+    <div class="container">
+        <div class="upload-card">
+            <div class="card-header">
+                <h2>Upload Multiple Images</h2>
+                <p>Select multiple images to upload to the media library</p>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_images">Select Images</label>
+                        <div class="drop-zone" id="dropZone">
+                            <div class="drop-zone-icon">📁</div>
+                            <div class="drop-zone-text">Click to select files or drag and drop</div>
+                            <div class="drop-zone-hint">Supports: JPG, PNG, GIF, WebP</div>
+                        </div>
+                        <input type="file" name="images" id="id_images" multiple accept="image/*" class="file-input" style="display: none;">
+                        <p class="help-text">You can select multiple images at once (Ctrl+Click or Cmd+Click)</p>
+                        <div class="selected-files" id="selectedFiles">
+                            <h4>Selected files:</h4>
+                            <ul class="file-list" id="fileList"></ul>
+                        </div>
+                    </div>
+                    <div class="submit-row">
+                        <button type="submit" class="btn btn-primary">📤 Upload Images</button>
+                        <a href="../" class="btn btn-secondary">✕ Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('id_images');
+        const selectedFiles = document.getElementById('selectedFiles');
+        const fileList = document.getElementById('fileList');
+        
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            fileInput.files = files;
+            updateFileList(files);
+        });
+        
+        fileInput.addEventListener('change', () => {
+            updateFileList(fileInput.files);
+        });
+        
+        function updateFileList(files) {
+            if (files.length > 0) {
+                selectedFiles.classList.add('show');
+                fileList.innerHTML = '';
+                for (let i = 0; i < files.length; i++) {
+                    const li = document.createElement('li');
+                    li.textContent = `${i + 1}. ${files[i].name} (${formatFileSize(files[i].size)})`;
+                    fileList.appendChild(li);
+                }
+            } else {
+                selectedFiles.classList.remove('show');
+            }
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>
