@@ -11,9 +11,7 @@ class Image(PageBase):
     """
 
     # Image data
-    image = models.ImageField(upload_to='images/', blank=True)
-    url = models.URLField(max_length=500, blank=True, help_text="External image URL")
-
+    image = models.ImageField(upload_to="images/", blank=True)
     # Alt text and caption
     alt_text = models.CharField(max_length=200, blank=True)
     caption = models.CharField(max_length=200, blank=True)
@@ -68,6 +66,73 @@ class Image(PageBase):
             .annotate(count=Count("id"))
             .order_by("-count")
         )
+
+    def get_full_usage_info(self):
+        """
+        Return detailed usage information with parent and grandparent hierarchy.
+        For each usage, trace back to find the parent object and grandparent if available.
+        """
+        if self._state.adding:
+            return []
+
+        from django.apps import apps
+
+        usage_info = []
+        for usage in ImageUsage.objects.filter(image=self):
+            if not usage.content_type:
+                continue
+
+            try:
+                model_class = usage.content_type.model_class()
+                if not model_class:
+                    continue
+
+                # Get the object that uses this image
+                obj = usage.content_object
+                if not obj:
+                    continue
+
+                info = {
+                    "content_type": usage.content_type.model,
+                    "object_id": str(usage.object_id),
+                    "parent": None,
+                    "grandparent": None,
+                }
+
+                # Try to find parent (e.g., AvailableHomeImage -> AvailableHome)
+                if hasattr(obj, "home"):
+                    info["parent"] = f"{obj.home.__class__.__name__}: {obj.home.title}"
+                    # Try to find grandparent through the home
+                    if hasattr(obj.home, "title"):
+                        pass  # Parent is the home itself
+                elif hasattr(obj, "page"):
+                    info["parent"] = (
+                        f"{obj.page.__class__.__name__}: {obj.page.title if hasattr(obj.page, 'title') else str(obj.page)}"
+                    )
+                elif hasattr(obj, "available_homes_page"):
+                    info["parent"] = (
+                        f"AvailableHomesPage: {obj.available_homes_page.title if hasattr(obj.available_homes_page, 'title') else str(obj.available_homes_page)}"
+                    )
+                elif hasattr(obj, "blog_post"):
+                    info["parent"] = (
+                        f"BlogPost: {obj.blog_post.title if hasattr(obj.blog_post, 'title') else str(obj.blog_post)}"
+                    )
+                elif hasattr(obj, "project"):
+                    info["parent"] = (
+                        f"Project: {obj.project.title if hasattr(obj.project, 'title') else str(obj.project)}"
+                    )
+                elif hasattr(obj, "service"):
+                    info["parent"] = (
+                        f"Service: {obj.service.title if hasattr(obj.service, 'title') else str(obj.service)}"
+                    )
+
+                usage_info.append(info)
+
+            except Exception as e:
+                # Skip if there's any error tracing the hierarchy
+                pass
+
+        return usage_info
 
     @property
     def image_url(self):

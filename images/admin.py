@@ -15,6 +15,7 @@ class ImageAdmin(admin.ModelAdmin):
         "alt_text",
         "caption",
         "usage_count_display",
+        "usage_details_display",
         "created_at",
     ]
     search_fields = ['alt_text', 'caption']
@@ -25,6 +26,7 @@ class ImageAdmin(admin.ModelAdmin):
         "usage_count_display",
         "used_by_models_display",
         "thumbnail",
+        "usage_details_display",
     ]
     fieldsets = (
         (None, {"fields": ("image", "url")}),
@@ -89,6 +91,27 @@ class ImageAdmin(admin.ModelAdmin):
         return ", ".join(models)
 
     used_by_models_display.short_description = "Used By"
+
+    def usage_details_display(self, obj):
+        """Display detailed usage with parent hierarchy."""
+        usage_info = obj.get_full_usage_info()
+        if not usage_info:
+            return "-"
+
+        details = []
+        for info in usage_info[:5]:
+            if info.get("parent"):
+                details.append(f"{info['content_type']} → {info['parent']}")
+            else:
+                details.append(info["content_type"])
+
+        result = "<br>".join(details)
+        if len(usage_info) > 5:
+            result += f"<br>...and {len(usage_info) - 5} more"
+        return format_html(result)
+
+    usage_details_display.short_description = "Usage Details"
+    usage_details_display.allow_tags = True
 
     @csrf_exempt
     def upload_multiple_view(self, request):

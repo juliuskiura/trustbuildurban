@@ -46,7 +46,7 @@ class AvailableHomeImageInline(admin.TabularInline):
     model = AvailableHomeImage
     extra = 1
     can_delete = True
-    fieldsets = ((None, {"fields": ("image", "image_url", "is_cover")}),)
+    fieldsets = ((None, {"fields": ("image", "is_cover")}),)
 
 
 class BathroomInformationInline(admin.TabularInline):

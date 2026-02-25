@@ -46,5 +46,11 @@ class ImagesConfig(AppConfig):
 
         signals.register_image_foreign_key(Service, "image")
 
+        # Available Homes models
+        from available_homes.models import AvailableHome, AvailableHomeImage
+
+        signals.register_image_foreign_key(AvailableHome, "image")
+        signals.register_image_foreign_key(AvailableHomeImage, "image")
+
         # Connect the signals
         signals.connect_signals()

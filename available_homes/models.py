@@ -361,8 +361,7 @@ class AvailableHomeImage(PageBase):
         null=True,
         blank=True,
         related_name="available_home_images",
-    )
-    image_url = models.URLField(max_length=500, null=True, blank=True)
+    )  
 
     # Cover image flag
     is_cover = models.BooleanField(default=False)
