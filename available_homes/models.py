@@ -332,6 +332,7 @@ class OutdoorSpaces(models.Model):
         related_name="outdoor_spaces",
     )
     title = models.CharField(max_length=200, blank=True)
+    value = models.TextField(blank=True)
 
     order_with_respect_to = "home"
 
