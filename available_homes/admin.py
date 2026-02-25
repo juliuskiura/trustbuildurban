@@ -49,6 +49,87 @@ class AvailableHomeImageInline(admin.TabularInline):
     fieldsets = ((None, {"fields": ("image", "image_url", "is_cover")}),)
 
 
+class BathroomInformationInline(admin.TabularInline):
+    """Inline admin for BathroomInformation model."""
+
+    model = BathroomInformation
+    extra = 1
+    can_delete = True
+    fields = ("title", "value")
+
+
+class BedroomInformationInline(admin.TabularInline):
+    """Inline admin for BedroomInformation model."""
+
+    model = BedroomInformation
+    extra = 1
+    can_delete = True
+    fields = ("title", "value")
+
+
+class HeatingAndCoolingInline(admin.TabularInline):
+    """Inline admin for HeatingAndCooling model."""
+
+    model = HeatingAndCooling
+    extra = 1
+    can_delete = True
+    fields = ("title", "value")
+
+
+class KitchenAndDiningInline(admin.TabularInline):
+    """Inline admin for KitchenAndDining model."""
+
+    model = KitchenAndDining
+    extra = 1
+    can_delete = True
+    fields = ("title", "value")
+
+
+class InteriorFeaturesInline(admin.TabularInline):
+    """Inline admin for InteriorFeatures model."""
+
+    model = InteriorFeatures
+    extra = 1
+    can_delete = True
+    fields = ("title", "value")
+
+
+class OtherRoomsInline(admin.TabularInline):
+    """Inline admin for OtherRooms model."""
+
+    model = OtherRooms
+    extra = 1
+    can_delete = True
+    fields = ("title", "value")
+
+
+class GarageAndParkingInline(admin.TabularInline):
+    """Inline admin for GarageAndParking model."""
+
+    model = GarageAndParking
+    extra = 1
+    can_delete = True
+    fields = ("title", "value")
+
+
+class UtilitiesAndGreenEnergyInline(admin.TabularInline):
+    """Inline admin for UtilitiesAndGreenEnergy model."""
+
+    model = UtilitiesAndGreenEnergy
+    extra = 1
+    can_delete = True
+    fields = ("title", "value")
+
+
+class OutdoorSpacesInline(admin.TabularInline):
+    """Inline admin for OutdoorSpaces model."""
+
+    model = OutdoorSpaces
+    extra = 1
+    can_delete = True
+    fields = ("title", "value")
+
+
 @admin.register(AvailableHome)
 class AvailableHomeAdmin(OrderedModelAdmin):
     list_display = [
@@ -63,7 +144,18 @@ class AvailableHomeAdmin(OrderedModelAdmin):
     list_filter = ["status", "is_featured"]
     search_fields = ["title", "location", "price"]
     raw_id_fields = ["image"]
-    inlines = [AvailableHomeImageInline]
+    inlines = [
+        AvailableHomeImageInline,
+        BathroomInformationInline,
+        BedroomInformationInline,
+        HeatingAndCoolingInline,
+        KitchenAndDiningInline,
+        InteriorFeaturesInline,
+        OtherRoomsInline,
+        GarageAndParkingInline,
+        UtilitiesAndGreenEnergyInline,
+        OutdoorSpacesInline,
+    ]
 
 
 @admin.register(BathroomInformation)
