@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import AvailableHome
 
 
 def available_homes(request):
@@ -53,23 +54,9 @@ def available_homes(request):
     # Fetch all available homes from the database
     homes = AvailableHome.objects.all().order_by("order")
 
-    # Build homes list
-    for home in homes:
-        pagedata["homes"].append(
-            {
-                "id": str(home.uuid),
-                "title": home.title,
-                "location": home.location,
-                "price": home.price,
-                "beds": home.beds,
-                "baths": home.baths,
-                "sqft": home.sqft,
-                "status": home.get_status_display_custom(),
-                "imageUrl": home.get_image_url() or "",
-            }
-        )
+    # Build homes list 
 
-    return render(request, "available_homes/available.html", {"pagedata": pagedata})
+    return render(request, "available_homes/available.html", {"pagedata": pagedata, "homes": homes})
 
 
 def property_detail_test(request):
@@ -77,3 +64,16 @@ def property_detail_test(request):
     Temporary view to test the property detail page design.
     """
     return render(request, "available_homes/property_detail_page.html")
+
+
+def property_detail(request, slug):
+    """
+    View function for the property detail page.
+    Fetches data from the database models.
+    """    
+
+    # Fetch the property from the database
+    property = get_object_or_404(AvailableHome, slug=slug)
+
+   
+    return render(request, "available_homes/property_detail.html", {"object": property})

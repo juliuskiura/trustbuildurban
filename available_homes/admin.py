@@ -7,6 +7,15 @@ from .models import (
     AvailableHomesCTASection,
     AvailableHome,
     AvailableHomeImage,
+    BathroomInformation,
+    BedroomInformation,
+    HeatingAndCooling,
+    KitchenAndDining,
+    InteriorFeatures,
+    OtherRooms,
+    GarageAndParking,
+    UtilitiesAndGreenEnergy,
+    OutdoorSpaces,
 )
 
 
@@ -55,3 +64,75 @@ class AvailableHomeAdmin(OrderedModelAdmin):
     search_fields = ["title", "location", "price"]
     raw_id_fields = ["image"]
     inlines = [AvailableHomeImageInline]
+
+
+@admin.register(BathroomInformation)
+class BathroomInformationAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "home", "title", "value"]
+    search_fields = ["home__title", "title"]
+    raw_id_fields = ["home"]
+    ordering = ["id"]
+
+
+@admin.register(BedroomInformation)
+class BedroomInformationAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "home", "title", "value"]
+    search_fields = ["home__title", "title"]
+    raw_id_fields = ["home"]
+    ordering = ["id"]
+
+
+@admin.register(HeatingAndCooling)
+class HeatingAndCoolingAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "home", "title", "value"]
+    search_fields = ["home__title", "title"]
+    raw_id_fields = ["home"]
+    ordering = ["id"]
+
+
+@admin.register(KitchenAndDining)
+class KitchenAndDiningAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "home", "title", "value"]
+    search_fields = ["home__title", "title"]
+    raw_id_fields = ["home"]
+    ordering = ["id"]
+
+
+@admin.register(InteriorFeatures)
+class InteriorFeaturesAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "home", "title", "value"]
+    search_fields = ["home__title", "title"]
+    raw_id_fields = ["home"]
+    ordering = ["id"]
+
+
+@admin.register(OtherRooms)
+class OtherRoomsAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "home", "title", "value"]
+    search_fields = ["home__title", "title"]
+    raw_id_fields = ["home"]
+    ordering = ["id"]
+
+
+@admin.register(GarageAndParking)
+class GarageAndParkingAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "home", "title", "value"]
+    search_fields = ["home__title", "title"]
+    raw_id_fields = ["home"]
+    ordering = ["id"]
+
+
+@admin.register(UtilitiesAndGreenEnergy)
+class UtilitiesAndGreenEnergyAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "home", "title", "value"]
+    search_fields = ["home__title", "title"]
+    raw_id_fields = ["home"]
+    ordering = ["id"]
+
+
+@admin.register(OutdoorSpaces)
+class OutdoorSpacesAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "home", "title"]
+    search_fields = ["home__title", "title"]
+    raw_id_fields = ["home"]
+    ordering = ["id"]

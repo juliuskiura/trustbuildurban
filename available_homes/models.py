@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+from django.utils.text import slugify
 from pages.models import Page
 from core.models import PageBase
 from ordered_model.models import OrderedModel
@@ -71,6 +73,7 @@ class AvailableHome(PageBase, OrderedModel):
 
     # Home content
     title = models.CharField(max_length=200, blank=True)
+    slug = models.SlugField(max_length=200, blank=True, null=True)
     location = models.CharField(max_length=200, blank=True)
     price = models.CharField(
         max_length=100, blank=True, help_text="Price in KES format"
@@ -128,6 +131,216 @@ class AvailableHome(PageBase, OrderedModel):
         if self.image:
             return self.image.image_url
         return self.image_url
+
+    def get_absolute_url(self):
+        return reverse("property_detail", args=[self.slug])
+
+    def save(self, *args, **kwargs):
+        if not self.slug and self.title:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+
+class BathroomInformation(models.Model):
+    """
+    BathroomInformation model for property bathroom information.
+    """
+
+    home = models.ForeignKey(
+        AvailableHome, on_delete=models.CASCADE, related_name="bathroom_information"
+    )
+    title = models.CharField(max_length=200, blank=True)
+    value = models.CharField(max_length=200, blank=True)
+
+    order_with_respect_to = "home"
+
+    class Meta:
+        verbose_name = "Bathroom Information"
+        verbose_name_plural = "Bathroom Information"
+
+    def __str__(self):
+        return self.title
+
+
+class BedroomInformation(models.Model):
+    """
+    BedroomInformation model for property bedroom information.
+    """
+
+    home = models.ForeignKey(
+        AvailableHome, on_delete=models.CASCADE, related_name="bedroom_information"
+    )
+    title = models.CharField(max_length=200, blank=True)
+    value = models.CharField(max_length=200, blank=True)
+
+    order_with_respect_to = "home"
+
+    class Meta:
+        verbose_name = "Bedroom Information"
+        verbose_name_plural = "Bedroom Information"
+
+    def __str__(self):
+        return self.title
+
+
+class HeatingAndCooling(models.Model):
+    """
+    HeatingAndCooling model for property heating and cooling information.
+    """
+
+    home = models.ForeignKey(
+        AvailableHome,
+        on_delete=models.CASCADE,
+        related_name="heating_and_cooling",
+    )
+    title = models.CharField(max_length=200, blank=True)
+    value = models.CharField(max_length=200, blank=True)
+
+    order_with_respect_to = "home"
+
+    class Meta:
+        verbose_name = "Heating and Cooling"
+        verbose_name_plural = "Heating and Cooling"
+
+    def __str__(self):
+        return self.title
+
+
+class KitchenAndDining(models.Model):
+    """
+    KitchenAndDining model for property kitchen and dining information.
+    """
+
+    home = models.ForeignKey(
+        AvailableHome,
+        on_delete=models.CASCADE,
+        related_name="kitchen_and_dining",
+    )
+    title = models.CharField(max_length=200, blank=True)
+    value = models.CharField(max_length=200, blank=True)
+
+    order_with_respect_to = "home"
+
+    class Meta:
+        verbose_name = "Kitchen and Dining"
+        verbose_name_plural = "Kitchen and Dining"
+
+    def __str__(self):
+        return self.title
+
+
+class InteriorFeatures(models.Model):
+    """
+    InteriorFeatures model for property interior features information.
+    """
+
+    home = models.ForeignKey(
+        AvailableHome,
+        on_delete=models.CASCADE,
+        related_name="interior_features",
+    )
+    title = models.CharField(max_length=200, blank=True)
+    value = models.CharField(max_length=200, blank=True)
+
+    order_with_respect_to = "home"
+
+    class Meta:
+        verbose_name = "Interior Features"
+        verbose_name_plural = "Interior Features"
+
+    def __str__(self):
+        return self.title
+
+
+class OtherRooms(models.Model):
+    """
+    OtherRooms model for property other rooms information.
+    """
+
+    home = models.ForeignKey(
+        AvailableHome,
+        on_delete=models.CASCADE,
+        related_name="other_rooms",
+    )
+    title = models.CharField(max_length=200, blank=True)
+    value = models.CharField(max_length=200, blank=True)
+
+    order_with_respect_to = "home"
+
+    class Meta:
+        verbose_name = "Other Rooms"
+        verbose_name_plural = "Other Rooms"
+
+    def __str__(self):
+        return self.title
+
+
+class GarageAndParking(models.Model):
+    """
+    GarageAndParking model for property garage and parking information.
+    """
+
+    home = models.ForeignKey(
+        AvailableHome,
+        on_delete=models.CASCADE,
+        related_name="garage_and_parking",
+    )
+    title = models.CharField(max_length=200, blank=True)
+    value = models.CharField(max_length=200, blank=True)
+
+    order_with_respect_to = "home"
+
+    class Meta:
+        verbose_name = "Garage and Parking"
+        verbose_name_plural = "Garage and Parking"
+
+    def __str__(self):
+        return self.title
+
+
+class UtilitiesAndGreenEnergy(models.Model):
+    """
+    UtilitiesAndGreenEnergy model for property utilities and green energy information.
+    """
+
+    home = models.ForeignKey(
+        AvailableHome,
+        on_delete=models.CASCADE,
+        related_name="utilities_and_green_energy",
+    )
+    title = models.CharField(max_length=200, blank=True)
+    value = models.CharField(max_length=200, blank=True)
+
+    order_with_respect_to = "home"
+
+    class Meta:
+        verbose_name = "Utilities and Green Energy"
+        verbose_name_plural = "Utilities and Green Energy"
+
+    def __str__(self):
+        return self.title
+
+
+class OutdoorSpaces(models.Model):
+    """
+    OutdoorSpaces model for property outdoor spaces information.
+    """
+
+    home = models.ForeignKey(
+        AvailableHome,
+        on_delete=models.CASCADE,
+        related_name="outdoor_spaces",
+    )
+    title = models.CharField(max_length=200, blank=True)
+
+    order_with_respect_to = "home"
+
+    class Meta:
+        verbose_name = "Outdoor Spaces"
+        verbose_name_plural = "Outdoor Spaces"
+
+    def __str__(self):
+        return self.title
 
 
 class AvailableHomeImage(PageBase):
