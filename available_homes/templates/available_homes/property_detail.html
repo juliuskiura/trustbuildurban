@@ -6,6 +6,11 @@
 {% endblock %}
 
 {% block content %}
+<!-- Property ID for JavaScript -->
+<script>
+    window.propertyId = "{{ object.pk }}";
+</script>
+
 <!-- Sheet Overlay -->
 <div id="sheet-overlay" class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity duration-300" onclick="closeAllSheets()"></div>
 
@@ -23,7 +28,7 @@
         
         <form id="showing-form" onsubmit="submitShowingForm(event)">
             {% csrf_token %}
-            <input type="hidden" name="property_id" value="{{ object.id }}">
+            <input type="hidden" name="property_id" id="showing-property-id" value="{{ object.pk }}">
             
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
@@ -102,7 +107,7 @@
         
         <form id="offer-form" onsubmit="submitOfferForm(event)">
             {% csrf_token %}
-            <input type="hidden" name="property_id" value="{{ object.id }}">
+            <input type="hidden" name="property_id" id="offer-property-id" value="{{ object.pk }}">
             
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
@@ -214,6 +219,22 @@ function resetOfferForm() {
 }
 
 // Form Submissions
+function getCSRFToken() {
+    const name = 'csrftoken';
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 async function submitShowingForm(event) {
     event.preventDefault();
     
@@ -224,6 +245,12 @@ async function submitShowingForm(event) {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
     
+    // Ensure property_id is set from window variable
+    const propertyIdInput = document.getElementById('showing-property-id');
+    if (!propertyIdInput.value && window.propertyId) {
+        propertyIdInput.value = window.propertyId;
+    }
+    
     const formData = new FormData(event.target);
     
     try {
@@ -232,18 +259,35 @@ async function submitShowingForm(event) {
             body: formData,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCSRFToken(),
             }
         });
         
         const data = await response.json();
         
         if (data.success) {
+            // Show success message briefly in the sheet before closing
             successDiv.querySelector('p').textContent = data.message;
             successDiv.classList.remove('hidden');
             errorDiv.classList.add('hidden');
+            
+            // Close the sheet after showing message
             setTimeout(() => {
                 closeShowingSheet();
-            }, 2000);
+                // Show success on the main page button
+                const mainBtn = document.querySelector('[onclick="openShowingSheet()"]');
+                if (mainBtn) {
+                    mainBtn.textContent = '✓ Showing Requested';
+                    mainBtn.classList.remove('bg-[#E63946]');
+                    mainBtn.classList.add('bg-green-600');
+                    // Reset button after delay
+                    setTimeout(() => {
+                        mainBtn.textContent = 'Request showing';
+                        mainBtn.classList.remove('bg-green-600');
+                        mainBtn.classList.add('bg-[#E63946]');
+                    }, 3000);
+                }
+            }, 1500);
         } else {
             let errorMessage = data.message;
             if (data.errors) {
@@ -277,6 +321,12 @@ async function submitOfferForm(event) {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting...';
     
+    // Ensure property_id is set from window variable
+    const propertyIdInput = document.getElementById('offer-property-id');
+    if (!propertyIdInput.value && window.propertyId) {
+        propertyIdInput.value = window.propertyId;
+    }
+    
     const formData = new FormData(event.target);
     
     try {
@@ -285,18 +335,35 @@ async function submitOfferForm(event) {
             body: formData,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCSRFToken(),
             }
         });
         
         const data = await response.json();
         
         if (data.success) {
+            // Show success message briefly in the sheet before closing
             successDiv.querySelector('p').textContent = data.message;
             successDiv.classList.remove('hidden');
             errorDiv.classList.add('hidden');
+            
+            // Close the sheet after showing message
             setTimeout(() => {
                 closeOfferSheet();
-            }, 2000);
+                // Show success on the main page button
+                const mainBtn = document.querySelector('[onclick="openOfferSheet()"]');
+                if (mainBtn) {
+                    mainBtn.textContent = '✓ Offer Submitted';
+                    mainBtn.classList.remove('border-texts');
+                    mainBtn.classList.add('border-green-600', 'text-green-600');
+                    // Reset button after delay
+                    setTimeout(() => {
+                        mainBtn.textContent = 'Start an offer';
+                        mainBtn.classList.remove('border-green-600', 'text-green-600');
+                        mainBtn.classList.add('border-texts', 'text-texts');
+                    }, 3000);
+                }
+            }, 1500);
         } else {
             let errorMessage = data.message;
             if (data.errors) {

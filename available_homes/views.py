@@ -1,7 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+import logging
+
 from .models import AvailableHome
+
+# Get logger
+logger = logging.getLogger(__name__)
 
 
 def available_homes(request):
@@ -73,9 +79,12 @@ def property_detail(request, slug):
     View function for the property detail page.
     Fetches data from the database models.
     """    
+    from .models import AvailableHome
 
     # Fetch the property from the database
     property = get_object_or_404(AvailableHome, slug=slug)
+
+    logger.info(f"Property detail - Property: {property.title}, PK: {property.pk}")
 
     # Fetch related data for partial templates
     bathroom_info = property.bathroom_information.all()
@@ -112,16 +121,39 @@ def submit_showing_request(request):
     from .models import ShowingRequest
     from .forms import ShowingRequestForm
 
+    logger.info("=== Submit Showing Request Started ===")
+    logger.info(f"Request method: {request.method}")
+    logger.info(f"Content-Type: {request.headers.get('Content-Type')}")
+    logger.info(f"POST data: {dict(request.POST)}")
+
     try:
         property_id = request.POST.get("property_id")
-        property = get_object_or_404(AvailableHome, id=property_id)
+        logger.info(f"Property ID from POST: {property_id}")
+
+        if not property_id:
+            logger.error("No property_id in POST data")
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Property ID is required.",
+                },
+                status=400,
+            )
+
+        # Use pk= instead of id= since the model uses UUID as primary key
+        property = get_object_or_404(AvailableHome, pk=property_id)
+        logger.info(f"Found property: {property.title} (PK: {property.pk})")
 
         form = ShowingRequestForm(request.POST)
+        logger.info(f"Form bound: {form.is_bound}")
+        logger.info(f"Form fields: {list(form.fields.keys())}")
 
         if form.is_valid():
+            logger.info("Form is valid, saving...")
             showing_request = form.save(commit=False)
             showing_request.property = property
             showing_request.save()
+            logger.info(f"Showing request saved with ID: {showing_request.id}")
 
             return JsonResponse(
                 {
@@ -132,6 +164,7 @@ def submit_showing_request(request):
             )
         else:
             # Return form errors
+            logger.warning(f"Form validation errors: {form.errors}")
             errors = {}
             for field, error_list in form.errors.items():
                 errors[field] = [str(e) for e in error_list]
@@ -146,6 +179,7 @@ def submit_showing_request(request):
             )
 
     except Exception as e:
+        logger.exception(f"Error submitting showing request: {str(e)}")
         return JsonResponse(
             {
                 "success": False,
@@ -163,16 +197,39 @@ def submit_property_offer(request):
     from .models import PropertyOffer
     from .forms import PropertyOfferForm
 
+    logger.info("=== Submit Property Offer Started ===")
+    logger.info(f"Request method: {request.method}")
+    logger.info(f"Content-Type: {request.headers.get('Content-Type')}")
+    logger.info(f"POST data: {dict(request.POST)}")
+
     try:
         property_id = request.POST.get("property_id")
-        property = get_object_or_404(AvailableHome, id=property_id)
+        logger.info(f"Property ID from POST: {property_id}")
+
+        if not property_id:
+            logger.error("No property_id in POST data")
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Property ID is required.",
+                },
+                status=400,
+            )
+
+        # Use pk= instead of id= since the model uses UUID as primary key
+        property = get_object_or_404(AvailableHome, pk=property_id)
+        logger.info(f"Found property: {property.title} (PK: {property.pk})")
 
         form = PropertyOfferForm(request.POST)
+        logger.info(f"Form bound: {form.is_bound}")
+        logger.info(f"Form fields: {list(form.fields.keys())}")
 
         if form.is_valid():
+            logger.info("Form is valid, saving...")
             offer = form.save(commit=False)
             offer.property = property
             offer.save()
+            logger.info(f"Property offer saved with ID: {offer.id}")
 
             return JsonResponse(
                 {
@@ -183,6 +240,7 @@ def submit_property_offer(request):
             )
         else:
             # Return form errors
+            logger.warning(f"Form validation errors: {form.errors}")
             errors = {}
             for field, error_list in form.errors.items():
                 errors[field] = [str(e) for e in error_list]
@@ -197,6 +255,7 @@ def submit_property_offer(request):
             )
 
     except Exception as e:
+        logger.exception(f"Error submitting property offer: {str(e)}")
         return JsonResponse(
             {
                 "success": False,

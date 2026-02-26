@@ -10,7 +10,7 @@
     </h4>
     <ul class="text-sm md:text-sm text-texts/70 space-y-3 font-medium">
         {% for item in bathroom_info %}
-        <li class="flex flex-col sm:flex-row sm:justify-between border-b border-gray-50 pb-3 last:border-0 last:pb-0">
+        <li class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 border-b border-gray-50 pb-3 md:gap-2 last:border-0 last:pb-0">
             <span class="font-medium text-texts/60">{{ item.title }}</span>
             <span class="text-texts font-bold mt-1 sm:mt-0 {% if item.value|length > 20 %}text-sm{% endif %}">{{ item.value }}</span>
         </li>
