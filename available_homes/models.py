@@ -1,3 +1,5 @@
+import urllib.parse
+
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
@@ -91,6 +93,28 @@ class AvailableHome(PageBase, OrderedModel):
     # Featured flag - if True, will be displayed prominently
     is_featured = models.BooleanField(default=False)
 
+    # Geographic location for map display
+    latitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        null=True,
+        blank=True,
+        help_text=(
+            "Latitude coordinate (e.g. -1.286389). "
+            "Right-click any spot in Google Maps and copy the first number shown."
+        ),
+    )
+    longitude = models.DecimalField(
+        max_digits=9,
+        decimal_places=6,
+        null=True,
+        blank=True,
+        help_text=(
+            "Longitude coordinate (e.g. 36.817223). "
+            "Right-click any spot in Google Maps and copy the second number shown."
+        ),
+    )
+
     class Meta(OrderedModel.Meta):
         verbose_name = "Available Home"
         verbose_name_plural = "Available Homes"
@@ -110,20 +134,50 @@ class AvailableHome(PageBase, OrderedModel):
 
     def cover(self):
         """Get the cover image for this home."""
-        return self.images.filter(is_cover=True).last()
+        if self.images.filter(is_cover=True).exists():
+            return self.images.filter(is_cover=True).last()
+        return self.images.first()
 
     def get_image_url(self):
         """Return the primary image URL (cover image or first image)"""
         cover = self.cover()
         if cover:
             return cover.get_image_url()
-        # Fallback to legacy image field
-        if self.image:
-            return self.image.image_url
-        return self.image_url
+        return self.images.first().get_image_url()
 
     def get_absolute_url(self):
         return reverse("property_detail", args=[self.slug])
+
+    @property
+    def osm_embed_url(self):
+        """Build an OpenStreetMap embed URL from stored coordinates or location text."""
+        if self.latitude and self.longitude:
+            lat = float(self.latitude)
+            lon = float(self.longitude)
+            delta = 0.008  # ~900 m bounding box — tight enough to show the street
+            bbox = f"{lon - delta},{lat - delta},{lon + delta},{lat + delta}"
+            return (
+                f"https://www.openstreetmap.org/export/embed.html"
+                f"?bbox={bbox}&layer=mapnik&marker={lat},{lon}"
+            )
+        # Fallback: text-based OSM search (no coordinates set)
+        if self.location:
+            q = urllib.parse.quote(self.location)
+            return f"https://www.openstreetmap.org/export/embed.html?mlat=0&mlon=0#map=14/0/0&query={q}"
+        return ""
+
+    @property
+    def osm_full_url(self):
+        """OpenStreetMap link for 'View larger map'."""
+        if self.latitude and self.longitude:
+            return (
+                f"https://www.openstreetmap.org/?mlat={self.latitude}"
+                f"&mlon={self.longitude}#map=16/{self.latitude}/{self.longitude}"
+            )
+        if self.location:
+            q = urllib.parse.quote(self.location)
+            return f"https://www.openstreetmap.org/search?query={q}"
+        return "https://www.openstreetmap.org/"
 
     def save(self, *args, **kwargs):
         if not self.slug and self.title:

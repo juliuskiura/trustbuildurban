@@ -146,6 +146,34 @@ class AvailableHomeAdmin(OrderedModelAdmin):
     list_filter = ["status", "is_featured"]
     search_fields = ["title", "location", "price"]
 
+    fieldsets = [
+        (
+            None,
+            {"fields": ["title", "slug", "status", "is_featured"]},
+        ),
+        (
+            "Pricing & Specs",
+            {"fields": ["price", "beds", "baths", "sqft"]},
+        ),
+        (
+            "Description",
+            {"fields": ["description"]},
+        ),
+        (
+            "Location & Map",
+            {
+                "fields": ["location", "latitude", "longitude"],
+                "description": (
+                    "Enter latitude and longitude to display an accurate map pin. "
+                    "To get coordinates: open Google Maps, right-click the exact spot "
+                    "on the property, then click the numbers that appear at the top "
+                    "of the menu (they will be copied to your clipboard). "
+                    "Paste the first number into Latitude and the second into Longitude."
+                ),
+            },
+        ),
+    ]
+
     inlines = [
         AvailableHomeImageInline,
         BathroomInformationInline,
