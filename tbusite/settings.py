@@ -68,7 +68,7 @@ LOCAL_APPS=[
 'portfolio',
 'services',
 'images', 
-
+'office'
 
 ]
 
