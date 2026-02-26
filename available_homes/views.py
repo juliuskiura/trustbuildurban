@@ -75,5 +75,28 @@ def property_detail(request, slug):
     # Fetch the property from the database
     property = get_object_or_404(AvailableHome, slug=slug)
 
-   
-    return render(request, "available_homes/property_detail.html", {"object": property})
+    # Fetch related data for partial templates
+    bathroom_info = property.bathroom_information.all()
+    bedroom_info = property.bedroom_information.all()
+    heating_and_cooling_info = property.heating_and_cooling.all()
+    kitchen_and_dining_info = property.kitchen_and_dining.all()
+    interior_features_info = property.interior_features.all()
+    other_rooms_info = property.other_rooms.all()
+    garage_and_parking_info = property.garage_and_parking.all()
+    utilities_and_green_energy_info = property.utilities_and_green_energy.all()
+    outdoor_spaces_info = property.outdoor_spaces.all()
+
+    context = {
+        "object": property,
+        "bathroom_info": bathroom_info,
+        "bedroom_info": bedroom_info,
+        "heating_and_cooling_info": heating_and_cooling_info,
+        "kitchen_and_dining_info": kitchen_and_dining_info,
+        "interior_features_info": interior_features_info,
+        "other_rooms_info": other_rooms_info,
+        "garage_and_parking_info": garage_and_parking_info,
+        "utilities_and_green_energy_info": utilities_and_green_energy_info,
+        "outdoor_spaces_info": outdoor_spaces_info,
+    }
+
+    return render(request, "available_homes/property_detail.html", context)
