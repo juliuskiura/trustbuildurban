@@ -157,6 +157,7 @@ def submit_showing_request(request):
 
 
 @require_http_methods(["POST"])
+@csrf_exempt
 def submit_property_offer(request):
     """
     Handle property offer form submissions via AJAX.

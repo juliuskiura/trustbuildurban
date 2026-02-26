@@ -245,7 +245,15 @@ async function submitShowingForm(event) {
                 closeShowingSheet();
             }, 2000);
         } else {
-            errorDiv.querySelector('p').textContent = data.message;
+            let errorMessage = data.message;
+            if (data.errors) {
+                // Format field errors
+                const errorList = Object.entries(data.errors)
+                    .map(([field, errors]) => `${field}: ${errors.join(', ')}`)
+                    .join('\n');
+                errorMessage += '\n\n' + errorList;
+            }
+            errorDiv.querySelector('p').textContent = errorMessage;
             errorDiv.classList.remove('hidden');
             successDiv.classList.add('hidden');
         }
@@ -290,7 +298,15 @@ async function submitOfferForm(event) {
                 closeOfferSheet();
             }, 2000);
         } else {
-            errorDiv.querySelector('p').textContent = data.message;
+            let errorMessage = data.message;
+            if (data.errors) {
+                // Format field errors
+                const errorList = Object.entries(data.errors)
+                    .map(([field, errors]) => `${field}: ${errors.join(', ')}`)
+                    .join('\n');
+                errorMessage += '\n\n' + errorList;
+            }
+            errorDiv.querySelector('p').textContent = errorMessage;
             errorDiv.classList.remove('hidden');
             successDiv.classList.add('hidden');
         }
@@ -359,7 +375,7 @@ document.addEventListener('keydown', function(e) {
             </div>
 
             <!-- Sidebar Gallery (Right - all additional images) -->
-            <div class="hidden md:grid w-48 flex-shrink-0 grid grid-rows-3 gap-1 h-full overflow-y-auto bg-gray-50 rounded-r-xl">
+            <div class="hidden md:grid w-2/6 flex-shrink-0 grid grid-rows-3 gap-1 h-full overflow-y-auto bg-gray-50 rounded-r-xl">
                 {% for img in object.images.all %}
                 <div class="relative overflow-hidden cursor-pointer group thumbnail-slot">
                     <img src="{{ img.get_image_url }}" class="w-full h-full object-cover" alt="{{ object.title }}">
