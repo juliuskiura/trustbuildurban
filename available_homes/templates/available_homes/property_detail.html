@@ -406,69 +406,82 @@ document.addEventListener('keydown', function(e) {
         </div>
     </nav>
 
-    <!-- Main Content Container -->
+    <!-- Main Content Container: Two-Column Layout -->
+    <!-- Left: All content (Carousel, Header, About, Details) | Right: Sticky Sidebar -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+        <div class="flex flex-col lg:flex-row gap-10">
 
-        <!-- Carousel with Sidebar Gallery -->
-        <div class="w-full mb-8 flex gap-1" style="height: auto; min-height: 400px; max-height: 600px;">
-            <!-- Main Carousel (Left) -->
-            <div id="controls-carousel" class="relative flex-1" data-carousel="static">
-                <!-- Carousel wrapper -->
-                <div class="relative h-full overflow-hidden rounded-l-xl">
-                    {% if object.cover %}
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ object.cover.get_image_url }}" class="absolute block w-full h-full object-cover" alt="{{ object.title }}">
-                    </div>
-                    {% endif %}
-                    {% for img in object.images.all %}
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ img.get_image_url }}" class="absolute block w-full h-full object-cover" alt="{{ object.title }}">
-                    </div>
-                    {% endfor %}
-                </div>
-                <!-- Slider controls -->
-                <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 group-hover:bg-white/90">
-                        <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                        <span class="sr-only">Previous</span>
-                    </span>
-                </button>
-                <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 group-hover:bg-white/90">
-                        <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                        <span class="sr-only">Next</span>
-                    </span>
-                </button>
-            </div>
+            <!-- ===== LEFT COLUMN ===== -->
+            <div class="w-full lg:w-[68%] min-w-0">
+            
+                <!-- Carousel with Image Strip -->
+                <div class="w-full mb-8 flex gap-1" style="height: 480px;">
+                    <!-- Main Carousel -->
+                    <div id="controls-carousel" class="relative flex-1 min-w-0" data-carousel="static">
+                        <div class="relative h-full overflow-hidden rounded-l-xl">
+                            {% if object.cover %}
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="{{ object.cover.get_image_url }}" class="absolute block w-full h-full object-cover"
+                                    alt="{{ object.title }}">
+                            </div>
+                            {% endif %}
+                            {% for img in object.images.all %}
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                <img src="{{ img.get_image_url }}" class="absolute block w-full h-full object-cover"
+                                    alt="{{ object.title }}">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button type="button"
+                            class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                            data-carousel-prev>
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 group-hover:bg-white/90">
+                                <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 19l-7-7 7-7" />
+                                </svg>
+                                <span class="sr-only">Previous</span>
+                            </span>
+                        </button>
+                        <button type="button"
+                            class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                            data-carousel-next>
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 group-hover:bg-white/90">
+                                <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                                <span class="sr-only">Next</span>
+                            </span>
+                        </button>
+                        </div>
 
-            <!-- Sidebar Gallery (Right - all additional images) -->
-            <div class="hidden md:grid w-2/6 flex-shrink-0 grid grid-rows-3 gap-1 h-full overflow-y-auto bg-gray-50 rounded-r-xl">
-                {% for img in object.images.all %}
-                <div class="relative overflow-hidden cursor-pointer group thumbnail-slot">
-                    <img src="{{ img.get_image_url }}" class="w-full h-full object-cover" alt="{{ object.title }}">
-                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-                {% empty %}
-                <div class="flex items-center justify-center text-gray-400 text-xs p-2 text-center col-span-3">No additional images</div>
-                {% endfor %}
-            </div>
-        </div>
+                    <!-- Image Strip (w-2/6 of the carousel row) -->
+                    <div class="hidden md:grid w-2/6 flex-shrink-0 grid-rows-3 gap-1 h-full overflow-hidden rounded-r-xl">
+                        {% for img in object.images.all %}
+                        <div class="relative overflow-hidden cursor-pointer group thumbnail-slot">
+                            <img src="{{ img.get_image_url }}" class="w-full h-full object-cover" alt="{{ object.title }}">
+                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        {% empty %}
+                        <div class="flex items-center justify-center bg-gray-50 text-gray-400 text-xs p-2 text-center row-span-3">No additional
+                            images</div>
+                        {% endfor %}
+                        </div>
+                        </div>
 
-        <div class="flex flex-col lg:flex-row gap-12">
-            <!-- Left Column: Content -->
-            <div class="lg:w-[70%]">
-                <!-- Header Info (Exact Redfin Re-alignment) -->
+                <!-- Header Info -->
                 <div id="overview" class="mb-10 pb-10 border-b border-gray-100 flex flex-col md:flex-row justify-between gap-8">
                     <div class="flex-grow">
                         <div class="flex items-center space-x-2 text-green-700 font-bold text-[10px] uppercase tracking-widest mb-4 bg-green-50 w-fit px-3 py-1 rounded-full">
                             <span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span>
                             <span>{{ object.get_status_display_custom|upper }}</span>
                         </div>
-                        
                         <div class="flex items-baseline space-x-4 mb-4">
                             <h1 class="text-4xl md:text-5xl font-black text-texts tracking-tight leading-none">{{ object.price }}</h1>
                         </div>
-
                         <div class="flex items-center space-x-6 mb-6">
                             <div class="flex items-baseline space-x-1">
                                 <span class="text-3xl font-bold">{{ object.beds|default:"—" }}</span>
@@ -485,14 +498,12 @@ document.addEventListener('keydown', function(e) {
                                 <span class="text-[11px] font-bold uppercase tracking-wider text-gray-500">sq ft</span>
                             </div>
                         </div>
-
-                        <div class="text-xl md:text-2xl font-bold text-texts/80">
-                            {{ object.location }}
-                        </div>
+                        <div class="text-xl md:text-2xl font-bold text-texts/80">{{ object.location }}</div>
                     </div>
 
-                    <!-- Mini Map Box Placeholder -->
-                    <div class="hidden md:block w-56 h-36 rounded-2xl overflow-hidden border border-gray-200 relative group cursor-pointer shadow-sm">
+                    <!-- Mini Map Box -->
+                    <div
+                        class="hidden md:block w-56 h-36 rounded-2xl overflow-hidden border border-gray-200 relative group cursor-pointer shadow-sm flex-shrink-0">
                         <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="w-8 h-8 bg-accent rounded-full border-4 border-white shadow-xl animate-bounce"></div>
@@ -500,19 +511,19 @@ document.addEventListener('keydown', function(e) {
                     </div>
                 </div>
 
-                <!-- Mobile CTA (Visible on small screens only) -->
+                <!-- Mobile CTA (small screens only) -->
                 <div class="lg:hidden mb-8">
                     <div class="p-6 border border-gray-100 rounded-2xl shadow-lg bg-white">
-                        <button onclick="openShowingSheet()" class="w-full py-4 bg-[#E63946] text-white font-bold uppercase tracking-[0.2em] text-xs rounded-xl shadow-md mb-3">
-                            Request showing
-                        </button>
-                        <button onclick="openOfferSheet()" class="w-full py-4 border-2 border-texts text-texts font-bold uppercase tracking-[0.2em] text-xs rounded-xl">
-                            Start an offer
-                        </button>
+                        <button onclick="openShowingSheet()"
+                            class="w-full py-4 bg-[#E63946] text-white font-bold uppercase tracking-[0.2em] text-xs rounded-xl shadow-md mb-3">Request
+                            showing</button>
+                        <button onclick="openOfferSheet()"
+                            class="w-full py-4 border-2 border-texts text-texts font-bold uppercase tracking-[0.2em] text-xs rounded-xl">Start
+                            an offer</button>
                     </div>
                 </div>
 
-                <!-- About section -->
+                <!-- About This Home -->
                 <section id="about" class="mb-12">
                     <h2 class="text-2xl font-serif font-black text-texts mb-8">About This Home</h2>
                     {% if object.description %}
@@ -520,8 +531,7 @@ document.addEventListener('keydown', function(e) {
                         {{ object.description|linebreaks }}
                     </div>
                     {% endif %}
-                    
-                    <!-- Summary Highlights -->
+
                     {% if bedroom_info or bathroom_info or garage_and_parking_info %}
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                         {% if bedroom_info %}
@@ -562,11 +572,9 @@ document.addEventListener('keydown', function(e) {
                 </section>
 
                 <!-- Property Details Section -->
-                <section id="details" class="mb-12 pt-12 border-t border-gray-100">
+                <section id="details" class="mb-16 pt-12 border-t border-gray-100">
                     <h2 class="text-2xl font-serif font-black text-texts mb-10 text-center md:text-left">Detailed Property Information</h2>
-                    
                     <div class="space-y-8">
-                        <!-- Interior Section -->
                         {% if bedroom_info or bathroom_info or kitchen_and_dining_info or interior_features_info %}
                         <div class="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm">
                             <h3 class="text-xs font-black uppercase tracking-widest text-accent mb-8 flex items-center flex-wrap gap-y-4">
@@ -582,7 +590,6 @@ document.addEventListener('keydown', function(e) {
                         </div>
                         {% endif %}
 
-                        <!-- Heating & Cooling -->
                         {% if heating_and_cooling_info %}
                         <div class="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm">
                             <h3 class="text-xs font-black uppercase tracking-widest text-accent mb-8 flex items-center flex-wrap gap-y-4">
@@ -595,7 +602,6 @@ document.addEventListener('keydown', function(e) {
                         </div>
                         {% endif %}
 
-                        <!-- Other Rooms -->
                         {% if other_rooms_info %}
                         <div class="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm">
                             <h3 class="text-xs font-black uppercase tracking-widest text-accent mb-8 flex items-center flex-wrap gap-y-4">
@@ -608,7 +614,6 @@ document.addEventListener('keydown', function(e) {
                         </div>
                         {% endif %}
 
-                        <!-- Parking & Exterior -->
                         {% if garage_and_parking_info or outdoor_spaces_info %}
                         <div class="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm">
                             <h3 class="text-xs font-black uppercase tracking-widest text-accent mb-8 flex items-center flex-wrap gap-y-4">
@@ -622,7 +627,6 @@ document.addEventListener('keydown', function(e) {
                         </div>
                         {% endif %}
 
-                        <!-- Utilities & Green Energy -->
                         {% if utilities_and_green_energy_info %}
                         <div class="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-sm">
                             <h3 class="text-xs font-black uppercase tracking-widest text-accent mb-8 flex items-center flex-wrap gap-y-4">
@@ -636,30 +640,33 @@ document.addEventListener('keydown', function(e) {
                         {% endif %}
                     </div>
                 </section>
-            </div>
+</div><!-- /LEFT COLUMN -->
 
-            <!-- Right Column: Sidebar (Sticky Sidebar Enhanced) -->
-            <div class="hidden lg:block lg:w-[30%]">
-                <div class="sticky top-28 lg:top-40 space-y-8">
+            <!-- ===== RIGHT COLUMN: Sticky Sidebar ===== -->
+            <div class="hidden lg:block lg:w-[32%] flex-shrink-0">
+                <div class="sticky top-36 space-y-8">
                     <!-- Action Card -->
                     <div class="p-8 border border-gray-100 rounded-[2.5rem] shadow-2xl bg-white relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -mr-16 -mt-16 blur-2xl transition-all group-hover:bg-accent/10"></div>
-                        
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full -mr-16 -mt-16 blur-2xl transition-all group-hover:bg-accent/10">
+                        </div>
                         <button onclick="openShowingSheet()" class="w-full py-6 bg-[#E63946] text-white font-bold uppercase tracking-[0.2em] text-xs rounded-2xl shadow-xl hover:shadow-red-200 hover:-translate-y-1 transition-all mb-4 relative z-10">
                             Request showing
                         </button>
                         <button onclick="openOfferSheet()" class="w-full py-6 border-2 border-texts text-texts font-bold uppercase tracking-[0.2em] text-xs rounded-2xl hover:bg-gray-50 hover:-translate-y-1 transition-all mb-10 relative z-10">
                             Start an offer
                         </button>
-                        
                         <div class="pt-8 border-t border-gray-100 flex flex-col items-center space-y-4 relative z-10">
-                           <a href="/contact" class="text-[11px] font-bold text-accent uppercase tracking-widest hover:text-secondary transition-colors">Ask a question</a>
-                           <div class="h-1 w-1 rounded-full bg-gray-200"></div>
-                           <a href="tel:7085782846" class="text-lg font-black text-texts tracking-tighter">(708) 578-2846</a>
+                            <a href="/contact"
+                                class="text-[11px] font-bold text-accent uppercase tracking-widest hover:text-secondary transition-colors">Ask a
+                                question</a>
+                            <div class="h-1 w-1 rounded-full bg-gray-200"></div>
+                            <a href="tel:7085782846" class="text-lg font-black text-texts tracking-tighter">(708) 578-2846</a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><!-- /RIGHT COLUMN -->
+
         </div>
     </main>
 </div>
