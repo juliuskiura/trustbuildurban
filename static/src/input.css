@@ -1,5 +1,7 @@
 @import "tailwindcss";
+@plugin "flowbite/plugin";
 
+@source "node_modules/flowbite";
 :root {
     --texts: #002147;
       --accent: #06BCC1;

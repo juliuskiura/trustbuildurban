@@ -7,7 +7,7 @@
 {% block content %}
 <div class="bg-white font-sans text-texts pt-24 lg:pt-28">
     <!-- Sticky Sub-Nav (Desktop Only) -->
-    <nav class="sticky top-[76px] lg:top-[84px] z-40 bg-white border-b border-gray-200 hidden lg:block">
+    <nav class=" top-[76px] lg:top-[84px] z-40 bg-white border-b border-gray-200 hidden lg:block">
         <div class="max-w-7xl mx-auto px-6 flex items-center space-x-8 h-14 text-[11px] font-bold uppercase tracking-widest text-texts/60">
             <a href="#overview" class="text-texts border-b-2 border-texts h-full flex items-center">Overview</a>
             <a href="#about" class="hover:text-texts transition-colors h-full flex items-center">About This Home</a>
@@ -18,31 +18,48 @@
 
     <!-- Main Content Container -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-        
-        <!-- Image Gallery Grid (Exact Redfin Layout: 1 Large Left, 2 Stacked Right) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8 rounded-xl overflow-hidden h-[300px] md:h-[550px]">
-            <!-- Main Image -->
-            <div class="h-full">
-                {% if object.cover %}
-                <img src="{{ object.cover.get_image_url }}" alt="{{ object.title }}" class="w-full h-full object-cover">
-                {% else %}
-                <div class="w-full h-full bg-gray-100 flex items-center justify-center text-gray-400">No Image Available</div>
-                {% endif %}
-            </div>
-            <!-- Stacked Right Images -->
-            <div class="grid grid-rows-2 gap-2 h-full">
-                {% for img in object.images.all|slice:':2' %}
-                <div class="h-full overflow-hidden{% if forloop.last and object.images.count > 2 %} relative group cursor-pointer{% endif %}">
-                    <img src="{{ img.get_image_url }}" class="w-full h-full object-cover" alt="{{ object.title }}">
-                    {% if forloop.last and object.images.count > 2 %}
-                    <div class="absolute inset-0 bg-black/30 flex items-center justify-center text-white font-bold text-lg">
-                        <div class="border-2 border-white px-6 py-2 rounded-lg bg-black/40">{{ object.images.count }} photos</div>
+
+        <!-- Carousel with Sidebar Gallery -->
+        <div class="w-full mb-8 flex gap-1" style="height: auto; min-height: 400px; max-height: 600px;">
+            <!-- Main Carousel (Left) -->
+            <div id="controls-carousel" class="relative flex-1" data-carousel="static">
+                <!-- Carousel wrapper -->
+                <div class="relative h-full overflow-hidden rounded-l-xl">
+                    {% if object.cover %}
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                        <img src="{{ object.cover.get_image_url }}" class="absolute block w-full h-full object-cover" alt="{{ object.title }}">
                     </div>
                     {% endif %}
+                    {% for img in object.images.all %}
+                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                        <img src="{{ img.get_image_url }}" class="absolute block w-full h-full object-cover" alt="{{ object.title }}">
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- Slider controls -->
+                <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 group-hover:bg-white/90">
+                        <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        <span class="sr-only">Previous</span>
+                    </span>
+                </button>
+                <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 group-hover:bg-white/90">
+                        <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <span class="sr-only">Next</span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Sidebar Gallery (Right - all additional images) -->
+            <div class="hidden md:grid w-48 flex-shrink-0 grid grid-rows-3 gap-1 h-full overflow-y-auto bg-gray-50 rounded-r-xl">
+                {% for img in object.images.all %}
+                <div class="relative overflow-hidden cursor-pointer group thumbnail-slot">
+                    <img src="{{ img.get_image_url }}" class="w-full h-full object-cover" alt="{{ object.title }}">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
                 {% empty %}
-                <div class="h-full bg-gray-100"></div>
-                <div class="h-full bg-gray-100"></div>
+                <div class="flex items-center justify-center text-gray-400 text-xs p-2 text-center col-span-3">No additional images</div>
                 {% endfor %}
             </div>
         </div>
@@ -90,6 +107,18 @@
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="w-8 h-8 bg-accent rounded-full border-4 border-white shadow-xl animate-bounce"></div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Mobile CTA (Visible on small screens only) -->
+                <div class="lg:hidden mb-8">
+                    <div class="p-6 border border-gray-100 rounded-2xl shadow-lg bg-white">
+                        <button class="w-full py-4 bg-[#E63946] text-white font-bold uppercase tracking-[0.2em] text-xs rounded-xl shadow-md mb-3">
+                            Request showing
+                        </button>
+                        <button class="w-full py-4 border-2 border-texts text-texts font-bold uppercase tracking-[0.2em] text-xs rounded-xl">
+                            Start an offer
+                        </button>
                     </div>
                 </div>
 
@@ -220,7 +249,7 @@
             </div>
 
             <!-- Right Column: Sidebar (Sticky Sidebar Enhanced) -->
-            <div class="lg:w-[30%]">
+            <div class="hidden lg:block lg:w-[30%]">
                 <div class="sticky top-28 lg:top-40 space-y-8">
                     <!-- Action Card -->
                     <div class="p-8 border border-gray-100 rounded-[2.5rem] shadow-2xl bg-white relative overflow-hidden group">
@@ -245,3 +274,4 @@
     </main>
 </div>
 {% endblock %}
+
