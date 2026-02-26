@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import csrf_exempt
 from .models import AvailableHome
 
 
@@ -157,7 +156,6 @@ def submit_showing_request(request):
 
 
 @require_http_methods(["POST"])
-@csrf_exempt
 def submit_property_offer(request):
     """
     Handle property offer form submissions via AJAX.
