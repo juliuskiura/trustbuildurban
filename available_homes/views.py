@@ -126,6 +126,11 @@ def submit_showing_request(request):
     logger.info(f"Content-Type: {request.headers.get('Content-Type')}")
     logger.info(f"POST data: {dict(request.POST)}")
 
+    # Honeypot check - bots fill hidden fields, real users don't
+    if request.POST.get("website_url", ""):
+        logger.warning("Showing request honeypot triggered")
+        return JsonResponse({"success": True, "message": "Your showing request has been submitted! We'll contact you shortly to confirm."})
+
     try:
         property_id = request.POST.get("property_id")
         logger.info(f"Property ID from POST: {property_id}")
@@ -201,6 +206,11 @@ def submit_property_offer(request):
     logger.info(f"Request method: {request.method}")
     logger.info(f"Content-Type: {request.headers.get('Content-Type')}")
     logger.info(f"POST data: {dict(request.POST)}")
+
+    # Honeypot check - bots fill hidden fields, real users don't
+    if request.POST.get("website_url", ""):
+        logger.warning("Property offer honeypot triggered")
+        return JsonResponse({"success": True, "message": "Your offer has been submitted! Our team will review it and get back to you soon."})
 
     try:
         property_id = request.POST.get("property_id")

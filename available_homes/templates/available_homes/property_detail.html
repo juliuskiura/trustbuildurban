@@ -28,6 +28,10 @@
         
         <form id="showing-form" onsubmit="submitShowingForm(event)">
             {% csrf_token %}
+            <!-- Honeypot: bots fill it, real users don't -->
+            <div style="position:absolute;left:-9999px;height:0;overflow:hidden;" aria-hidden="true">
+                <input type="text" name="website_url" tabindex="-1" autocomplete="off" value="">
+            </div>
             <input type="hidden" name="property_id" id="showing-property-id" value="{{ object.pk }}">
             
             <div class="space-y-4">
@@ -107,6 +111,10 @@
         
         <form id="offer-form" onsubmit="submitOfferForm(event)">
             {% csrf_token %}
+            <!-- Honeypot: bots fill it, real users don't -->
+            <div style="position:absolute;left:-9999px;height:0;overflow:hidden;" aria-hidden="true">
+                <input type="text" name="website_url" tabindex="-1" autocomplete="off" value="">
+            </div>
             <input type="hidden" name="property_id" id="offer-property-id" value="{{ object.pk }}">
             
             <div class="space-y-4">

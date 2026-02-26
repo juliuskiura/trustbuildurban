@@ -70,32 +70,6 @@ class ContactContentSection(PageBase):
     )
     heading = models.CharField(max_length=200, blank=True, default="Contact Information")
 
-    # Form content
-class ContactInfo(models.Model):
-    section = models.ForeignKey(ContactContentSection, on_delete=models.CASCADE, related_name="contact_info_items")
-    # Contact info fields directly on section
-    label = models.CharField(
-        max_length=100, blank=True, default="+254 712 345 678"
-    )
-    value = models.CharField(
-        max_length=100, blank=True, default="info@trustbuildurban.co.ke"
-    )
-    icon= models.TextField()
-
-    # Google Map
-    map_embed_url = models.URLField(
-        max_length=500,
-        blank=True,
-        default="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.808!2d36.8219!3d-1.2921!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwMTcnMjAuMCJTIDM2wrA0OScxMS4wIkU!5e0!3m2!1sen!2ske!4v1234567890",
-    )
-    map_label = models.CharField(max_length=100, blank=True, default="Office Location")
-
-    class Meta:
-        verbose_name = "Contact Content Section"
-        verbose_name_plural = "Contact Content Sections"
-
-    def __str__(self):
-        return f"Contact Content for {self.contact_page.title}"
 
 
 class ContactSubmission(models.Model):
