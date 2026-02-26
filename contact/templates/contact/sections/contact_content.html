@@ -55,15 +55,34 @@
 
         {% if contact_content.info.map %}
         <div class="p-8 bg-white/40 backdrop-blur-xl rounded-3xl border border-border shadow-xl overflow-hidden relative min-h-75">
-            <div class="absolute inset-0 bg-muted/20 animate-pulse"></div>
-            {% if contact_content.info.map.image_url %}
-            <img src="{{ contact_content.info.map.image_url }}" alt="{{ contact_content.info.map.alt_text }}" class="absolute inset-0 w-full h-full object-cover grayscale opacity-50">
-            {% endif %}
-            <div class="relative z-10 h-full flex items-center justify-center">
-                <div class="bg-white/80 backdrop-blur-md px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
-                    {{ contact_content.info.map.label }}
+            {% if company and company.osm_embed_url %}
+                <iframe
+                    src="{{ company.osm_embed_url }}"
+                    class="absolute inset-0 w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-300"
+                    loading="lazy"
+                    title="Office location of {{ company.trading_name }}"
+                    sandbox="allow-scripts allow-same-origin">
+                </iframe>
+                <a href="{{ company.osm_full_url }}" target="_blank" rel="noopener noreferrer"
+                   class="absolute inset-0 z-10" title="View larger map"></a>
+                <div class="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-[9px] font-bold uppercase tracking-widest text-center py-1 pointer-events-none">
+                    {{ company.city }}{% if company.county %}, {{ company.county }}{% endif %}
                 </div>
-            </div>
+            {% elif contact_content.info.map.image_url %}
+                <img src="{{ contact_content.info.map.image_url }}" alt="{{ contact_content.info.map.alt_text }}" class="absolute inset-0 w-full h-full object-cover grayscale opacity-50">
+                <div class="relative z-10 h-full flex items-center justify-center">
+                    <div class="bg-white/80 backdrop-blur-md px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
+                        {{ contact_content.info.map.label }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="absolute inset-0 bg-muted/20 animate-pulse"></div>
+                <div class="relative z-10 h-full flex items-center justify-center">
+                    <div class="bg-white/80 backdrop-blur-md px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
+                        {{ contact_content.info.map.label }}
+                    </div>
+                </div>
+            {% endif %}
         </div>
         {% endif %}
     </div>
