@@ -409,3 +409,182 @@ class AvailableHomesCTASection(PageBase):
 
     def __str__(self):
         return f"CTA Section for {self.available_homes_page.title}"
+
+
+class ShowingRequest(models.Model):
+    """
+    Model for tracking property showing requests.
+    Allows potential buyers to schedule property viewings.
+    """
+
+    # Status choices
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("contacted", "Contacted"),
+        ("confirmed", "Confirmed"),
+        ("completed", "Completed"),
+        ("cancelled", "Cancelled"),
+    ]
+
+    # Property reference
+    property = models.ForeignKey(
+        AvailableHome,
+        on_delete=models.CASCADE,
+        related_name="showing_requests",
+        help_text="The property the user wants to view",
+    )
+
+    # Contact information
+    first_name = models.CharField(
+        max_length=100,
+        help_text="User's first name",
+    )
+    last_name = models.CharField(
+        max_length=100,
+        help_text="User's last name",
+    )
+    email = models.EmailField(
+        help_text="User's email address",
+    )
+    phone = models.CharField(
+        max_length=20,
+        help_text="User's phone number",
+    )
+
+    # Preferred showing details
+    preferred_date = models.DateField(
+        help_text="Preferred date for showing",
+    )
+    preferred_time = models.CharField(
+        max_length=50,
+        choices=[
+            ("morning", "Morning (9AM - 12PM)"),
+            ("afternoon", "Afternoon (12PM - 4PM)"),
+            ("evening", "Evening (4PM - 6PM)"),
+            ("any", "Any Time"),
+        ],
+        default="any",
+        help_text="Preferred time slot for showing",
+    )
+
+    # Additional information
+    is_first_time_buyer = models.BooleanField(
+        default=False,
+        help_text="Whether this is the user's first home purchase",
+    )
+    message = models.TextField(
+        blank=True,
+        help_text="Additional message or questions",
+    )
+
+    # Status tracking
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="pending",
+    )
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Showing Request"
+        verbose_name_plural = "Showing Requests"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Showing Request: {self.property.title} - {self.first_name} {self.last_name}"
+
+
+class PropertyOffer(models.Model):
+    """
+    Model for tracking property offers.
+    Allows potential buyers to submit offers on properties.
+    """
+
+    # Status choices
+    STATUS_CHOICES = [
+        ("pending", "Pending Review"),
+        ("under_review", "Under Review"),
+        ("counter_offer", "Counter Offer"),
+        ("accepted", "Accepted"),
+        ("rejected", "Rejected"),
+        ("withdrawn", "Withdrawn"),
+        ("expired", "Expired"),
+    ]
+
+    # Financing type choices
+    FINANCING_CHOICES = [
+        ("cash", "Cash"),
+        ("mortgage", "Mortgage"),
+        ("exchange", "Property Exchange"),
+        ("installment", "Installment"),
+        ("other", "Other"),
+    ]
+
+    # Property reference
+    property = models.ForeignKey(
+        AvailableHome,
+        on_delete=models.CASCADE,
+        related_name="offers",
+        help_text="The property being offered on",
+    )
+
+    # Buyer information
+    first_name = models.CharField(
+        max_length=100,
+        help_text="Buyer's first name",
+    )
+    last_name = models.CharField(
+        max_length=100,
+        help_text="Buyer's last name",
+    )
+    email = models.EmailField(
+        help_text="Buyer's email address",
+    )
+    phone = models.CharField(
+        max_length=20,
+        help_text="Buyer's phone number",
+    )
+
+    # Offer details
+    offer_amount = models.CharField(
+        max_length=50,
+        help_text="Offer amount in KES",
+    )
+    financing_type = models.CharField(
+        max_length=20,
+        choices=FINANCING_CHOICES,
+        default="mortgage",
+        help_text="How the buyer plans to finance the purchase",
+    )   
+    # Additional information
+    is_first_time_buyer = models.BooleanField(
+        default=False,
+        help_text="Whether this is the buyer's first home purchase",
+    )
+
+    message = models.TextField(
+        blank=True,
+        help_text="Additional message or terms",
+    )
+
+    # Status tracking
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="pending",
+    )
+
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Property Offer"
+        verbose_name_plural = "Property Offers"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Offer: {self.property.title} - {self.offer_amount} by {self.first_name} {self.last_name}"

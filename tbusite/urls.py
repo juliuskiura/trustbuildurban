@@ -23,7 +23,7 @@ urlpatterns = [
     path("admin/ai/generate/", ai_generate_view, name="admin_ai_generate"),
     path("admin/", admin.site.urls),   
     path("", include("pages.urls")),
-    path("for-sale/", include("available_homes.urls")),
+    path("available-homes/", include("available_homes.urls")),
 ]
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 

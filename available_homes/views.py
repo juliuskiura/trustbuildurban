@@ -1,4 +1,7 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
 from .models import AvailableHome
 
 
@@ -100,3 +103,105 @@ def property_detail(request, slug):
     }
 
     return render(request, "available_homes/property_detail.html", context)
+
+
+@require_http_methods(["POST"])
+def submit_showing_request(request):
+    """
+    Handle showing request form submissions via AJAX.
+    """
+    from .models import ShowingRequest
+    from .forms import ShowingRequestForm
+
+    try:
+        property_id = request.POST.get("property_id")
+        property = get_object_or_404(AvailableHome, id=property_id)
+
+        form = ShowingRequestForm(request.POST)
+
+        if form.is_valid():
+            showing_request = form.save(commit=False)
+            showing_request.property = property
+            showing_request.save()
+
+            return JsonResponse(
+                {
+                    "success": True,
+                    "message": "Your showing request has been submitted! We'll contact you shortly to confirm.",
+                    "id": showing_request.id,
+                }
+            )
+        else:
+            # Return form errors
+            errors = {}
+            for field, error_list in form.errors.items():
+                errors[field] = [str(e) for e in error_list]
+
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Please correct the errors below.",
+                    "errors": errors,
+                },
+                status=400,
+            )
+
+    except Exception as e:
+        return JsonResponse(
+            {
+                "success": False,
+                "message": f"Error submitting request: {str(e)}",
+            },
+            status=400,
+        )
+
+
+@require_http_methods(["POST"])
+def submit_property_offer(request):
+    """
+    Handle property offer form submissions via AJAX.
+    """
+    from .models import PropertyOffer
+    from .forms import PropertyOfferForm
+
+    try:
+        property_id = request.POST.get("property_id")
+        property = get_object_or_404(AvailableHome, id=property_id)
+
+        form = PropertyOfferForm(request.POST)
+
+        if form.is_valid():
+            offer = form.save(commit=False)
+            offer.property = property
+            offer.save()
+
+            return JsonResponse(
+                {
+                    "success": True,
+                    "message": "Your offer has been submitted! Our team will review it and get back to you soon.",
+                    "id": offer.id,
+                }
+            )
+        else:
+            # Return form errors
+            errors = {}
+            for field, error_list in form.errors.items():
+                errors[field] = [str(e) for e in error_list]
+
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Please correct the errors below.",
+                    "errors": errors,
+                },
+                status=400,
+            )
+
+    except Exception as e:
+        return JsonResponse(
+            {
+                "success": False,
+                "message": f"Error submitting offer: {str(e)}",
+            },
+            status=400,
+        )

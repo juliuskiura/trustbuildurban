@@ -16,6 +16,8 @@ from .models import (
     GarageAndParking,
     UtilitiesAndGreenEnergy,
     OutdoorSpaces,
+    ShowingRequest,
+    PropertyOffer,
 )
 
 
@@ -228,3 +230,48 @@ class OutdoorSpacesAdmin(admin.ModelAdmin):
     search_fields = ["home__title", "title"]
     raw_id_fields = ["home"]
     ordering = ["id"]
+
+
+@admin.register(ShowingRequest)
+class ShowingRequestAdmin(admin.ModelAdmin):
+    list_display = [
+        "__str__",
+        "property",
+        "first_name",
+        "last_name",
+        "email",
+        "preferred_date",
+        "status",
+        "created_at",
+    ]
+    list_filter = ["status", "preferred_time", "is_first_time_buyer", "created_at"]
+    search_fields = ["property__title", "first_name", "last_name", "email", "phone"]
+    raw_id_fields = ["property"]
+    ordering = ["-created_at"]
+    date_hierarchy = "created_at"
+
+
+@admin.register(PropertyOffer)
+class PropertyOfferAdmin(admin.ModelAdmin):
+    list_display = [
+        "__str__",
+        "property",
+        "first_name",
+        "last_name",
+        "offer_amount",
+        "financing_type",
+        "status",
+        "created_at",
+    ]
+    list_filter = ["status", "financing_type", "is_first_time_buyer", "created_at"]
+    search_fields = [
+        "property__title",
+        "first_name",
+        "last_name",
+        "email",
+        "phone",
+        "offer_amount",
+    ]
+    raw_id_fields = ["property"]
+    ordering = ["-created_at"]
+    date_hierarchy = "created_at"
